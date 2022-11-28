@@ -28,7 +28,9 @@ export function ApplicationsPanel() {
   } = useGetAppGroupsQuery(token, { pollingInterval: 60000 })
 
   useEffect(() => {
-    if (appGroups && appGroups[0])
+    if (activeGroup && appGroups.find(g => g.id == activeGroup.id))
+      return
+    else if (appGroups && appGroups[0])
       dispatch(changeActiveGroup(appGroups[0].id))
   }, [appGroups])
 

@@ -40,11 +40,27 @@ const appsApiSlice = apiSlice.injectEndpoints({
         body: { name, description, key }
       }),
       // invalidatesTags: ['AppGroups']
+    }),
+    createApp: builder.mutation({
+      query: ({ token, group, name, description }) => ({
+        url: `app-groups/${group}/applications`,
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: { name, group, description }
+      }),
+      // invalidatesTags: ['AppGroups']
     })
   })
 })
 
-export const { useGetAppGroupsQuery, useGetAppGroupInfoQuery, useCreateAppGroupMutation } = appsApiSlice
+export const {
+  useGetAppGroupsQuery,
+  useGetAppGroupInfoQuery,
+  useCreateAppGroupMutation,
+  useCreateAppMutation
+} = appsApiSlice
 
 export const appsSlice = createSlice({
   name: 'apps',
