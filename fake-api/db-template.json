@@ -1,0 +1,56 @@
+{
+  "account": {
+    "email": "test@blindnet.io"
+  },
+  "app-groups": [
+    {
+      "id": "group_1",
+      "name": "group_one",
+      "description": "this is group one",
+      "key": "key_1",
+      "applications": [
+        {
+          "id": "group_1_app_1",
+          "name": "group_one_app_1",
+          "active": true
+        },
+        {
+          "id": "group_1_app_2",
+          "name": "group_one_app_2",
+          "active": true
+        },
+        {
+          "id": "group_1_app_3",
+          "name": "group_one_app_3",
+          "active": false
+        }
+      ]
+    },
+    {
+      "id": "group_2",
+      "name": "group_two",
+      "description": "this is group two",
+      "key": "key_2",
+      "applications": [
+        {
+          "id": "group_2_app_1",
+          "name": "group_two_app_1",
+          "active": true
+        },
+        {
+          "id": "group_2_app_2",
+          "name": "group_two_app_2",
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "group_3",
+      "name": "group_three",
+      "key": "key_3",
+      "description": null,
+      "applications": []
+    }
+  ],
+  "apps": []
+}
