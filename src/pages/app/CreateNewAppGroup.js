@@ -7,6 +7,8 @@ import { bin2b64str, b64str2bin } from '../../util/conversions'
 import { useCreateAppGroupMutation, changeActiveGroup, useGetAppGroupsQuery } from '../../store/appsSlice'
 import { selectToken } from '../../store/authSlice'
 
+import styles from './create-new-app-group.module.scss'
+
 export function CreateNewAppGroup() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -24,6 +26,11 @@ export function CreateNewAppGroup() {
     const privateKey = ed.utils.randomPrivateKey()
     setPrivateKey(bin2b64str(privateKey))
   }, [])
+
+  const copyKey = () => {
+    document.getElementById('key-input').select()
+    navigator.clipboard.writeText(privateKey)
+  }
 
   const submit = async () => {
     const publicKey = await ed.getPublicKey(b64str2bin(privateKey))
@@ -68,13 +75,17 @@ export function CreateNewAppGroup() {
               </div>
 
               <div className="col-12">
-                <div>
-                  <label className="form-label">Key</label>
+                <label className="form-label">Key</label>
+                <div className="input-group">
                   <textarea
+                    id="key-input"
                     className="form-control"
                     value={privateKey}
                     onChange={e => setPrivateKey(e.target.value)}
                   />
+                  <span className={`input-group-text ${styles.copy}`} onClick={copyKey}>
+                    <i className="bi bi-clipboard" aria-hidden="true"></i>
+                  </span>
                 </div>
               </div>
 
