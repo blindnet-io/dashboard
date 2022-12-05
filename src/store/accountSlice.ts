@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
 import { apiSlice } from './apiSlice'
 
-const initialState = {}
+type AccountState = {}
+
+const initialState: AccountState = {}
 
 const accountApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
-    getInfo: builder.query({
+    getInfo: builder.query<{}, any>({
       query: token => ({
         url: 'account',
         method: 'GET',
@@ -13,7 +15,7 @@ const accountApiSlice = apiSlice.injectEndpoints({
           Authorization: `Bearer ${token}`
         }
       }),
-      ransformResponse: (response, meta, arg) => response
+      // ransformResponse: (response, meta, arg) => response
     })
   })
 })
@@ -29,10 +31,10 @@ export const accountSlice = createSlice({
 
 export const { } = accountSlice.actions
 
-export const selectAccountInfoResult = token => accountApiSlice.endpoints.getInfo.select(token)
-export const selectAccountInfo = (token) => createSelector(
+export const selectAccountInfoResult = (token: string) => accountApiSlice.endpoints.getInfo.select(token)
+export const selectAccountInfo = (token: string) => createSelector(
   selectAccountInfoResult(token),
-  (res) => res.data
+  res => res.data
 )
 
 export default accountSlice.reducer;

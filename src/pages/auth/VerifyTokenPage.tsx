@@ -5,7 +5,7 @@ import { useVerifyTokenQuery } from '../../store/authSlice'
 export function VerifyTokenPage() {
   const [searchParams] = useSearchParams();
 
-  const { data, error, isLoading } = useVerifyTokenQuery(searchParams.get("token"))
+  const { data, error, isLoading } = useVerifyTokenQuery(searchParams.get("token")!)
 
   return (
     <>

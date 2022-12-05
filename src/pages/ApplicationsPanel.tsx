@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { Navigate, Outlet, useNavigate, Link } from "react-router-dom"
 import { Container } from "react-bootstrap"
-import { useSelector, useDispatch } from 'react-redux'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,12 +13,14 @@ import {
   selectAppGroups,
   selectActiveGroup
 } from '../store/appsSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
 
 export function ApplicationsPanel() {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
-  const token = useSelector(selectToken)
-  const activeGroup = useSelector(selectActiveGroup(token))
+  const dispatch = useAppDispatch()
+
+  const token = useAppSelector(selectToken)
+  const activeGroup = useAppSelector(selectActiveGroup(token!))
 
   const {
     data: appGroups,
@@ -28,13 +29,13 @@ export function ApplicationsPanel() {
   } = useGetAppGroupsQuery(token, { pollingInterval: 60000 })
 
   useEffect(() => {
-    if (activeGroup && appGroups.find(g => g.id == activeGroup.id))
+    if (activeGroup && appGroups?.find(g => g.id == activeGroup.id))
       return
     else if (appGroups && appGroups[0])
       dispatch(changeActiveGroup(appGroups[0].id))
   }, [appGroups])
 
-  const changeGroup = id => {
+  const changeGroup = (id: string) => {
     dispatch(changeActiveGroup(id))
     navigate("/")
   }
@@ -75,7 +76,7 @@ export function ApplicationsPanel() {
                 </div>
                 <div className="col-md-6 col-12 text-md-end">
                   <div className="mx-n1">
-                    <Link href="#" className="btn d-inline-flex btn-sm btn-neutral mx-1">
+                    <Link to="#" className="btn d-inline-flex btn-sm btn-neutral mx-1">
                       <span><i className="bi bi-pencil" /> Edit</span>
                     </Link>
                     <Link to="/group/new" className="btn d-inline-flex btn-sm btn-primary mx-1">

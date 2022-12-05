@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, InputHTMLAttributes } from "react"
 import { Link, useParams } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { Spinner } from 'react-bootstrap';
-import { useGetInfoQuery } from '../../store/apiSlice'
 import { selectToken } from '../../store/authSlice'
 import {
+  Application,
   selectApp,
 } from '../../store/appsSlice'
 
@@ -15,14 +15,14 @@ export function AppPage() {
 
   const token = useSelector(selectToken)
 
-  const app = useSelector(selectApp(token, id))
+  const app = useSelector(selectApp(token!, id!))
 
   const copy = () => {
-    document.getElementById('app-id').select()
-    navigator.clipboard.writeText(app.id)
+    (document.getElementById('app-id') as HTMLInputElement).select()
+    navigator.clipboard.writeText(app!.id)
   }
 
-  function renderApp(app) {
+  function renderApp(app: Application) {
     return (
       <>
         <div className="row">

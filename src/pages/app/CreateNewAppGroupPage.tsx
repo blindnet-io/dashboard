@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
 import * as ed from '@noble/ed25519'
 import { bin2b64str, b64str2bin } from '../../util/conversions'
 import { useCreateAppGroupMutation, changeActiveGroup, useGetAppGroupsQuery } from '../../store/appsSlice'
 import { selectToken } from '../../store/authSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import styles from './create-new-app-group.module.scss'
 
 export function CreateNewAppGroupPage() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const token = useSelector(selectToken)
+  const dispatch = useAppDispatch()
+
+  const token = useAppSelector(selectToken)
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [privateKey, setPrivateKey] = useState('')
 
-  const [create, creteAppGroupState] = useCreateAppGroupMutation()
+  const [create, { isError }] = useCreateAppGroupMutation()
 
   const { refetch } = useGetAppGroupsQuery(token)
 
@@ -28,7 +29,7 @@ export function CreateNewAppGroupPage() {
   }, [])
 
   const copyKey = () => {
-    document.getElementById('key-input').select()
+    (document.getElementById('key-input') as HTMLInputElement).select()
     navigator.clipboard.writeText(privateKey)
   }
 
@@ -37,8 +38,11 @@ export function CreateNewAppGroupPage() {
     const res = await create({ token, name, description, key: bin2b64str(publicKey) })
     await new Promise(r => setTimeout(r, 200))
     await refetch()
-    dispatch(changeActiveGroup(res.data.id))
-    navigate("/")
+
+    if ('data' in res) {
+      dispatch(changeActiveGroup(res.data.id))
+      navigate("/")
+    }
   }
 
   return (
@@ -102,7 +106,7 @@ export function CreateNewAppGroupPage() {
               </div>
             </div>
 
-            {creteAppGroupState.isError &&
+            {isError &&
               <Alert variant="danger">
                 Error
               </Alert>

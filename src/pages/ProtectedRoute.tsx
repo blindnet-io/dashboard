@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux'
 import { Navigate, Outlet } from 'react-router-dom'
 import { selectToken } from '../store/authSlice'
+import { useAppSelector } from '../store/hooks'
 
 const ProtectedRoute = () => {
-  const token = useSelector(selectToken)
+  const token = useAppSelector(selectToken)
 
   return token
     ? <Outlet />

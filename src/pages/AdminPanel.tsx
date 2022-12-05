@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Outlet, useNavigate, Link } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux'
 import logo from '../assets/logos/full-logo.png'
 
 import { selectToken } from '../store/authSlice'
@@ -14,10 +13,12 @@ import {
   useGetInfoQuery,
   // selectAccountInfo
 } from '../store/accountSlice'
+import { useAppDispatch, useAppSelector } from '../store/hooks'
 
 export function AdminPanel() {
-  const dispatch = useDispatch()
-  const token = useSelector(selectToken)
+  const dispatch = useAppDispatch()
+
+  const token = useAppSelector(selectToken)
 
   const {
     error: accountInfoError,
@@ -30,7 +31,7 @@ export function AdminPanel() {
 
   const logout = () => {
     localStorage.removeItem("token")
-    window.location.reload(false)
+    window.location.reload()
     return false
   }
 
@@ -86,7 +87,7 @@ export function AdminPanel() {
             <ul className="navbar-nav mb-5">
               <li className="nav-item">
                 {accountInfoLoading &&
-                  <Link className="nav-link">
+                  <Link className="nav-link" to="/">
                     <i className="bi bi-person-square" /> <span className="spinner-border spinner-border-sm"></span>
                   </Link>
                 }
@@ -97,9 +98,9 @@ export function AdminPanel() {
                 }
               </li>
               <li className="nav-item">
-                <Link className="nav-link" onClick={logout}>
+                <div className="nav-link" style={{ cursor: 'pointer' }} onClick={logout}>
                   <i className="bi bi-box-arrow-left" /> Logout
-                </Link>
+                </div>
               </li>
             </ul>
           </div>

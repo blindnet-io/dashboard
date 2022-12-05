@@ -1,21 +1,29 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { apiSlice } from './apiSlice'
+import { RootState } from './store';
 
-const initialState = {
+type AuthState = {
+  token: string | null,
+  authenticated: boolean
+}
+
+const initialState: AuthState = {
   token: localStorage.getItem('token') || null,
   authenticated: false
 }
 
+type AuthArgs = { username: string, password: string }
+
 const authApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
-    login: builder.mutation({
+    login: builder.mutation<{ token: string }, AuthArgs>({
       query: ({ username, password }) => ({
         url: 'login',
         method: 'POST',
         body: { username, password }
       })
     }),
-    register: builder.mutation({
+    register: builder.mutation<any, AuthArgs>({
       query: ({ username, password }) => ({
         url: 'register',
         method: 'POST',
@@ -23,7 +31,7 @@ const authApiSlice = apiSlice.injectEndpoints({
       })
     }),
     verifyToken: builder.query({
-      query: token => ({
+      query: (token: string) => ({
         url: 'verify',
         method: 'POST',
         body: { token },
@@ -59,7 +67,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authenticate(state, action) {
+    authenticate(state, action: PayloadAction<string>) {
       state.token = action.payload
       state.authenticated = true
     }
@@ -83,6 +91,6 @@ export const authSlice = createSlice({
 
 export const { authenticate } = authSlice.actions;
 
-export const selectToken = state => state.auth.token;
+export const selectToken = (state: RootState) => state.auth.token;
 
 export default authSlice.reducer;

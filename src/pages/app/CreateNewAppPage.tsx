@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
 import * as ed from '@noble/ed25519'
@@ -10,23 +9,25 @@ import {
   selectActiveGroup
 } from '../../store/appsSlice'
 import { selectToken } from '../../store/authSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 export function CreateNewApp() {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const token = useSelector(selectToken)
+  const dispatch = useAppDispatch()
+
+  const token = useAppSelector(selectToken)
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
-  const [create, creteAppState] = useCreateAppMutation()
+  const [create, { isError }] = useCreateAppMutation()
 
   const { refetch } = useGetAppGroupsQuery(token)
 
-  const activeGroup = useSelector(selectActiveGroup(token))
+  const activeGroup = useAppSelector(selectActiveGroup(token!))
 
   const submit = async () => {
-    const res = await create({ token, group: activeGroup.id, name, description })
+    const res = await create({ token, group: activeGroup!.id, name, description })
     await new Promise(r => setTimeout(r, 200))
     await refetch()
     navigate("/")
@@ -79,7 +80,7 @@ export function CreateNewApp() {
                 </div>
               </div>
 
-              {creteAppState.isError &&
+              {isError &&
                 <Alert variant="danger">
                   Error
                 </Alert>

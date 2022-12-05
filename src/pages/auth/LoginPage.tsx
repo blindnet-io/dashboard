@@ -1,29 +1,35 @@
+import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from "react-router-dom"
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Alert from 'react-bootstrap/Alert';
-import { str2bin, bin2b64str } from '../../util/conversions'
+import { str2bin, bin2b64str } from '../../util/conversions';
 import {
-  useRegisterMutation,
+  useLoginMutation,
+  authenticate
 } from '../../store/authSlice'
-import styles from "./register.module.scss"
+import styles from "./login.module.scss"
 import logo from '../../assets/logos/b-logo.png'
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
-export function RegisterPage() {
+export function LoginPage() {
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  // const dispatch = useDispatch()
-  // const navigate = useNavigate()
-
-  const [register, registerState] = useRegisterMutation()
+  const [login, loginState] = useLoginMutation()
 
   const submit = async () => {
     const hashedPassword = await crypto.subtle.digest('SHA-256', str2bin(password)).then(bin2b64str)
-    const res = await register({ username, password: hashedPassword })
-    // if (res.data) {
-
-    // }
+    const res = await login({ username, password: hashedPassword })
+    if ("data" in res) {
+      const token = res.data.token
+      localStorage.setItem("token", token)
+      dispatch(authenticate(token))
+      navigate("/")
+    }
   }
 
   return (
@@ -34,7 +40,7 @@ export function RegisterPage() {
             <div className="row">
               <div className="col-lg-10 col-md-9 col-xl-7 mx-auto">
                 <div className="text-center mb-12"><a className="d-inline-block" href="#"><img src={logo} className="h-12" alt="..." /></a>
-                  <h1 className="ls-tight font-bolder mt-6">Sign up</h1>
+                  <h1 className="ls-tight font-bolder mt-6">Welcome back!</h1>
                 </div>
                 <div className="mb-5"><label className="form-label" htmlFor="email">Email address</label>
                   <input
@@ -62,16 +68,17 @@ export function RegisterPage() {
                     className="btn btn-primary w-full"
                     onClick={submit}
                   >
-                    Sign up
+                    Sign in
                   </button>
                 </div>
-                {registerState.isError &&
+                <div className="mt-5" />
+                {loginState.isError &&
                   <Alert variant="danger">
                     Error
                   </Alert>
                 }
                 <div className="my-6">
-                  <small>Have an account?</small> <Link className="text-warning text-sm font-semibold" to="/login">Log in</Link>
+                  <small>Don't have an account?</small> <Link className="text-warning text-sm font-semibold" to="/register">Sign up</Link>
                 </div>
               </div>
             </div>
@@ -82,4 +89,4 @@ export function RegisterPage() {
   )
 }
 
-export default RegisterPage
+export default LoginPage
