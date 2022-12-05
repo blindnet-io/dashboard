@@ -44,7 +44,9 @@ export function AdminPanel() {
             <span className="navbar-toggler-icon" />
           </button>
           {/* Brand */}
-          <a className="navbar-brand py-lg-5 mb-lg-5 px-lg-6 me-0" href="/"><img src={""/*logo*/} alt="..." /></a>
+          <a className="navbar-brand py-lg-5 mb-lg-5 px-lg-6 me-0" href="/">
+            <img style={{ width: '130px', height: 'auto' }} src={logo} alt="..." />
+          </a>
           {/* User menu (mobile) */}
           <div className="navbar-user d-lg-none">
           </div>
