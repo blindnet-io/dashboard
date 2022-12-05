@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
 import * as ed from '@noble/ed25519'
@@ -16,15 +16,15 @@ export function CreateNewApp() {
   const dispatch = useAppDispatch()
 
   const token = useAppSelector(selectToken)
+  const activeGroup = useAppSelector(selectActiveGroup(token!))
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
   const [create, { isError }] = useCreateAppMutation()
-
   const { refetch } = useGetAppGroupsQuery(token)
 
-  const activeGroup = useAppSelector(selectActiveGroup(token!))
+  const id = useId()
 
   const submit = async () => {
     const res = await create({ token, group: activeGroup!.id, name, description })
@@ -50,10 +50,10 @@ export function CreateNewApp() {
 
               <div className="col-12">
                 <div>
-                  <label className="form-label" htmlFor="name">Name</label>
+                  <label className="form-label" htmlFor={`${id}-name`}>Name</label>
                   <input
                     type="text"
-                    id="name"
+                    id={`${id}-name`}
                     className="form-control"
                     value={name}
                     onChange={e => setName(e.target.value)}
@@ -63,9 +63,9 @@ export function CreateNewApp() {
 
               <div className="col-12">
                 <div>
-                  <label className="form-label" htmlFor="description">Description</label>
+                  <label className="form-label" htmlFor={`${id}-description`}>Description</label>
                   <textarea
-                    id="description"
+                    id={`${id}-description`}
                     className="form-control"
                     value={description}
                     onChange={e => setDescription(e.target.value)}
@@ -75,8 +75,8 @@ export function CreateNewApp() {
 
               <div className="col-12">
                 <div className="form-check">
-                  <input className="form-check-input" type="checkbox" id="check-agree" />
-                  <label className="form-check-label" htmlFor="check-agree">
+                  <input className="form-check-input" type="checkbox" id={`${id}-agree-check`} />
+                  <label className="form-check-label" htmlFor={`${id}-agree-check`}>
                     Agree
                   </label>
                 </div>

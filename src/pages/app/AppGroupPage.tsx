@@ -14,7 +14,6 @@ import styles from './app-groups.module.scss'
 
 export function AppsGroupPage() {
   const token = useSelector(selectToken)
-
   const activeGroup = useSelector(selectActiveGroup(token!))
 
   function renderApps(g: AppGroup) {

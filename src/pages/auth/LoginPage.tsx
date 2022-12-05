@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -21,6 +21,8 @@ export function LoginPage() {
 
   const [login, loginState] = useLoginMutation()
 
+  const id = useId()
+
   const submit = async () => {
     const hashedPassword = await crypto.subtle.digest('SHA-256', str2bin(password)).then(bin2b64str)
     const res = await login({ username, password: hashedPassword })
@@ -42,21 +44,21 @@ export function LoginPage() {
                 <div className="text-center mb-12"><a className="d-inline-block" href="#"><img src={logo} className="h-12" alt="..." /></a>
                   <h1 className="ls-tight font-bolder mt-6">Welcome back!</h1>
                 </div>
-                <div className="mb-5"><label className="form-label" htmlFor="email">Email address</label>
+                <div className="mb-5"><label className="form-label" htmlFor={`${id}-email`}>Email address</label>
                   <input
                     type="email"
                     className="form-control"
-                    id="email"
+                    id={`${id}-email`}
                     placeholder="Your email address"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                   />
                 </div>
-                <div className="mb-5"><label className="form-label" htmlFor="password">Password</label>
+                <div className="mb-5"><label className="form-label" htmlFor={`${id}-password`}>Password</label>
                   <input
                     type="password"
                     className="form-control"
-                    id="password"
+                    id={`${id}-password`}
                     placeholder="Password"
                     autoComplete="current-password"
                     value={password}

@@ -1,6 +1,5 @@
-import React, { useState, useEffect, InputHTMLAttributes } from "react"
+import React, { useState, useEffect, InputHTMLAttributes, useId } from "react"
 import { Link, useParams } from "react-router-dom"
-import { useSelector, useDispatch } from 'react-redux'
 import { Spinner } from 'react-bootstrap';
 import { selectToken } from '../../store/authSlice'
 import {
@@ -9,16 +8,18 @@ import {
 } from '../../store/appsSlice'
 
 import styles from './app.module.scss'
+import { useAppSelector } from "../../store/hooks";
 
 export function AppPage() {
   const { id } = useParams()
 
-  const token = useSelector(selectToken)
+  const token = useAppSelector(selectToken)
+  const app = useAppSelector(selectApp(token!, id!))
 
-  const app = useSelector(selectApp(token!, id!))
+  const elid = useId()
 
   const copy = () => {
-    (document.getElementById('app-id') as HTMLInputElement).select()
+    (document.getElementById(`${elid}-app-id`) as HTMLInputElement).select()
     navigator.clipboard.writeText(app!.id)
   }
 
@@ -36,17 +37,17 @@ export function AppPage() {
         <div className="form-floating">
           <div className="row g-5">
             <div className="col-12">
-              <label className="form-label" htmlFor="app-id">Id</label>
+              <label className="form-label" htmlFor={`${elid}-app-id`}>Id</label>
               <div className="input-group">
-                <input id="app-id" type="text" className="form-control" value={app.id} readOnly />
+                <input id={`${elid}-app-id`} type="text" className="form-control" value={app.id} readOnly />
                 <span className={`input-group-text ${styles.copy}`} onClick={copy}>
                   <i className="bi bi-clipboard"></i>
                 </span>
               </div>
             </div>
             <div className="col-12">
-              <label className="form-label" htmlFor="description">Description</label>
-              <textarea id="description" className="form-control" value={app.description} readOnly />
+              <label className="form-label" htmlFor={`${elid}-description`}>Description</label>
+              <textarea id={`${elid}-description`} className="form-control" value={app.description} readOnly />
             </div>
           </div>
         </div>
