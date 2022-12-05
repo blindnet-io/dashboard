@@ -10,7 +10,7 @@ export function VerifyTokenPage() {
   return (
     <>
       {
-        isLoading && <Spinner></Spinner>
+        isLoading && <Spinner className="centered" />
       }
       {
         data && <Navigate to="/" replace />

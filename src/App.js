@@ -9,14 +9,14 @@ const VerifyTokenPage = lazy(() => import('./pages/auth/VerifyTokenPage'))
 const AdminPanel = lazy(() => import('./pages/AdminPanel'))
 const ApplicationsPanel = lazy(() => import('./pages/ApplicationsPanel'))
 const AppGroupPage = lazy(() => import('./pages/app/AppGroupPage'))
-const CreateNewAppGroupPage = lazy(() => import('./pages/app/CreateNewAppGroup'))
+const CreateNewAppGroupPage = lazy(() => import('./pages/app/CreateNewAppGroupPage'))
 const AppPage = lazy(() => import('./pages/app/AppPage'))
 const CreateNewAppPage = lazy(() => import('./pages/app/CreateNewAppPage'))
 
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Spinner />}>
+      <Suspense fallback={<Spinner className="centered" />}>
         <Routes>
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />

@@ -36,8 +36,13 @@ export function CreateNewApp() {
     <div className="h-screen flex-grow-1 overflow-y-lg-auto">
       <div className="container-fluid max-w-screen-md vstack gap-6">
         <div>
-          <div className="mb-5">
-            <h2>Create new group</h2>
+          <div className="row mb-5">
+            <div className="col-md-6 col-12">
+              <h2>Create new application</h2>
+            </div>
+            <div className="col-6 d-none d-md-block text-end">
+              <Link to="/"><button type="button" className="btn-close" aria-label="Close"></button></Link>
+            </div>
           </div>
           <div className="form-floating">
             <div className="row g-5">

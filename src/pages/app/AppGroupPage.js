@@ -12,6 +12,8 @@ import {
   selectAG
 } from '../../store/appsSlice'
 
+import styles from './app-groups.module.scss'
+
 export function AppsGroupPage() {
   const token = useSelector(selectToken)
 
@@ -19,7 +21,7 @@ export function AppsGroupPage() {
 
   return (
     <>
-      {activeGroup == undefined && <Spinner />}
+      {activeGroup == undefined && <Spinner className="centered" />}
       {activeGroup === [] && <></>}
       {(activeGroup != undefined && activeGroup != []) &&
         <>
