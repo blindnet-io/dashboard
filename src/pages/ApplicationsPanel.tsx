@@ -53,7 +53,7 @@ export function ApplicationsPanel() {
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                         {(appGroupsFetchingError && !activeGroup) && "Error"}
                         {activeGroup && activeGroup.name}
-                        {fetchingGroups && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
+                        {fetchingGroups && <span className="spinner-border spinner-border-sm" role="status"></span>}
                       </Dropdown.Toggle>
 
                       {appGroups &&

@@ -36,17 +36,17 @@ export function AppPage() {
         <div className="form-floating">
           <div className="row g-5">
             <div className="col-12">
-              <label className="form-label">Id</label>
+              <label className="form-label" htmlFor="app-id">Id</label>
               <div className="input-group">
                 <input id="app-id" type="text" className="form-control" value={app.id} readOnly />
                 <span className={`input-group-text ${styles.copy}`} onClick={copy}>
-                  <i className="bi bi-clipboard" aria-hidden="true"></i>
+                  <i className="bi bi-clipboard"></i>
                 </span>
               </div>
             </div>
             <div className="col-12">
-              <label className="form-label">Description</label>
-              <textarea className="form-control" value={app.description} readOnly />
+              <label className="form-label" htmlFor="description">Description</label>
+              <textarea id="description" className="form-control" value={app.description} readOnly />
             </div>
           </div>
         </div>

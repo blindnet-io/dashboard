@@ -29,7 +29,7 @@ export function CreateNewAppGroupPage() {
   }, [])
 
   const copyKey = () => {
-    (document.getElementById('key-input') as HTMLInputElement).select()
+    (document.getElementById('private-key-input') as HTMLInputElement).select()
     navigator.clipboard.writeText(privateKey)
   }
 
@@ -61,9 +61,10 @@ export function CreateNewAppGroupPage() {
 
             <div className="col-12">
               <div>
-                <label className="form-label">Name</label>
+                <label className="form-label" htmlFor="name">Name</label>
                 <input
                   type="text"
+                  id="name"
                   className="form-control"
                   value={name}
                   onChange={e => setName(e.target.value)}
@@ -73,8 +74,9 @@ export function CreateNewAppGroupPage() {
 
             <div className="col-12">
               <div>
-                <label className="form-label">Description</label>
+                <label className="form-label" htmlFor="description">Description</label>
                 <textarea
+                  id="description"
                   className="form-control"
                   value={description}
                   onChange={e => setDescription(e.target.value)}
@@ -83,24 +85,24 @@ export function CreateNewAppGroupPage() {
             </div>
 
             <div className="col-12">
-              <label className="form-label">Key</label>
+              <label className="form-label" htmlFor="private-key-input">Key</label>
               <div className="input-group">
                 <textarea
-                  id="key-input"
+                  id="private-key-input"
                   className="form-control"
                   value={privateKey}
                   onChange={e => setPrivateKey(e.target.value)}
                 />
                 <span className={`input-group-text ${styles.copy}`} onClick={copyKey}>
-                  <i className="bi bi-clipboard" aria-hidden="true"></i>
+                  <i className="bi bi-clipboard"></i>
                 </span>
               </div>
             </div>
 
             <div className="col-12">
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" name="check-primary-address" id="check-primary-address" />
-                <label className="form-check-label" htmlFor="check-primary-address">
+                <input className="form-check-input" type="checkbox" id="check-agree" />
+                <label className="form-check-label" htmlFor="check-agree">
                   Agree
                 </label>
               </div>
