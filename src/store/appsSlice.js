@@ -87,4 +87,9 @@ export const selectActiveGroup = token => createSelector(
   (state, groups) => groups?.find(g => g.id == state.apps.activeGroup)
 )
 
+export const selectApp = (token, id) => createSelector(
+  selectActiveGroup(token),
+  group => group?.applications.find(a => a.id == id)
+)
+
 export default appsSlice.reducer;
