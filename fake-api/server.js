@@ -86,10 +86,10 @@ server.put('/api/app-groups/:id/applications', (req, res, next) => {
   const id = (Math.random() + 1).toString(36).substring(7)
   req.body.id = id
   req.body.active = true
-  db['app-groups'] = db['app-groups'].map(g => g.id == req.params.id ? { ...g, applications: [...g.applications, req.body] } : g)
+  db['app-groups'] = db['app-groups'].map(g => g.id === req.params.id ? { ...g, applications: [...g.applications, req.body] } : g)
   res.send({ id })
 })
 
-server.listen(5000, () => {
+server.listen(8029, () => {
   console.log('JSON Server is running')
 })

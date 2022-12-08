@@ -1,37 +1,40 @@
 import React, { useEffect } from 'react'
-import { Navigate, Outlet, useNavigate, Link } from "react-router-dom"
-import { Container } from "react-bootstrap"
+import { Navigate, Outlet, useNavigate, Link, useOutletContext } from "react-router-dom"
+import { Container, Spinner } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
-import { selectToken } from '../store/authSlice'
+import { selectToken } from '../../store/authSlice'
 import {
   useGetAppGroupsQuery,
   changeActiveGroup,
   selectAppGroups,
   selectActiveGroup
-} from '../store/appsSlice'
-import { useAppDispatch, useAppSelector } from '../store/hooks'
+} from '../../store/appsSlice'
+import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useSelector } from 'react-redux';
 
 export function ApplicationsPanel() {
+  const { token } = useOutletContext<{ token: string }>()
+
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const token = useAppSelector(selectToken)
-  const activeGroup = useAppSelector(selectActiveGroup(token!))
+  const activeGroup = useSelector(selectActiveGroup(token))
 
   const {
     data: appGroups,
     error: appGroupsFetchingError,
+    isLoading: loadingGroups,
     isFetching: fetchingGroups
   } = useGetAppGroupsQuery(token, { pollingInterval: 60000 })
 
   useEffect(() => {
-    if (activeGroup && appGroups?.find(g => g.id == activeGroup.id))
+    if (activeGroup && appGroups?.find(g => g.id === activeGroup.id))
       return
-    else if (appGroups && appGroups[0])
+    else if (appGroups && appGroups.length > 0)
       dispatch(changeActiveGroup(appGroups[0].id))
   }, [appGroups])
 
@@ -51,7 +54,6 @@ export function ApplicationsPanel() {
                   <h1 className="h2 mb-0 ls-tight">App group { }
                     <Dropdown>
                       <Dropdown.Toggle variant="success" id="dropdown-basic">
-                        {(appGroupsFetchingError && !activeGroup) && "Error"}
                         {activeGroup && activeGroup.name}
                         {fetchingGroups && <span className="spinner-border spinner-border-sm" role="status"></span>}
                       </Dropdown.Toggle>
@@ -76,10 +78,12 @@ export function ApplicationsPanel() {
                 </div>
                 <div className="col-md-6 col-12 text-md-end">
                   <div className="mx-n1">
-                    <Link to="#" className="btn d-inline-flex btn-sm btn-neutral mx-1">
-                      <span><i className="bi bi-pencil" /> Edit</span>
-                    </Link>
-                    <Link to="/group/new" className="btn d-inline-flex btn-sm btn-primary mx-1">
+                    {activeGroup &&
+                      <Link to="#" className="btn d-inline-flex btn-sm btn-neutral mx-1">
+                        <span><i className="bi bi-pencil" /> Edit</span>
+                      </Link>
+                    }
+                    <Link to="/group/create" className="btn d-inline-flex btn-sm btn-primary mx-1">
                       <span><i className="bi bi-plus" /> New group</span>
                     </Link>
                   </div>
@@ -96,7 +100,9 @@ export function ApplicationsPanel() {
               <div className="display-4 font-semibold text-muted opacity-50">
               </div>
             </div> */}
-          <Outlet />
+          {(appGroupsFetchingError && !activeGroup) && "Error"}
+          {loadingGroups && <Spinner />}
+          <Outlet context={{ token }} />
         </div>
       </main>
     </div>

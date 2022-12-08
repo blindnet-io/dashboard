@@ -1,22 +1,21 @@
 import React, { useEffect, useId, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
 import * as ed from '@noble/ed25519'
-import { bin2b64str, b64str2bin } from '../../util/conversions'
-import { useCreateAppGroupMutation, changeActiveGroup, useGetAppGroupsQuery } from '../../store/appsSlice'
-import { selectToken } from '../../store/authSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { bin2b64str, b64str2bin } from '../../../util/conversions'
+import { useCreateAppGroupMutation, changeActiveGroup, useGetAppGroupsQuery } from '../../../store/appsSlice'
+import { selectToken } from '../../../store/authSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 
-import styles from './create-new-app-group.module.scss'
+import styles from './style.module.scss'
 
 export function CreateNewAppGroupPage() {
+  const { token } = useOutletContext<{ token: string }>()
+
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const token = useAppSelector(selectToken)
-
   const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
   const [privateKey, setPrivateKey] = useState('')
 
   const [create, { isError }] = useCreateAppGroupMutation()
@@ -36,12 +35,12 @@ export function CreateNewAppGroupPage() {
 
   const submit = async () => {
     const publicKey = await ed.getPublicKey(b64str2bin(privateKey))
-    const res = await create({ token, name, description, key: bin2b64str(publicKey) })
-    await new Promise(r => setTimeout(r, 200))
-    await refetch()
+    const res = await create({ token, name, key: bin2b64str(publicKey) })
+    // await new Promise(r => setTimeout(r, 200))
+    // await refetch()
 
     if ('data' in res) {
-      dispatch(changeActiveGroup(res.data.id))
+      dispatch(changeActiveGroup(res.data))
       navigate("/")
     }
   }
@@ -74,18 +73,6 @@ export function CreateNewAppGroupPage() {
             </div>
 
             <div className="col-12">
-              <div>
-                <label className="form-label" htmlFor={`${id}-description`}>Description</label>
-                <textarea
-                  id={`${id}-description`}
-                  className="form-control"
-                  value={description}
-                  onChange={e => setDescription(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="col-12">
               <label className="form-label" htmlFor={`${id}-name`}>Key</label>
               <div className="input-group">
                 <textarea
@@ -97,15 +84,6 @@ export function CreateNewAppGroupPage() {
                 <span className={`input-group-text ${styles.copy}`} onClick={copyKey}>
                   <i className="bi bi-clipboard"></i>
                 </span>
-              </div>
-            </div>
-
-            <div className="col-12">
-              <div className="form-check">
-                <input className="form-check-input" type="checkbox" id={`${id}-agree-check`} />
-                <label className="form-check-label" htmlFor={`${id}-agree-check`}>
-                  Agree
-                </label>
               </div>
             </div>
 

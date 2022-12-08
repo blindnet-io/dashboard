@@ -2,12 +2,14 @@ import { Navigate, Outlet } from 'react-router-dom'
 import { selectToken } from '../store/authSlice'
 import { useAppSelector } from '../store/hooks'
 
-const ProtectedRoute = () => {
+const AuthProtectedRoute = () => {
   const token = useAppSelector(selectToken)
 
+  // TODO: periodically invalidate token
+
   return token
-    ? <Outlet />
+    ? <Outlet context={{ token }} />
     : <Navigate to="/login" />
 }
 
-export default ProtectedRoute
+export default AuthProtectedRoute

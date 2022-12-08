@@ -1,33 +1,12 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate, Link } from "react-router-dom"
+import { Outlet, Link, useOutletContext } from "react-router-dom"
 import logo from '../assets/logos/full-logo.png'
+// import { selectToken } from '../store/authSlice'
+// import { useAppDispatch, useAppSelector } from '../store/hooks'
 
-import { selectToken } from '../store/authSlice'
-import {
-  useGetAppGroupsQuery,
-  changeActiveGroup,
-  // selectAppGroupsData,
-  // selectActiveGroup
-} from '../store/appsSlice'
-import {
-  useGetInfoQuery,
-  // selectAccountInfo
-} from '../store/accountSlice'
-import { useAppDispatch, useAppSelector } from '../store/hooks'
+export function Navigation() {
+  const { token } = useOutletContext<{ token: string }>()
 
-export function AdminPanel() {
-  const dispatch = useAppDispatch()
-
-  const token = useAppSelector(selectToken)
-
-  const {
-    error: accountInfoError,
-    isLoading: accountInfoLoading
-  } = useGetInfoQuery(token)
-
-  useEffect(() => {
-    if (accountInfoError) logout()
-  }, [accountInfoError])
+  // const dispatch = useAppDispatch()
 
   const logout = () => {
     localStorage.removeItem("token")
@@ -37,14 +16,14 @@ export function AdminPanel() {
 
   return (
     <div className="d-flex flex-column flex-lg-row h-lg-full bg-gray-100">
-      {/* Vertical Navbar */}
+      {/* Vertical navbar */}
       <nav className="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 py-lg-0 navbar-light bg-light border-end-lg" id="navbarVertical">
         <div className="container-fluid">
-          {/* Toggler */}
+          {/* Collapse navbar */}
           <button className="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
-          {/* Brand */}
+          {/* Blindnet logo */}
           <a className="navbar-brand py-lg-5 mb-lg-5 px-lg-6 me-0" href="/">
             <img style={{ width: '130px', height: 'auto' }} src={logo} alt="..." />
           </a>
@@ -86,16 +65,9 @@ export function AdminPanel() {
             <div className="mt-auto" />
             <ul className="navbar-nav mb-5">
               <li className="nav-item">
-                {accountInfoLoading &&
-                  <Link className="nav-link" to="/">
-                    <i className="bi bi-person-square" /> <span className="spinner-border spinner-border-sm"></span>
-                  </Link>
-                }
-                {!accountInfoLoading &&
-                  <Link className="nav-link" to="/">
-                    <i className="bi bi-person-square" /> Account
-                  </Link>
-                }
+                <Link className="nav-link" to="/">
+                  <i className="bi bi-person-square" /> Account
+                </Link>
               </li>
               <li className="nav-item">
                 <div className="nav-link" style={{ cursor: 'pointer' }} onClick={logout}>
@@ -107,9 +79,9 @@ export function AdminPanel() {
         </div>
       </nav>
       {/* Main content */}
-      <Outlet />
+      <Outlet context={{ token }} />
     </div >
   )
 }
 
-export default AdminPanel
+export default Navigation

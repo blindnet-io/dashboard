@@ -1,36 +1,34 @@
 import React, { useEffect, useId, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
-import * as ed from '@noble/ed25519'
-import { bin2b64str, b64str2bin } from '../../util/conversions'
 import {
   useCreateAppMutation,
   useGetAppGroupsQuery,
   selectActiveGroup
-} from '../../store/appsSlice'
-import { selectToken } from '../../store/authSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+} from '../../../store/appsSlice'
+import { selectToken } from '../../../store/authSlice'
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useSelector } from 'react-redux';
 
 export function CreateNewApp() {
+  const { token } = useOutletContext<{ token: string }>()
+
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const token = useAppSelector(selectToken)
-  const activeGroup = useAppSelector(selectActiveGroup(token!))
+  const activeGroup = useSelector(selectActiveGroup(token))
 
   const [name, setName] = useState('')
-  const [description, setDescription] = useState('')
 
   const [create, { isError }] = useCreateAppMutation()
-  const { refetch } = useGetAppGroupsQuery(token)
 
   const id = useId()
 
   const submit = async () => {
-    const res = await create({ token, group: activeGroup!.id, name, description })
-    await new Promise(r => setTimeout(r, 200))
-    await refetch()
-    navigate("/")
+    const res = await create({ token, group: activeGroup!.id, name })
+    if ("data" in res) {
+      navigate("/")
+    }
   }
 
   return (
@@ -61,30 +59,9 @@ export function CreateNewApp() {
                 </div>
               </div>
 
-              <div className="col-12">
-                <div>
-                  <label className="form-label" htmlFor={`${id}-description`}>Description</label>
-                  <textarea
-                    id={`${id}-description`}
-                    className="form-control"
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="col-12">
-                <div className="form-check">
-                  <input className="form-check-input" type="checkbox" id={`${id}-agree-check`} />
-                  <label className="form-check-label" htmlFor={`${id}-agree-check`}>
-                    Agree
-                  </label>
-                </div>
-              </div>
-
               {isError &&
                 <Alert variant="danger">
-                  Error
+                  Error occurred. Please try again.
                 </Alert>
               }
 
