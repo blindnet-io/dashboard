@@ -1,5 +1,5 @@
 {
-  "name": "dashboard-frontend",
+  "name": "devkit-dashboard",
   "version": "0.1.0",
   "private": true,
   "scripts": {
