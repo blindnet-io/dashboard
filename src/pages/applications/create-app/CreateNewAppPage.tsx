@@ -1,20 +1,18 @@
-import React, { useEffect, useId, useState } from 'react';
+import { useId, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
 import {
   useCreateAppMutation,
-  useGetAppGroupsQuery,
   selectActiveGroup
 } from '../../../store/appsSlice'
-import { selectToken } from '../../../store/authSlice'
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+// import { useAppDispatch } from '../../../store/hooks';
 import { useSelector } from 'react-redux';
 
 export function CreateNewApp() {
   const { token } = useOutletContext<{ token: string }>()
 
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
   const activeGroup = useSelector(selectActiveGroup(token))
 

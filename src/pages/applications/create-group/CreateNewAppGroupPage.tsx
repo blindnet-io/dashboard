@@ -1,11 +1,10 @@
-import React, { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { Link, useNavigate, useOutletContext } from "react-router-dom"
 import Alert from 'react-bootstrap/Alert'
 import * as ed from '@noble/ed25519'
 import { bin2b64str, b64str2bin } from '../../../util/conversions'
-import { useCreateAppGroupMutation, changeActiveGroup, useGetAppGroupsQuery } from '../../../store/appsSlice'
-import { selectToken } from '../../../store/authSlice'
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useCreateAppGroupMutation, changeActiveGroup } from '../../../store/appsSlice'
+import { useAppDispatch } from '../../../store/hooks';
 
 import styles from './style.module.scss'
 
@@ -19,7 +18,7 @@ export function CreateNewAppGroupPage() {
   const [privateKey, setPrivateKey] = useState('')
 
   const [create, { isError }] = useCreateAppGroupMutation()
-  const { refetch } = useGetAppGroupsQuery(token)
+  // const { refetch } = useGetAppGroupsQuery(token)
 
   const id = useId()
 

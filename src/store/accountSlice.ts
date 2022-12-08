@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { apiSlice } from './apiSlice'
 
 type AccountState = {}
@@ -29,7 +29,7 @@ export const accountSlice = createSlice({
   extraReducers: (builder) => { }
 });
 
-export const { } = accountSlice.actions
+// export const { } = accountSlice.actions
 
 export const selectAccountInfoResult = (token: string) => accountApiSlice.endpoints.getInfo.select(token)
 export const selectAccountInfo = (token: string) => createSelector(

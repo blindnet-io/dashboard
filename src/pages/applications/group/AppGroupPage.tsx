@@ -2,7 +2,6 @@ import { Link, useOutletContext } from "react-router-dom"
 import { useSelector } from 'react-redux'
 import { Alert, Spinner } from 'react-bootstrap';
 import { skipToken } from '@reduxjs/toolkit/query/react'
-import { selectToken } from '../../../store/authSlice'
 import {
   useGetAppGroupQuery,
   selectActiveGroup,
@@ -11,7 +10,6 @@ import {
   Application,
 } from '../../../store/appsSlice'
 
-import styles from './style.module.scss'
 
 export function AppsGroupPage() {
   const { token } = useOutletContext<{ token: string }>()
@@ -64,7 +62,7 @@ export function AppsGroupPage() {
           Error occurred. Please refresh the page.
         </Alert>
       }
-      {(group != undefined && apps != undefined) && render(group, apps)}
+      {(group !== undefined && apps !== undefined) && render(group, apps)}
     </>
   )
 }

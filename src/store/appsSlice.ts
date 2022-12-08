@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createEntityAdapter, createSelector, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { apiSlice } from './apiSlice'
 import { RootState } from './store';
 

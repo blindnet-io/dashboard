@@ -1,7 +1,6 @@
-import { Link, Navigate, useNavigate } from "react-router-dom"
-import React, { useEffect, useId, useState } from 'react'
+import { Link, useNavigate } from "react-router-dom"
+import { useId, useState } from 'react'
 import Alert from 'react-bootstrap/Alert';
-import { str2bin, bin2b64str } from '../../../util/conversions'
 import {
   authenticate,
   useRegisterMutation,
@@ -9,8 +8,6 @@ import {
 import logo from '../../../assets/logos/b-logo.png'
 import { useAppDispatch } from "../../../store/hooks";
 import { hashPassword } from "../../../util/crypto";
-
-import styles from "./style.module.scss"
 
 export function RegisterPage() {
   const navigate = useNavigate()
@@ -41,7 +38,7 @@ export function RegisterPage() {
         <div className="col-12 col-md-9 col-lg-6 min-h-lg-screen d-flex flex-column justify-content-center py-lg-16 px-lg-20 position-relative">
           <div className="row">
             <div className="col-lg-10 col-md-9 col-xl-7 mx-auto">
-              <div className="text-center mb-12"><a className="d-inline-block" href="#"><img src={logo} className="h-12" alt="..." /></a>
+              <div className="text-center mb-12"><img src={logo} className="h-12" alt="..." />
                 <h1 className="ls-tight font-bolder mt-6">Sign up</h1>
               </div>
               <div className="mb-5"><label className="form-label" htmlFor={`${id}-email`}>Email address</label>

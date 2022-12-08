@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react'
-import { Navigate, Outlet, useNavigate, Link, useOutletContext } from "react-router-dom"
-import { Container, Spinner } from "react-bootstrap"
+import { useEffect } from 'react'
+import { Outlet, useNavigate, Link, useOutletContext } from "react-router-dom"
+import { Spinner } from "react-bootstrap"
 import Dropdown from 'react-bootstrap/Dropdown'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
-import { selectToken } from '../../store/authSlice'
 import {
   useGetAppGroupsQuery,
   changeActiveGroup,
-  selectAppGroups,
   selectActiveGroup
 } from '../../store/appsSlice'
-import { useAppDispatch, useAppSelector } from '../../store/hooks'
+import { useAppDispatch } from '../../store/hooks'
 import { useSelector } from 'react-redux';
 
 export function ApplicationsPanel() {
@@ -36,7 +31,7 @@ export function ApplicationsPanel() {
       return
     else if (appGroups && appGroups.length > 0)
       dispatch(changeActiveGroup(appGroups[0].id))
-  }, [appGroups])
+  }, [activeGroup, appGroups, dispatch])
 
   const changeGroup = (id: string) => {
     dispatch(changeActiveGroup(id))

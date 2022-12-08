@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Alert, Spinner } from "react-bootstrap";
-import { Link, Navigate, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useVerifyTokenMutation } from '../../../store/authSlice'
 
 export function VerifyTokenPage() {
@@ -11,10 +11,10 @@ export function VerifyTokenPage() {
   const [verify, verifyState] = useVerifyTokenMutation()
 
   useEffect(() => {
-    if (token != undefined) {
+    if (token !== null) {
       verify(token)
     }
-  }, [token])
+  }, [token, verify])
 
   return (
     <div className="container">

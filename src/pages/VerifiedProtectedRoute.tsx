@@ -1,6 +1,5 @@
-import { Navigate, Outlet, useOutletContext } from 'react-router-dom'
-import { useAppSelector } from '../store/hooks'
-import { selectToken, useStatusQuery } from '../store/authSlice'
+import { Outlet, useOutletContext } from 'react-router-dom'
+import { useStatusQuery } from '../store/authSlice'
 import { Alert, Spinner } from 'react-bootstrap'
 
 const VerifiedProtectedRoute = () => {

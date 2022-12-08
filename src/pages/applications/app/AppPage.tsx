@@ -1,28 +1,17 @@
-import React, { useState, useEffect, InputHTMLAttributes, useId } from "react"
-import { Link, useNavigate, useOutletContext, useParams } from "react-router-dom"
+import { useId } from "react"
+import { Link, Navigate, useOutletContext, useParams } from "react-router-dom"
 import { Alert, Spinner } from 'react-bootstrap';
-import { selectToken } from '../../../store/authSlice'
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 import {
   Application,
-  selectApp,
   useGetAppQuery
 } from '../../../store/appsSlice'
-import { useAppSelector } from "../../../store/hooks";
 
 import styles from './style.module.scss'
-import { useSelector } from "react-redux";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 export function AppPage() {
   const { token } = useOutletContext<{ token: string }>()
   const { id } = useParams()
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (id == undefined)
-      navigate("/")
-  }, [id])
 
   const {
     data,
@@ -66,17 +55,20 @@ export function AppPage() {
   }
 
   return (
-    <div className="h-screen flex-grow-1 overflow-y-lg-auto">
-      <div className="container-fluid max-w-screen-md vstack gap-6">
-        {isLoading && <Spinner />}
-        {isError &&
-          <Alert variant="danger">
-            Error occurred. Please refresh the page.
-          </Alert>
-        }
-        {data && renderApp(data)}
+    <>
+      {id || <Navigate to="/" />}
+      <div className="h-screen flex-grow-1 overflow-y-lg-auto">
+        <div className="container-fluid max-w-screen-md vstack gap-6">
+          {isLoading && <Spinner />}
+          {isError &&
+            <Alert variant="danger">
+              Error occurred. Please refresh the page.
+            </Alert>
+          }
+          {data && renderApp(data)}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

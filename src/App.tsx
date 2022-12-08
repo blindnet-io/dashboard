@@ -17,7 +17,7 @@ const CreateNewAppPage = lazy(() => import('./pages/applications/create-app/Crea
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={<Spinner className="centered-suspense" />}>
+              <Suspense fallback={<Spinner className="centered-suspense" />}>
         <Routes>
           <Route path='login' element={<LoginPage />} />
           <Route path='register' element={<RegisterPage />} />
