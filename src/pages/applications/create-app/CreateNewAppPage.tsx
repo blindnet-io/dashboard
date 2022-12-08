@@ -1,33 +1,33 @@
 import { useId, useState } from 'react';
-import { Link, useNavigate, useOutletContext } from "react-router-dom"
-import Alert from 'react-bootstrap/Alert'
+import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert';
 import {
   useCreateAppMutation,
-  selectActiveGroup
-} from '../../../store/appsSlice'
+  selectActiveGroup,
+} from '../../../store/appsSlice';
 // import { useAppDispatch } from '../../../store/hooks';
 import { useSelector } from 'react-redux';
 
 export function CreateNewApp() {
-  const { token } = useOutletContext<{ token: string }>()
+  const { token } = useOutletContext<{ token: string }>();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   // const dispatch = useAppDispatch()
 
-  const activeGroup = useSelector(selectActiveGroup(token))
+  const activeGroup = useSelector(selectActiveGroup(token));
 
-  const [name, setName] = useState('')
+  const [name, setName] = useState('');
 
-  const [create, { isError }] = useCreateAppMutation()
+  const [create, { isError }] = useCreateAppMutation();
 
-  const id = useId()
+  const id = useId();
 
   const submit = async () => {
-    const res = await create({ token, group: activeGroup!.id, name })
-    if ("data" in res) {
-      navigate("/")
+    const res = await create({ token, group: activeGroup!.id, name });
+    if ('data' in res) {
+      navigate('/');
     }
-  }
+  };
 
   return (
     <div className="h-screen flex-grow-1 overflow-y-lg-auto">
@@ -38,40 +38,56 @@ export function CreateNewApp() {
               <h2>Create new application</h2>
             </div>
             <div className="col-6 d-none d-md-block text-end">
-              <Link to="/"><button type="button" className="btn-close" aria-label="Close"></button></Link>
+              <Link to="/">
+                <button
+                  type="button"
+                  className="btn-close"
+                  aria-label="Close"
+                ></button>
+              </Link>
             </div>
           </div>
           <div className="form-floating">
             <div className="row g-5">
-
               <div className="col-12">
                 <div>
-                  <label className="form-label" htmlFor={`${id}-name`}>Name</label>
+                  <label className="form-label" htmlFor={`${id}-name`}>
+                    Name
+                  </label>
                   <input
                     type="text"
                     id={`${id}-name`}
                     className="form-control"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
 
-              {isError &&
+              {isError && (
                 <Alert variant="danger">
                   Error occurred. Please try again.
                 </Alert>
-              }
+              )}
 
               <div className="col-12 text-end">
-                <Link to="/" className="btn btn-sm btn-neutral me-2">Cancel</Link>
-                <button type="submit" onClick={submit} className="btn btn-sm btn-primary">Save</button></div>
+                <Link to="/" className="btn btn-sm btn-neutral me-2">
+                  Cancel
+                </Link>
+                <button
+                  type="submit"
+                  onClick={submit}
+                  className="btn btn-sm btn-primary"
+                >
+                  Save
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default CreateNewApp
+export default CreateNewApp;

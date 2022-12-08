@@ -1,50 +1,50 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { apiSlice } from './apiSlice'
+import { apiSlice } from './apiSlice';
 import { RootState } from './store';
 
 type AuthState = {
-  authenticated: boolean
-  token: string | null,
+  authenticated: boolean;
+  token: string | null;
   // status: Status | null
-}
+};
 
 const initialState: AuthState = {
   authenticated: false,
   token: localStorage.getItem('token') || null,
   // status: null
-}
+};
 
-type Status = { verified: boolean }
-type AuthArgs = { email: string, password: string }
-type LoginResult = { token: string, status: Status }
+type Status = { verified: boolean };
+type AuthArgs = { email: string; password: string };
+type LoginResult = { token: string; status: Status };
 
 const authApiSlice = apiSlice
   .enhanceEndpoints({ addTagTypes: ['status'] })
   .injectEndpoints({
-    endpoints: builder => ({
+    endpoints: (builder) => ({
       login: builder.mutation<LoginResult, AuthArgs>({
         query: ({ email, password }) => ({
           url: 'auth/login',
           method: 'POST',
-          body: { email, password }
-        })
+          body: { email, password },
+        }),
       }),
       register: builder.mutation<LoginResult, AuthArgs>({
         query: ({ email, password }) => ({
           url: 'auth/register',
           method: 'POST',
-          body: { email, password }
-        })
+          body: { email, password },
+        }),
       }),
       status: builder.query<Status, string>({
         query: (token) => ({
           url: 'auth/status',
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         }),
-        providesTags: ['status']
+        providesTags: ['status'],
       }),
       verifyToken: builder.mutation({
         query: (token: string) => ({
@@ -52,17 +52,17 @@ const authApiSlice = apiSlice
           method: 'POST',
           body: { token },
         }),
-        invalidatesTags: ['status']
-      })
-    })
-  })
+        invalidatesTags: ['status'],
+      }),
+    }),
+  });
 
 export const {
   useLoginMutation,
   useRegisterMutation,
   useStatusQuery,
-  useVerifyTokenMutation
-} = authApiSlice
+  useVerifyTokenMutation,
+} = authApiSlice;
 
 // import { str2bin, bin2b64str } from '../util/conversions';
 // export const submit = createAsyncThunk(
@@ -86,8 +86,8 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     authenticate(state, action: PayloadAction<{ token: string }>) {
-      state.authenticated = true
-      state.token = action.payload.token
+      state.authenticated = true;
+      state.token = action.payload.token;
     },
     // authenticate(state, action: PayloadAction<{ token: string, status: Status }>) {
     //   state.authenticated = true

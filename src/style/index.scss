@@ -1,18 +1,18 @@
 @import-normalize;
 // @import "~bootstrap/scss/bootstrap";
-@import "bootstrap-icons";
+@import 'bootstrap-icons';
 
-@import "@webpixels/css/core/functions";
+@import '@webpixels/css/core/functions';
 
-@import "@webpixels/css/base";
-@import "@webpixels/css/forms";
-@import "@webpixels/css/components";
+@import '@webpixels/css/base';
+@import '@webpixels/css/forms';
+@import '@webpixels/css/components';
 
-@import "./variables";
-@import "./custom";
+@import './variables';
+@import './custom';
 
-@import "@webpixels/css/utilities";
-@import "bootstrap/scss/utilities/api";
+@import '@webpixels/css/utilities';
+@import 'bootstrap/scss/utilities/api';
 
 // body {
 //   margin: 0;
