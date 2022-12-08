@@ -2,17 +2,17 @@
   "name": "dashboard-frontend",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "server": "nodemon fake-api/server.js"
+  },
   "dependencies": {
     "@noble/ed25519": "^1.7.1",
     "@reduxjs/toolkit": "^1.9.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^29.2.4",
-    "@types/node": "^18.11.10",
-    "@types/react": "^18.0.26",
-    "@types/react-dom": "^18.0.9",
-    "@types/redux-logger": "^3.0.9",
     "bootstrap-icons": "^1.10.2",
     "noble-ed25519": "^1.2.6",
     "react": "^18.2.0",
@@ -26,13 +26,23 @@
     "source-map-explorer": "^2.5.3",
     "typescript": "^4.9.3"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "server": "nodemon fake-api/server.js"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^29.2.4",
+    "@types/node": "^18.11.10",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "@types/redux-logger": "^3.0.9",
+    "@webpixels/css": "^1.2.13",
+    "body-parser": "^1.20.1",
+    "bootstrap": "^5.2.3",
+    "cors": "^2.8.5",
+    "nodemon": "^2.0.20"
+  },
+  "engines": {
+    "node": ">=17.0.0"
   },
   "eslintConfig": {
     "extends": [
@@ -51,12 +61,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@webpixels/css": "^1.2.13",
-    "body-parser": "^1.20.1",
-    "bootstrap": "^5.2.3",
-    "cors": "^2.8.5",
-    "nodemon": "^2.0.20"
   }
 }
