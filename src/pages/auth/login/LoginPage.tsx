@@ -1,14 +1,12 @@
 import { useId, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
-import { useLoginMutation, authenticate } from '../../../store/authSlice';
+import { useLoginMutation } from '../../../store/authSlice';
 import logo from '../../../assets/logos/b-logo.png';
-import { useAppDispatch } from '../../../store/hooks';
 import { hashPassword } from '../../../util/crypto';
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +22,6 @@ export function LoginPage() {
     if ('data' in res) {
       const { token } = res.data;
       localStorage.setItem('token', token);
-      dispatch(authenticate({ token }));
       navigate('/');
     }
   };

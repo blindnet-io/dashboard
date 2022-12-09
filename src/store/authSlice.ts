@@ -80,21 +80,27 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    authenticate(state, action: PayloadAction<{ token: string }>) {
+    setAuthenticated(state, action: PayloadAction<{ token: string }>) {
       state.authenticated = true;
       state.token = action.payload.token;
     },
-    // authenticate(state, action: PayloadAction<{ token: string, status: Status }>) {
-    //   state.authenticated = true
-    //   state.token = action.payload.token
-    //   state.status = action.payload.status
-    // },
-    // updateStatus(state, action: PayloadAction<Status>) {
-    //   state.status = action.payload
-    // }
   },
   extraReducers: (builder) => {
-    // builder
+    builder
+      .addMatcher(
+        authApiSlice.endpoints.login.matchFulfilled,
+        (state, action) => {
+          state.authenticated = true;
+          state.token = action.payload.token;
+        }
+      )
+      .addMatcher(
+        authApiSlice.endpoints.register.matchFulfilled,
+        (state, action) => {
+          state.authenticated = true;
+          state.token = action.payload.token;
+        }
+      );
     //   .addCase(submit.pending, (state) => {
     //     state.loading = true;
     //     state.error = null;
@@ -110,9 +116,10 @@ export const authSlice = createSlice({
   },
 });
 
-export const { authenticate } = authSlice.actions;
+export const { setAuthenticated } = authSlice.actions;
 
 export const selectToken = (state: RootState) => state.auth.token;
-// export const selectStatus = (state: RootState) => state.auth.status;
+export const selectIsAuthenticated = (state: RootState) =>
+  state.auth.authenticated;
 
 export default authSlice.reducer;
