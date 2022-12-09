@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { apiSlice } from './apiSlice';
 import { RootState } from './store';
 
@@ -79,12 +79,7 @@ export const {
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    setAuthenticated(state, action: PayloadAction<{ token: string }>) {
-      state.authenticated = true;
-      state.token = action.payload.token;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addMatcher(
@@ -99,6 +94,14 @@ export const authSlice = createSlice({
         (state, action) => {
           state.authenticated = true;
           state.token = action.payload.token;
+        }
+      )
+      .addMatcher(
+        authApiSlice.endpoints.verifyToken.matchFulfilled,
+        (state, action) => {
+          if (state.token) {
+            state.authenticated = true;
+          }
         }
       );
     //   .addCase(submit.pending, (state) => {
@@ -116,7 +119,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { setAuthenticated } = authSlice.actions;
+// export const {  } = authSlice.actions;
 
 export const selectToken = (state: RootState) => state.auth.token;
 export const selectIsAuthenticated = (state: RootState) =>
