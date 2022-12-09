@@ -16,41 +16,39 @@ type Status = { verified: boolean };
 type AuthArgs = { email: string; password: string };
 type LoginResult = { token: string; status: Status };
 
-const authApiSlice = apiSlice
-  .enhanceEndpoints({ addTagTypes: ['status'] })
-  .injectEndpoints({
-    endpoints: (builder) => ({
-      login: builder.mutation<LoginResult, AuthArgs>({
-        query: ({ email, password }) => ({
-          url: 'auth/login',
-          method: 'POST',
-          body: { email, password },
-        }),
-      }),
-      register: builder.mutation<LoginResult, AuthArgs>({
-        query: ({ email, password }) => ({
-          url: 'auth/register',
-          method: 'POST',
-          body: { email, password },
-        }),
-      }),
-      status: builder.query<Status, any>({
-        query: () => ({
-          url: 'auth/status',
-          method: 'GET',
-        }),
-        providesTags: ['status'],
-      }),
-      verifyToken: builder.mutation<any, string>({
-        query: (emailToken: string) => ({
-          url: 'auth/verify',
-          method: 'POST',
-          body: { token: emailToken },
-        }),
-        invalidatesTags: ['status'],
+const authApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    login: builder.mutation<LoginResult, AuthArgs>({
+      query: ({ email, password }) => ({
+        url: 'auth/login',
+        method: 'POST',
+        body: { email, password },
       }),
     }),
-  });
+    register: builder.mutation<LoginResult, AuthArgs>({
+      query: ({ email, password }) => ({
+        url: 'auth/register',
+        method: 'POST',
+        body: { email, password },
+      }),
+    }),
+    status: builder.query<Status, any>({
+      query: () => ({
+        url: 'auth/status',
+        method: 'GET',
+      }),
+      providesTags: ['status'],
+    }),
+    verifyToken: builder.mutation<any, string>({
+      query: (emailToken: string) => ({
+        url: 'auth/verify',
+        method: 'POST',
+        body: { token: emailToken },
+      }),
+      invalidatesTags: ['status'],
+    }),
+  }),
+});
 
 export const {
   useLoginMutation,
@@ -110,7 +108,6 @@ export const authSlice = createSlice({
           state.authenticated = true;
         }
       );
-    ;
     //   .addCase(submit.pending, (state) => {
     //     state.loading = true;
     //     state.error = null;

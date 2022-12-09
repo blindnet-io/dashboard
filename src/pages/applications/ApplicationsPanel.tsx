@@ -8,14 +8,13 @@ import {
   changeActiveGroup,
   selectActiveGroup,
 } from '../../store/appsSlice';
-import { useAppDispatch } from '../../store/hooks';
-import { useSelector } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 export function ApplicationsPanel() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const activeGroup = useSelector(selectActiveGroup);
+  const activeGroup = useAppSelector(selectActiveGroup);
 
   const {
     data: appGroups,

@@ -22,89 +22,87 @@ const initialState: AppsState = {
   activeGroup: null,
 };
 
-const appsApiSlice = apiSlice
-  .enhanceEndpoints({ addTagTypes: ['groups', 'apps'] })
-  .injectEndpoints({
-    endpoints: (builder) => ({
-      getAppGroups: builder.query<Array<AppGroup>, any>({
-        query: () => ({
-          url: 'app-groups',
-          method: 'GET',
-        }),
-        // ransformResponse: (response, meta, arg) => response,
-        providesTags: ['groups'],
+const appsApiSlice = apiSlice.injectEndpoints({
+  endpoints: (builder) => ({
+    getAppGroups: builder.query<Array<AppGroup>, any>({
+      query: () => ({
+        url: 'app-groups',
+        method: 'GET',
       }),
-      getAppGroup: builder.query<AppGroup, string>({
-        query: (id) => ({
-          url: `app-groups/${id}`,
-          method: 'GET',
-        }),
-        providesTags: ['groups'],
+      // ransformResponse: (response, meta, arg) => response,
+      providesTags: ['groups'],
+    }),
+    getAppGroup: builder.query<AppGroup, string>({
+      query: (id) => ({
+        url: `app-groups/${id}`,
+        method: 'GET',
       }),
-      getAppGroupApps: builder.query<Array<Application>, string>({
-        query: (id) => ({
-          url: `app-groups/${id}/applications`,
-          method: 'GET',
-        }),
-        providesTags: ['groups', 'apps'],
+      providesTags: ['groups'],
+    }),
+    getAppGroupApps: builder.query<Array<Application>, string>({
+      query: (id) => ({
+        url: `app-groups/${id}/applications`,
+        method: 'GET',
       }),
-      createAppGroup: builder.mutation<string, { name: string; key: string }>({
-        query: ({ name, key }) => ({
-          url: 'app-groups',
-          method: 'POST',
-          body: { name, key },
-        }),
-        invalidatesTags: ['groups'],
+      providesTags: ['groups', 'apps'],
+    }),
+    createAppGroup: builder.mutation<string, { name: string; key: string }>({
+      query: ({ name, key }) => ({
+        url: 'app-groups',
+        method: 'POST',
+        body: { name, key },
       }),
-      updateAppGroup: builder.mutation<
-        any,
-        { id: string; name: string; key: string }
-      >({
-        query: ({ id, name, key }) => ({
-          url: `app-groups/${id}`,
-          method: 'POST',
-          body: { name, key },
-        }),
-      }),
-      deleteAppGroup: builder.mutation<any, string>({
-        query: (id) => ({
-          url: `app-groups/${id}`,
-          method: 'DELETE',
-        }),
-        invalidatesTags: ['groups'],
-      }),
-      getApp: builder.query<Application, string>({
-        query: (id) => ({
-          url: `applications/${id}`,
-          method: 'GET',
-        }),
-        providesTags: ['groups', 'apps'],
-      }),
-      createApp: builder.mutation<string, { group: string; name: string }>({
-        query: ({ group, name }) => ({
-          url: `applications`,
-          method: 'POST',
-          body: { group_id: group, name },
-        }),
-        invalidatesTags: ['apps'],
-      }),
-      updateApp: builder.mutation<string, { id: string; name: string }>({
-        query: ({ id, name }) => ({
-          url: `applications`,
-          method: 'POST',
-          body: { id, name },
-        }),
-        invalidatesTags: ['apps'],
-      }),
-      deleteApp: builder.mutation<any, string>({
-        query: (id) => ({
-          url: `applications/${id}`,
-          method: 'DELETE',
-        }),
-        invalidatesTags: ['apps'],
+      invalidatesTags: ['groups'],
+    }),
+    updateAppGroup: builder.mutation<
+      any,
+      { id: string; name: string; key: string }
+    >({
+      query: ({ id, name, key }) => ({
+        url: `app-groups/${id}`,
+        method: 'POST',
+        body: { name, key },
       }),
     }),
-  });
+    deleteAppGroup: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `app-groups/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['groups'],
+    }),
+    getApp: builder.query<Application, string>({
+      query: (id) => ({
+        url: `applications/${id}`,
+        method: 'GET',
+      }),
+      providesTags: ['groups', 'apps'],
+    }),
+    createApp: builder.mutation<string, { group: string; name: string }>({
+      query: ({ group, name }) => ({
+        url: `applications`,
+        method: 'POST',
+        body: { group_id: group, name },
+      }),
+      invalidatesTags: ['apps'],
+    }),
+    updateApp: builder.mutation<string, { id: string; name: string }>({
+      query: ({ id, name }) => ({
+        url: `applications`,
+        method: 'POST',
+        body: { id, name },
+      }),
+      invalidatesTags: ['apps'],
+    }),
+    deleteApp: builder.mutation<any, string>({
+      query: (id) => ({
+        url: `applications/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['apps'],
+    }),
+  }),
+});
 
 export const {
   useGetAppGroupsQuery,

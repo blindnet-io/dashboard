@@ -5,14 +5,12 @@ import {
   useCreateAppMutation,
   selectActiveGroup,
 } from '../../../store/appsSlice';
-// import { useAppDispatch } from '../../../store/hooks';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../../store/hooks';
 
 export function CreateApp() {
   const navigate = useNavigate();
-  // const dispatch = useAppDispatch()
 
-  const activeGroup = useSelector(selectActiveGroup);
+  const activeGroup = useAppSelector(selectActiveGroup);
 
   const [name, setName] = useState('');
 

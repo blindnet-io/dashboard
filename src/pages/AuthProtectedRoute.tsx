@@ -1,6 +1,10 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { Navigate, Outlet } from 'react-router-dom';
-import { selectIsAuthenticated, selectToken, useStatusQuery } from '../store/authSlice';
+import {
+  selectIsAuthenticated,
+  selectToken,
+  useStatusQuery,
+} from '../store/authSlice';
 import { useAppSelector } from '../store/hooks';
 
 const AuthProtectedRoute = () => {
@@ -17,7 +21,7 @@ const AuthProtectedRoute = () => {
       {(token == null || isError) && <Navigate to="/login" />}
       {isAuthenticated && <Outlet context={{ token }} />}
     </>
-  )
+  );
 };
 
 export default AuthProtectedRoute;

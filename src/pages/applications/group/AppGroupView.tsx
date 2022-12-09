@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { Alert, Spinner } from 'react-bootstrap';
 import { skipToken } from '@reduxjs/toolkit/query/react';
 import {
@@ -9,9 +8,10 @@ import {
   useGetAppGroupAppsQuery,
   Application,
 } from '../../../store/appsSlice';
+import { useAppSelector } from '../../../store/hooks';
 
 export function AppsGroupView() {
-  const activeGroup = useSelector(selectActiveGroup);
+  const activeGroup = useAppSelector(selectActiveGroup);
 
   const {
     data: group,
