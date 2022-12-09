@@ -11,11 +11,10 @@ const AuthProtectedRoute = () => {
   // TODO: periodically invalidate token
   const { isError, isLoading } = useStatusQuery(token || skipToken);
 
-
   return (
     <>
       {isLoading && <></>}
-      {isError && <Navigate to="/login" />}
+      {(token == null || isError) && <Navigate to="/login" />}
       {isAuthenticated && <Outlet context={{ token }} />}
     </>
   )
