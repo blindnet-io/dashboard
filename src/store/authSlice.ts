@@ -103,7 +103,14 @@ export const authSlice = createSlice({
             state.authenticated = true;
           }
         }
+      )
+      .addMatcher(
+        authApiSlice.endpoints.status.matchFulfilled,
+        (state, action) => {
+          state.authenticated = true;
+        }
       );
+    ;
     //   .addCase(submit.pending, (state) => {
     //     state.loading = true;
     //     state.error = null;
