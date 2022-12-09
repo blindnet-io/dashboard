@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { Link, Navigate, useOutletContext, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { Alert, Spinner } from 'react-bootstrap';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { Application, useGetAppQuery } from '../../../store/appsSlice';
@@ -7,12 +7,9 @@ import { Application, useGetAppQuery } from '../../../store/appsSlice';
 import styles from './style.module.scss';
 
 export function AppView() {
-  const { token } = useOutletContext<{ token: string }>();
   const { id } = useParams();
 
-  const { data, isError, isLoading } = useGetAppQuery(
-    id ? { token, id } : skipToken
-  );
+  const { data, isError, isLoading } = useGetAppQuery(id || skipToken);
 
   const elid = useId();
 
@@ -68,7 +65,7 @@ export function AppView() {
 
   return (
     <>
-      {id || <Navigate to="/" />}
+      {id ? <></> : <Navigate to="/" />}
       <div className="h-screen flex-grow-1 overflow-y-lg-auto">
         <div className="container-fluid max-w-screen-md vstack gap-6">
           {isLoading && <Spinner />}

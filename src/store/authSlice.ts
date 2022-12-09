@@ -5,13 +5,11 @@ import { RootState } from './store';
 type AuthState = {
   authenticated: boolean;
   token: string | null;
-  // status: Status | null
 };
 
 const initialState: AuthState = {
   authenticated: false,
   token: localStorage.getItem('token') || null,
-  // status: null
 };
 
 type Status = { verified: boolean };
@@ -36,21 +34,18 @@ const authApiSlice = apiSlice
           body: { email, password },
         }),
       }),
-      status: builder.query<Status, string>({
-        query: (token) => ({
+      status: builder.query<Status, any>({
+        query: () => ({
           url: 'auth/status',
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         providesTags: ['status'],
       }),
-      verifyToken: builder.mutation({
-        query: (token: string) => ({
+      verifyToken: builder.mutation<any, string>({
+        query: (emailToken: string) => ({
           url: 'auth/verify',
           method: 'POST',
-          body: { token },
+          body: { token: emailToken },
         }),
         invalidatesTags: ['status'],
       }),

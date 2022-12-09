@@ -1,11 +1,9 @@
-import { Outlet, useOutletContext } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useStatusQuery } from '../store/authSlice';
 import { Alert, Spinner } from 'react-bootstrap';
 
 const VerifiedProtectedRoute = () => {
-  const { token } = useOutletContext<{ token: string }>();
-
-  const { data, isError, isLoading } = useStatusQuery(token!);
+  const { data, isError, isLoading } = useStatusQuery(undefined);
 
   return (
     <div className="h-screen flex-grow-1 overflow-y-lg-auto">
@@ -27,7 +25,7 @@ const VerifiedProtectedRoute = () => {
           </Alert>
         </div>
       )}
-      {data?.verified === true && <Outlet context={{ token }} />}
+      {data?.verified === true && <Outlet />}
     </div>
   );
 };

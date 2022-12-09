@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import {
   useCreateAppMutation,
@@ -9,12 +9,10 @@ import {
 import { useSelector } from 'react-redux';
 
 export function CreateApp() {
-  const { token } = useOutletContext<{ token: string }>();
-
   const navigate = useNavigate();
   // const dispatch = useAppDispatch()
 
-  const activeGroup = useSelector(selectActiveGroup(token));
+  const activeGroup = useSelector(selectActiveGroup);
 
   const [name, setName] = useState('');
 
@@ -23,7 +21,7 @@ export function CreateApp() {
   const id = useId();
 
   const submit = async () => {
-    const res = await create({ token, group: activeGroup!.id, name });
+    const res = await create({ group: activeGroup!.id, name });
     if ('data' in res) {
       navigate('/');
     }

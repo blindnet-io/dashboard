@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate, Link, useOutletContext } from 'react-router-dom';
+import { Outlet, useNavigate, Link } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import Dropdown from 'react-bootstrap/Dropdown';
 
@@ -12,19 +12,17 @@ import { useAppDispatch } from '../../store/hooks';
 import { useSelector } from 'react-redux';
 
 export function ApplicationsPanel() {
-  const { token } = useOutletContext<{ token: string }>();
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const activeGroup = useSelector(selectActiveGroup(token));
+  const activeGroup = useSelector(selectActiveGroup);
 
   const {
     data: appGroups,
     error: appGroupsFetchingError,
     isLoading: loadingGroups,
     isFetching: fetchingGroups,
-  } = useGetAppGroupsQuery(token, { pollingInterval: 60000 });
+  } = useGetAppGroupsQuery(undefined, { pollingInterval: 60000 });
 
   useEffect(() => {
     if (activeGroup && appGroups?.find((g) => g.id === activeGroup.id)) return;
@@ -111,7 +109,7 @@ export function ApplicationsPanel() {
             </div> */}
           {appGroupsFetchingError && !activeGroup && 'Error'}
           {loadingGroups && <Spinner />}
-          <Outlet context={{ token }} />
+          <Outlet />
         </div>
       </main>
     </div>

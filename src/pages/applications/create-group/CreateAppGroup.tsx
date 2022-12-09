@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from 'react';
-import { Link, useNavigate, useOutletContext } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import * as ed from '@noble/ed25519';
 import { bin2b64str, b64str2bin } from '../../../util/conversions';
@@ -12,8 +12,6 @@ import { useAppDispatch } from '../../../store/hooks';
 import styles from './style.module.scss';
 
 export function CreateAppGroup() {
-  const { token } = useOutletContext<{ token: string }>();
-
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -37,7 +35,7 @@ export function CreateAppGroup() {
 
   const submit = async () => {
     const publicKey = await ed.getPublicKey(b64str2bin(privateKey));
-    const res = await create({ token, name, key: bin2b64str(publicKey) });
+    const res = await create({ name, key: bin2b64str(publicKey) });
     // await new Promise(r => setTimeout(r, 200))
     // await refetch()
 

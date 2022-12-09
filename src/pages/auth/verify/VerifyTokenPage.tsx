@@ -6,15 +6,15 @@ import { useVerifyTokenMutation } from '../../../store/authSlice';
 export function VerifyTokenPage() {
   const [searchParams] = useSearchParams();
 
-  const token = searchParams.get('token');
+  const emailToken = searchParams.get('token');
 
   const [verify, verifyState] = useVerifyTokenMutation();
 
   useEffect(() => {
-    if (token !== null) {
-      verify(token);
+    if (emailToken !== null) {
+      verify(emailToken);
     }
-  }, [token, verify]);
+  }, [emailToken, verify]);
 
   return (
     <div className="container">

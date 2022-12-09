@@ -26,119 +26,80 @@ const appsApiSlice = apiSlice
   .enhanceEndpoints({ addTagTypes: ['groups', 'apps'] })
   .injectEndpoints({
     endpoints: (builder) => ({
-      getAppGroups: builder.query<Array<AppGroup>, string>({
-        query: (token: string) => ({
+      getAppGroups: builder.query<Array<AppGroup>, any>({
+        query: () => ({
           url: 'app-groups',
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         // ransformResponse: (response, meta, arg) => response,
         providesTags: ['groups'],
       }),
-      getAppGroup: builder.query<AppGroup, { token: string; id: string }>({
-        query: ({ token, id }) => ({
+      getAppGroup: builder.query<AppGroup, string>({
+        query: (id) => ({
           url: `app-groups/${id}`,
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         providesTags: ['groups'],
       }),
-      getAppGroupApps: builder.query<
-        Array<Application>,
-        { token: string; id: string }
-      >({
-        query: ({ token, id }) => ({
+      getAppGroupApps: builder.query<Array<Application>, string>({
+        query: (id) => ({
           url: `app-groups/${id}/applications`,
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         providesTags: ['groups', 'apps'],
       }),
-      createAppGroup: builder.mutation<
-        string,
-        { token: string; name: string; key: string }
-      >({
-        query: ({ token, name, key }) => ({
+      createAppGroup: builder.mutation<string, { name: string; key: string }>({
+        query: ({ name, key }) => ({
           url: 'app-groups',
           method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           body: { name, key },
         }),
         invalidatesTags: ['groups'],
       }),
       updateAppGroup: builder.mutation<
         any,
-        { token: string; id: string; name: string; key: string }
+        { id: string; name: string; key: string }
       >({
-        query: ({ token, id, name, key }) => ({
+        query: ({ id, name, key }) => ({
           url: `app-groups/${id}`,
           method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           body: { name, key },
         }),
       }),
-      deleteAppGroup: builder.mutation<any, { token: string; id: string }>({
-        query: ({ token, id }) => ({
+      deleteAppGroup: builder.mutation<any, string>({
+        query: (id) => ({
           url: `app-groups/${id}`,
           method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         invalidatesTags: ['groups'],
       }),
-      getApp: builder.query<Application, { token: string; id: string }>({
-        query: ({ token, id }) => ({
+      getApp: builder.query<Application, string>({
+        query: (id) => ({
           url: `applications/${id}`,
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         providesTags: ['groups', 'apps'],
       }),
-      createApp: builder.mutation<
-        string,
-        { token: string; group: string; name: string }
-      >({
-        query: ({ token, group, name }) => ({
+      createApp: builder.mutation<string, { group: string; name: string }>({
+        query: ({ group, name }) => ({
           url: `applications`,
           method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
           body: { group_id: group, name },
         }),
         invalidatesTags: ['apps'],
       }),
-      updateApp: builder.mutation<string, { token: string; name: string }>({
-        query: ({ token, name }) => ({
+      updateApp: builder.mutation<string, { id: string; name: string }>({
+        query: ({ id, name }) => ({
           url: `applications`,
           method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: { name },
+          body: { id, name },
         }),
         invalidatesTags: ['apps'],
       }),
-      deleteApp: builder.mutation<any, { token: string; id: string }>({
-        query: ({ token, id }) => ({
+      deleteApp: builder.mutation<any, string>({
+        query: (id) => ({
           url: `applications/${id}`,
           method: 'DELETE',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }),
         invalidatesTags: ['apps'],
       }),
@@ -171,33 +132,28 @@ export const appsSlice = createSlice({
 
 export const { changeActiveGroup } = appsSlice.actions;
 
-export const selectAppGroups = (token: string) =>
+export const selectAppGroups = createSelector(
+  appsApiSlice.endpoints.getAppGroups.select(undefined),
+  (res) => res.data
+);
+export const selectAppGroup = (id: string) =>
   createSelector(
-    appsApiSlice.endpoints.getAppGroups.select(token),
+    appsApiSlice.endpoints.getAppGroup.select(id),
     (res) => res.data
   );
-export const selectAppGroup = (token: string, id: string) =>
+export const selectAppGroupApps = (id: string) =>
   createSelector(
-    appsApiSlice.endpoints.getAppGroup.select({ token, id }),
+    appsApiSlice.endpoints.getAppGroupApps.select(id),
     (res) => res.data
   );
-export const selectAppGroupApps = (token: string, id: string) =>
-  createSelector(
-    appsApiSlice.endpoints.getAppGroupApps.select({ token, id }),
-    (res) => res.data
-  );
-export const selectApp = (token: string, id: string) =>
-  createSelector(
-    appsApiSlice.endpoints.getApp.select({ token, id }),
-    (res) => res.data
-  );
+export const selectApp = (id: string) =>
+  createSelector(appsApiSlice.endpoints.getApp.select(id), (res) => res.data);
 
-export const selectActiveGroup = (token: string) =>
-  createSelector(
-    (state: RootState) => state.apps.activeGroup,
-    selectAppGroups(token),
-    (activeGroup, groups) => groups?.find((g) => g.id === activeGroup)
-  );
+export const selectActiveGroup = createSelector(
+  (state: RootState) => state.apps.activeGroup,
+  selectAppGroups,
+  (activeGroup, groups) => groups?.find((g) => g.id === activeGroup)
+);
 
 // export const selectApp = (token: string, id: string) => createSelector(
 //   selectActiveGroup(token),

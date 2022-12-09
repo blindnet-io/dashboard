@@ -1,4 +1,4 @@
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Alert, Spinner } from 'react-bootstrap';
 import { skipToken } from '@reduxjs/toolkit/query/react';
@@ -11,25 +11,19 @@ import {
 } from '../../../store/appsSlice';
 
 export function AppsGroupView() {
-  const { token } = useOutletContext<{ token: string }>();
-
-  const activeGroup = useSelector(selectActiveGroup(token));
+  const activeGroup = useSelector(selectActiveGroup);
 
   const {
     data: group,
     error: groupFetchingError,
     isLoading: loadingGroup,
-  } = useGetAppGroupQuery(
-    activeGroup ? { token, id: activeGroup.id } : skipToken
-  );
+  } = useGetAppGroupQuery(activeGroup?.id || skipToken);
 
   const {
     data: apps,
     error: appsFetchingError,
     isLoading: loadingApps,
-  } = useGetAppGroupAppsQuery(
-    activeGroup ? { token, id: activeGroup.id } : skipToken
-  );
+  } = useGetAppGroupAppsQuery(activeGroup?.id || skipToken);
 
   function render(group: AppGroup, apps: Array<Application>) {
     return (

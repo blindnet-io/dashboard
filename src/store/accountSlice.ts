@@ -8,12 +8,9 @@ const initialState: AccountState = {};
 const accountApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getInfo: builder.query<{}, any>({
-      query: (token) => ({
+      query: () => ({
         url: 'account',
         method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
       }),
       // ransformResponse: (response, meta, arg) => response
     }),
@@ -31,9 +28,10 @@ export const accountSlice = createSlice({
 
 // export const { } = accountSlice.actions
 
-export const selectAccountInfoResult = (token: string) =>
-  accountApiSlice.endpoints.getInfo.select(token);
 export const selectAccountInfo = (token: string) =>
-  createSelector(selectAccountInfoResult(token), (res) => res.data);
+  createSelector(
+    accountApiSlice.endpoints.getInfo.select(undefined),
+    (res) => res.data
+  );
 
 export default accountSlice.reducer;

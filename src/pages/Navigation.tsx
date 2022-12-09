@@ -1,11 +1,9 @@
-import { Outlet, Link, useOutletContext } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import logo from '../assets/logos/full-logo.png';
 // import { selectToken } from '../store/authSlice'
 // import { useAppDispatch, useAppSelector } from '../store/hooks'
 
 export function Navigation() {
-  const { token } = useOutletContext<{ token: string }>();
-
   // const dispatch = useAppDispatch()
 
   const logout = () => {
@@ -99,7 +97,7 @@ export function Navigation() {
         </div>
       </nav>
       {/* Main content */}
-      <Outlet context={{ token }} />
+      <Outlet />
     </div>
   );
 }
