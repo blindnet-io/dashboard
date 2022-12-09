@@ -6,7 +6,7 @@ import { Application, useGetAppQuery } from '../../../store/appsSlice';
 
 import styles from './style.module.scss';
 
-export function AppPage() {
+export function AppView() {
   const { token } = useOutletContext<{ token: string }>();
   const { id } = useParams();
 
@@ -84,4 +84,4 @@ export function AppPage() {
   );
 }
 
-export default AppPage;
+export default AppView;

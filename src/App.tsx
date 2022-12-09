@@ -15,15 +15,15 @@ const Navigation = lazy(() => import('./pages/Navigation'));
 const ApplicationsPanel = lazy(
   () => import('./pages/applications/ApplicationsPanel')
 );
-const AppGroupPage = lazy(
-  () => import('./pages/applications/group/AppGroupPage')
+const AppGroupView = lazy(
+  () => import('./pages/applications/group/AppGroupView')
 );
-const CreateNewAppGroupPage = lazy(
-  () => import('./pages/applications/create-group/CreateNewAppGroupPage')
+const CreateAppGroup = lazy(
+  () => import('./pages/applications/create-group/CreateAppGroup')
 );
-const AppPage = lazy(() => import('./pages/applications/app/AppPage'));
-const CreateNewAppPage = lazy(
-  () => import('./pages/applications/create-app/CreateNewAppPage')
+const AppView = lazy(() => import('./pages/applications/app/AppView'));
+const CreateApp = lazy(
+  () => import('./pages/applications/create-app/CreateApp')
 );
 
 function App() {
@@ -38,13 +38,10 @@ function App() {
             <Route element={<Navigation />}>
               <Route element={<VerifiedProtectedRoute />}>
                 <Route element={<ApplicationsPanel />}>
-                  <Route index element={<AppGroupPage />} />
-                  <Route
-                    path="group/create"
-                    element={<CreateNewAppGroupPage />}
-                  />
-                  <Route path="app/:id" element={<AppPage />} />
-                  <Route path="app/create" element={<CreateNewAppPage />} />
+                  <Route index element={<AppGroupView />} />
+                  <Route path="group/create" element={<CreateAppGroup />} />
+                  <Route path="app/:id" element={<AppView />} />
+                  <Route path="app/create" element={<CreateApp />} />
                 </Route>
               </Route>
             </Route>

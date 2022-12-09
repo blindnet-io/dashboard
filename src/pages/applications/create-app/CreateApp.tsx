@@ -8,7 +8,7 @@ import {
 // import { useAppDispatch } from '../../../store/hooks';
 import { useSelector } from 'react-redux';
 
-export function CreateNewApp() {
+export function CreateApp() {
   const { token } = useOutletContext<{ token: string }>();
 
   const navigate = useNavigate();
@@ -90,4 +90,4 @@ export function CreateNewApp() {
   );
 }
 
-export default CreateNewApp;
+export default CreateApp;

@@ -10,7 +10,7 @@ import {
   Application,
 } from '../../../store/appsSlice';
 
-export function AppsGroupPage() {
+export function AppsGroupView() {
   const { token } = useOutletContext<{ token: string }>();
 
   const activeGroup = useSelector(selectActiveGroup(token));
@@ -88,4 +88,4 @@ export function AppsGroupPage() {
   );
 }
 
-export default AppsGroupPage;
+export default AppsGroupView;

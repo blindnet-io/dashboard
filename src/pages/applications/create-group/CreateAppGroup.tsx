@@ -11,7 +11,7 @@ import { useAppDispatch } from '../../../store/hooks';
 
 import styles from './style.module.scss';
 
-export function CreateNewAppGroupPage() {
+export function CreateAppGroup() {
   const { token } = useOutletContext<{ token: string }>();
 
   const navigate = useNavigate();
@@ -122,4 +122,4 @@ export function CreateNewAppGroupPage() {
   );
 }
 
-export default CreateNewAppGroupPage;
+export default CreateAppGroup;
