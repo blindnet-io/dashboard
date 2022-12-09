@@ -9,8 +9,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src --ext js,ts,tsx --cache",
     "format": "prettier --write src",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "server": "nodemon fake-api/server.js"
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "dependencies": {
     "@noble/ed25519": "^1.7.1",
@@ -38,10 +37,7 @@
     "@types/react-dom": "^18.0.9",
     "@types/redux-logger": "^3.0.9",
     "@webpixels/css": "^1.2.13",
-    "body-parser": "^1.20.1",
     "bootstrap": "^5.2.3",
-    "cors": "^2.8.5",
-    "nodemon": "^2.0.20",
     "prettier": "^2.8.1"
   },
   "engines": {
