@@ -6,6 +6,7 @@ import {
   selectActiveGroup,
 } from '../../../store/appsSlice';
 import { useAppSelector } from '../../../store/hooks';
+import SectionHeader from '../../../components/SectionHeader';
 
 export function CreateApp() {
   const navigate = useNavigate();
@@ -29,20 +30,7 @@ export function CreateApp() {
     <div className="h-screen flex-grow-1 overflow-y-lg-auto">
       <div className="container-fluid max-w-screen-md vstack gap-6">
         <div>
-          <div className="row mb-5">
-            <div className="col-md-6 col-12">
-              <h2>Create new application</h2>
-            </div>
-            <div className="col-6 d-none d-md-block text-end">
-              <Link to="/">
-                <button
-                  type="button"
-                  className="btn-close"
-                  aria-label="Close"
-                ></button>
-              </Link>
-            </div>
-          </div>
+          <SectionHeader name={'Create new application'} />
           <div className="form-floating">
             <div className="row g-5">
               <div className="col-12">

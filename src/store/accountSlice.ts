@@ -23,7 +23,7 @@ export const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {},
-  extraReducers: (builder) => { },
+  extraReducers: (builder) => {},
 });
 
 // export const { } = accountSlice.actions

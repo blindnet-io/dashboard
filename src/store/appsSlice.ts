@@ -24,7 +24,7 @@ const initialState: AppsState = {
 
 const appsApiSlice = api.injectEndpoints({
   endpoints: (builder) => ({
-    getAppGroups: builder.query<Array<AppGroup>, any>({
+    getAppGroups: builder.query<Array<AppGroup>, void>({
       query: () => ({
         url: 'app-groups',
         method: 'GET',
@@ -126,7 +126,7 @@ export const appsSlice = createSlice({
       state.activeGroup = action.payload;
     },
   },
-  extraReducers: (builder) => { },
+  extraReducers: (builder) => {},
 });
 
 export const { changeActiveGroup } = appsSlice.actions;

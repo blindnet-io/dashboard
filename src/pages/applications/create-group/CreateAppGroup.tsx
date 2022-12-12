@@ -10,6 +10,7 @@ import {
 import { useAppDispatch } from '../../../store/hooks';
 
 import styles from './style.module.scss';
+import SectionHeader from '../../../components/SectionHeader';
 
 export function CreateAppGroup() {
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ export function CreateAppGroup() {
   const [privateKey, setPrivateKey] = useState('');
 
   const [create, { isError }] = useCreateAppGroupMutation();
-  // const { refetch } = useGetAppGroupsQuery(token)
 
   const id = useId();
 
@@ -36,8 +36,6 @@ export function CreateAppGroup() {
   const submit = async () => {
     const publicKey = await ed.getPublicKey(b64str2bin(privateKey));
     const res = await create({ name, key: bin2b64str(publicKey) });
-    // await new Promise(r => setTimeout(r, 200))
-    // await refetch()
 
     if ('data' in res) {
       dispatch(changeActiveGroup(res.data));
@@ -48,20 +46,7 @@ export function CreateAppGroup() {
   return (
     <div className="h-screen flex-grow-1 overflow-y-lg-auto">
       <div className="container-fluid max-w-screen-md vstack gap-6">
-        <div className="row mb-5">
-          <div className="col-md-6 col-12">
-            <h2>Create new group</h2>
-          </div>
-          <div className="col-6 d-none d-md-block text-end">
-            <Link to="/">
-              <button
-                type="button"
-                className="btn-close"
-                aria-label="Close"
-              ></button>
-            </Link>
-          </div>
-        </div>
+        <SectionHeader name={'Create new group'} />
         <div className="form-floating">
           <div className="row g-5">
             <div className="col-12">
