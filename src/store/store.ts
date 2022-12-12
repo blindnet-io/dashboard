@@ -4,19 +4,19 @@ import logger from 'redux-logger';
 import authSlice from './authSlice';
 import accountReducer from './accountSlice';
 import appsReducer from './appsSlice';
-import { apiSlice } from './apiSlice';
+import { api } from './api';
 
 export const store = configureStore({
   middleware: (getDefault) =>
     getDefault().concat(
-      apiSlice.middleware,
+      api.middleware,
       ...(process.env.NODE_ENV === 'development' ? [logger] : [])
     ),
   reducer: {
     auth: authSlice,
     account: accountReducer,
     apps: appsReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
+    [api.reducerPath]: api.reducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

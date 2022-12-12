@@ -1,11 +1,11 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
-import { apiSlice } from './apiSlice';
+import { api } from './api';
 
 type AccountState = {};
 
 const initialState: AccountState = {};
 
-const accountApiSlice = apiSlice.injectEndpoints({
+const accountApiSlice = api.injectEndpoints({
   endpoints: (builder) => ({
     getInfo: builder.query<{}, any>({
       query: () => ({
@@ -23,7 +23,7 @@ export const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => { },
 });
 
 // export const { } = accountSlice.actions

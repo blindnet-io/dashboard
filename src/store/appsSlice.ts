@@ -1,5 +1,5 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { apiSlice } from './apiSlice';
+import { api } from './api';
 import { RootState } from './store';
 
 export type Application = {
@@ -22,7 +22,7 @@ const initialState: AppsState = {
   activeGroup: null,
 };
 
-const appsApiSlice = apiSlice.injectEndpoints({
+const appsApiSlice = api.injectEndpoints({
   endpoints: (builder) => ({
     getAppGroups: builder.query<Array<AppGroup>, any>({
       query: () => ({
@@ -63,6 +63,7 @@ const appsApiSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body: { name, key },
       }),
+      invalidatesTags: ['groups'],
     }),
     deleteAppGroup: builder.mutation<any, string>({
       query: (id) => ({
@@ -125,7 +126,7 @@ export const appsSlice = createSlice({
       state.activeGroup = action.payload;
     },
   },
-  extraReducers: (builder) => {},
+  extraReducers: (builder) => { },
 });
 
 export const { changeActiveGroup } = appsSlice.actions;
