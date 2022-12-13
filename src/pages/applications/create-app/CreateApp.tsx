@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from 'react-hook-form';
 import {
   useCreateAppMutation,
   selectActiveGroup,
@@ -12,7 +12,7 @@ import { renderRequiredError } from '../../../util/validations';
 import SubmitButton from '../../../components/SubmitButton';
 
 type Inputs = {
-  name: string,
+  name: string;
 };
 
 export function CreateApp() {
@@ -20,7 +20,11 @@ export function CreateApp() {
 
   const activeGroup = useAppSelector(selectActiveGroup);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
 
   const [create, createAppState] = useCreateAppMutation();
 
@@ -49,10 +53,15 @@ export function CreateApp() {
                   <input
                     type="text"
                     id={`${id}-name`}
-                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                    {...register("name", { required: true })}
+                    className={`form-control ${
+                      errors.name ? 'is-invalid' : ''
+                    }`}
+                    {...register('name', { required: true })}
                   />
-                  {renderRequiredError(errors.name, "Please enter your application's name")}
+                  {renderRequiredError(
+                    errors.name,
+                    "Please enter your application's name"
+                  )}
                 </div>
               </div>
 
@@ -60,7 +69,10 @@ export function CreateApp() {
                 <Link to="/" className="btn btn-sm btn-neutral me-2">
                   Cancel
                 </Link>
-                <SubmitButton label="Save" isLoading={createAppState.isLoading} />
+                <SubmitButton
+                  label="Save"
+                  isLoading={createAppState.isLoading}
+                />
               </div>
 
               {createAppState.isError && (
@@ -68,13 +80,11 @@ export function CreateApp() {
                   Error occurred. Please try again.
                 </Alert>
               )}
-
             </div>
           </form>
-
         </div>
       </div>
-    </div >
+    </div>
   );
 }
 

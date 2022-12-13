@@ -13,7 +13,9 @@ const AuthProtectedRoute = () => {
 
   // TODO: use other endpoint to check token validity
   // TODO: periodically invalidate token
-  const { isError, isLoading } = useStatusQuery(token || skipToken, { pollingInterval: 60000 });
+  const { isError, isLoading } = useStatusQuery(token || skipToken, {
+    pollingInterval: 60000,
+  });
 
   return (
     <>

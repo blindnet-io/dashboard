@@ -1,7 +1,7 @@
-import { useEffect, useId, useState } from 'react';
+import { useId } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from 'react-hook-form';
 import * as ed from '@noble/ed25519';
 import { bin2b64str, b64str2bin } from '../../../util/conversions';
 import {
@@ -10,24 +10,33 @@ import {
 } from '../../../store/appsSlice';
 import { useAppDispatch } from '../../../store/hooks';
 import SectionHeader from '../../../components/SectionHeader';
-import { renderBadFormatError, renderRequiredError, validateSecretKey } from '../../../util/validations';
+import {
+  renderBadFormatError,
+  renderRequiredError,
+  validateSecretKey,
+} from '../../../util/validations';
 
 import styles from './style.module.scss';
 import SubmitButton from '../../../components/SubmitButton';
 
 type Inputs = {
-  name: string,
-  key: string,
+  name: string;
+  key: string;
 };
 
 export function CreateAppGroup() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const { register, handleSubmit, getValues, formState: { errors } } = useForm<Inputs>({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm<Inputs>({
     defaultValues: {
-      key: bin2b64str(ed.utils.randomPrivateKey())
-    }
+      key: bin2b64str(ed.utils.randomPrivateKey()),
+    },
   });
 
   const [create, createGroupState] = useCreateAppGroupMutation();
@@ -65,9 +74,12 @@ export function CreateAppGroup() {
                   type="text"
                   id={`${id}-name`}
                   className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                  {...register("name", { required: true })}
+                  {...register('name', { required: true })}
                 />
-                {renderRequiredError(errors.name, "Please enter the groups's name")}
+                {renderRequiredError(
+                  errors.name,
+                  "Please enter the groups's name"
+                )}
               </div>
             </div>
 
@@ -75,11 +87,20 @@ export function CreateAppGroup() {
               <label className="form-label" htmlFor={`${id}-private-key`}>
                 Key
               </label>
-              <div className={`input-group ${errors.key ? `is-invalid ${styles.removeInputGroupShadow}` : ''}`}>
+              <div
+                className={`input-group ${
+                  errors.key
+                    ? `is-invalid ${styles.removeInputGroupShadow}`
+                    : ''
+                }`}
+              >
                 <textarea
                   id={`${id}-private-key`}
                   className={`form-control ${errors.key ? 'is-invalid' : ''}`}
-                  {...register("key", { required: true, validate: validateSecretKey })}
+                  {...register('key', {
+                    required: true,
+                    validate: validateSecretKey,
+                  })}
                 />
                 <span
                   className={`input-group-text ${styles.copy}`}
@@ -87,11 +108,15 @@ export function CreateAppGroup() {
                 >
                   <i className="bi bi-clipboard"></i>
                 </span>
-                {renderRequiredError(errors.key, "Please enter the key")}
-                {renderBadFormatError(errors.key, "Please enter the base64 encoded Ed25519 key")}
+                {renderRequiredError(errors.key, 'Please enter the key')}
+                {renderBadFormatError(
+                  errors.key,
+                  'Please enter the base64 encoded Ed25519 key'
+                )}
               </div>
               <span className="d-block mt-2 text-sm text-muted">
-                Save this key and keep it secret. If lost, you'll have to generate a new one.
+                Save this key and keep it secret. If lost, you'll have to
+                generate a new one.
               </span>
             </div>
 
@@ -101,11 +126,13 @@ export function CreateAppGroup() {
               <Link to="/" className="btn btn-sm btn-neutral me-2">
                 Cancel
               </Link>
-              <SubmitButton label="Save" isLoading={createGroupState.isLoading} />
+              <SubmitButton
+                label="Save"
+                isLoading={createGroupState.isLoading}
+              />
             </div>
           </div>
         </form>
-
       </div>
     </div>
   );

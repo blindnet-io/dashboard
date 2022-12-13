@@ -1,22 +1,30 @@
 import { useId } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLoginMutation } from '../../../store/authSlice';
 import logo from '../../../assets/logos/b-logo.png';
 import { hashPassword } from '../../../util/crypto';
-import { renderBadFormatError, renderRequiredError, validateEmail } from '../../../util/validations';
+import {
+  renderBadFormatError,
+  renderRequiredError,
+  validateEmail,
+} from '../../../util/validations';
 import SubmitButton from '../../../components/SubmitButton';
 
 type Inputs = {
-  email: string,
-  password: string,
+  email: string;
+  password: string;
 };
 
 export function LoginPage() {
   const navigate = useNavigate();
 
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
 
   const [login, loginState] = useLoginMutation();
 
@@ -50,13 +58,18 @@ export function LoginPage() {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      errors.email ? 'is-invalid' : ''
+                    }`}
                     id={`${id}-email`}
                     placeholder="Your email address"
-                    {...register("email", { required: true, validate: validateEmail })}
+                    {...register('email', {
+                      required: true,
+                      validate: validateEmail,
+                    })}
                   />
-                  {renderRequiredError(errors.email, "Please enter your email")}
-                  {renderBadFormatError(errors.email, "Email in wrong format")}
+                  {renderRequiredError(errors.email, 'Please enter your email')}
+                  {renderBadFormatError(errors.email, 'Email in wrong format')}
                 </div>
                 <div className="mb-5">
                   <label className="form-label" htmlFor={`${id}-password`}>
@@ -64,16 +77,25 @@ export function LoginPage() {
                   </label>
                   <input
                     type="password"
-                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                    className={`form-control ${
+                      errors.password ? 'is-invalid' : ''
+                    }`}
                     id={`${id}-password`}
                     placeholder="Password"
                     autoComplete="current-password"
-                    {...register("password", { required: true })}
+                    {...register('password', { required: true })}
                   />
-                  {renderRequiredError(errors.password, "Please enter your password")}
+                  {renderRequiredError(
+                    errors.password,
+                    'Please enter your password'
+                  )}
                 </div>
                 <div>
-                  <SubmitButton label="Login" isLoading={loginState.isLoading} big />
+                  <SubmitButton
+                    label="Login"
+                    isLoading={loginState.isLoading}
+                    big
+                  />
                 </div>
               </form>
 
