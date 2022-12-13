@@ -6,7 +6,7 @@ const VerifiedProtectedRoute = () => {
   const { data, isError, isLoading } = useStatusQuery(undefined);
 
   return (
-    <div className="h-screen flex-grow-1 overflow-y-lg-auto">
+    <>
       {isLoading && (
         // TODO: put to center of page
         <Spinner />
@@ -26,7 +26,7 @@ const VerifiedProtectedRoute = () => {
         </div>
       )}
       {data?.verified === true && <Outlet />}
-    </div>
+    </>
   );
 };
 

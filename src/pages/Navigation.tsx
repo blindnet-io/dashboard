@@ -1,5 +1,6 @@
 import { Outlet, Link } from 'react-router-dom';
 import logo from '../assets/logos/full-logo.png';
+import LegalLinksFooter from '../components/LegalLinksFooter';
 // import { selectToken } from '../store/authSlice'
 // import { useAppDispatch, useAppSelector } from '../store/hooks'
 
@@ -97,7 +98,13 @@ export function Navigation() {
         </div>
       </nav>
       {/* Main content */}
-      <Outlet />
+      <div className="h-screen h-100 d-flex flex-column flex-grow-1 overflow-y-lg-auto">
+        <Outlet />
+
+        <footer className="footer mt-auto py-1 ps-5 bg-light">
+          <LegalLinksFooter />
+        </footer>
+      </div>
     </div>
   );
 }
