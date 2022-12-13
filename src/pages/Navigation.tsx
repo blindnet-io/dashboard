@@ -13,7 +13,7 @@ export function Navigation() {
   };
 
   return (
-    <div className="d-flex flex-column flex-lg-row h-lg-full bg-gray-100">
+    <div className="h-screen d-flex flex-column flex-lg-row h-lg-full bg-gray-100">
       {/* Vertical navbar */}
       <nav
         className="navbar show navbar-vertical h-lg-screen navbar-expand-lg px-0 py-3 py-lg-0 navbar-light bg-light border-end-lg"

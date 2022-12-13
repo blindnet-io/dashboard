@@ -13,7 +13,7 @@ export function AppView() {
   return (
     <>
       {id ? <></> : <Navigate to="/" />}
-      <div className="h-screen flex-grow-1 overflow-y-lg-auto">
+      <div className="flex-grow-1 overflow-y-lg-auto">
         <div className="container-fluid max-w-screen-md vstack gap-6">
           {isLoading && <Spinner />}
           {isError && (

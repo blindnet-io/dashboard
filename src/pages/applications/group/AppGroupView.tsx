@@ -29,7 +29,11 @@ export function AppsGroupView() {
       {(groupFetchingError || appsFetchingError) && (
         <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
       )}
-      {group !== undefined && apps !== undefined && <AppList apps={apps} />}
+      {group !== undefined && apps !== undefined && (
+        <div className="flex-grow-1 overflow-y-lg-auto">
+          <AppList apps={apps} />
+        </div>
+      )}
     </>
   );
 }

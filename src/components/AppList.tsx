@@ -17,7 +17,7 @@ export function AppList({ apps }: { apps: Application[] }) {
       <div className="mb-2"></div>
       <div
         className="list-group list-group-light overflow-auto"
-        style={{ height: '80vh', minHeight: '200px' }}
+        style={{ height: '70vh', minHeight: '200px' }}
       >
         {apps.map((app) => (
           <Link

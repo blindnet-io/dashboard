@@ -41,7 +41,8 @@ export function ApplicationsPanel() {
   };
 
   return (
-    <div className="h-screen px-3 px-lg-7 flex-grow-1 overflow-y-lg-auto">
+    <div className="px-3 px-lg-7 flex-grow-1 overflow-y-lg-auto">
+      {/* header */}
       {groupsFetched && activeGroup && (
         <ApplicationsHeader
           groups={appGroups}
@@ -50,6 +51,7 @@ export function ApplicationsPanel() {
           change={changeGroup}
         />
       )}
+      {/* main content */}
       <main className="py-10 bg-surface-secondary">
         <div className="container-xl">
           {/* <div className="border border-2 bg-surface-secondary h-full border-dashed rounded d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 400 }}>
@@ -59,7 +61,9 @@ export function ApplicationsPanel() {
           <Outlet />
         </div>
       </main>
+      {/* loading */}
       {loadingGroups && <Spinner />}
+      {/* error occurred */}
       {appGroupsFetchingError && !activeGroup && (
         <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
       )}
