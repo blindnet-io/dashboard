@@ -9,6 +9,7 @@ import {
 import { useAppSelector } from '../../../store/hooks';
 import SectionHeader from '../../../components/SectionHeader';
 import { renderRequiredError } from '../../../util/validations';
+import SubmitButton from '../../../components/SubmitButton';
 
 type Inputs = {
   name: string,
@@ -21,7 +22,7 @@ export function CreateApp() {
 
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
-  const [create, { isError }] = useCreateAppMutation();
+  const [create, createAppState] = useCreateAppMutation();
 
   const id = useId();
 
@@ -59,10 +60,10 @@ export function CreateApp() {
                 <Link to="/" className="btn btn-sm btn-neutral me-2">
                   Cancel
                 </Link>
-                <button type="submit" className="btn btn-sm btn-primary">Save</button>
+                <SubmitButton label="Save" isLoading={createAppState.isLoading} />
               </div>
 
-              {isError && (
+              {createAppState.isError && (
                 <Alert variant="danger">
                   Error occurred. Please try again.
                 </Alert>

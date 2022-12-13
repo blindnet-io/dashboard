@@ -6,6 +6,7 @@ import { useRegisterMutation } from '../../../store/authSlice';
 import logo from '../../../assets/logos/b-logo.png';
 import { hashPassword } from '../../../util/crypto';
 import { renderBadFormatError, renderRequiredError, validateEmail } from '../../../util/validations';
+import SubmitButton from '../../../components/SubmitButton';
 
 type Inputs = {
   email: string,
@@ -72,7 +73,7 @@ export function RegisterPage() {
                   {renderRequiredError(errors.password, "Please enter your password")}
                 </div>
                 <div>
-                  <button type="submit" className="btn btn-primary w-full">Sign up</button>
+                  <SubmitButton label="Sign up" isLoading={registerState.isLoading} big />
                 </div>
               </form>
 

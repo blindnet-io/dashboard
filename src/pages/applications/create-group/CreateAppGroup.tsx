@@ -13,6 +13,7 @@ import SectionHeader from '../../../components/SectionHeader';
 import { renderBadFormatError, renderRequiredError, validateSecretKey } from '../../../util/validations';
 
 import styles from './style.module.scss';
+import SubmitButton from '../../../components/SubmitButton';
 
 type Inputs = {
   name: string,
@@ -29,7 +30,7 @@ export function CreateAppGroup() {
     }
   });
 
-  const [create, { isError }] = useCreateAppGroupMutation();
+  const [create, createGroupState] = useCreateAppGroupMutation();
 
   const id = useId();
 
@@ -94,13 +95,13 @@ export function CreateAppGroup() {
               </span>
             </div>
 
-            {isError && <Alert variant="danger">Error</Alert>}
+            {createGroupState.isError && <Alert variant="danger">Error</Alert>}
 
             <div className="col-12 text-end">
               <Link to="/" className="btn btn-sm btn-neutral me-2">
                 Cancel
               </Link>
-              <button type="submit" className="btn btn-sm btn-primary">Save</button>
+              <SubmitButton label="Save" isLoading={createGroupState.isLoading} />
             </div>
           </div>
         </form>
