@@ -48,7 +48,7 @@ export function ApplicationsPanel() {
           groups={appGroups}
           activeGroup={activeGroup}
           fetching={fetchingGroups}
-          change={changeGroup}
+          onSelectGroup={changeGroup}
         />
       )}
       {/* main content */}

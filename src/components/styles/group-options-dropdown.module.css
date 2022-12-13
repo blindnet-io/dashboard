@@ -1,0 +1,7 @@
+.dropMenu {
+  width: 300px;
+}
+
+.dropMenuItem {
+  white-space: break-spaces !important;
+}
