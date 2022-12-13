@@ -89,6 +89,9 @@ export function CreateAppGroup() {
                 {renderRequiredError(errors.key, "Please enter the key")}
                 {renderBadFormatError(errors.key, "Please enter the base64 encoded Ed25519 key")}
               </div>
+              <span className="d-block mt-2 text-sm text-muted">
+                Save this key and keep it secret. If lost, you'll have to generate a new one.
+              </span>
             </div>
 
             {isError && <Alert variant="danger">Error</Alert>}
