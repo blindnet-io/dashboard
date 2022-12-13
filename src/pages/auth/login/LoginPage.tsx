@@ -1,24 +1,29 @@
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useLoginMutation } from '../../../store/authSlice';
 import logo from '../../../assets/logos/b-logo.png';
 import { hashPassword } from '../../../util/crypto';
+import { renderBadFormatError, renderRequiredError, validateEmail } from '../../../util/validations';
+
+type Inputs = {
+  email: string,
+  password: string,
+};
 
 export function LoginPage() {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
   const [login, loginState] = useLoginMutation();
 
   const id = useId();
 
-  const submit = async () => {
-    const hash = await hashPassword(password);
-
-    const res = await login({ email, password: hash });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const hash = await hashPassword(data.password);
+    const res = await login({ email: data.email, password: hash });
     if ('data' in res) {
       const { token } = res.data;
       localStorage.setItem('token', token);
@@ -36,41 +41,43 @@ export function LoginPage() {
                 <img src={logo} className="h-12" alt="..." />
                 <h1 className="ls-tight font-bolder mt-6">Welcome back!</h1>
               </div>
-              <div className="mb-5">
-                <label className="form-label" htmlFor={`${id}-email`}>
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id={`${id}-email`}
-                  placeholder="Your email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="mb-5">
-                <label className="form-label" htmlFor={`${id}-password`}>
-                  Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id={`${id}-password`}
-                  placeholder="Password"
-                  autoComplete="current-password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div>
-                <button className="btn btn-primary w-full" onClick={submit}>
-                  Sign in
-                </button>
-              </div>
-              <div className="mt-5" />
+
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="mb-5">
+                  <label className="form-label" htmlFor={`${id}-email`}>
+                    Email address
+                  </label>
+                  <input
+                    type="text"
+                    className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+                    id={`${id}-email`}
+                    placeholder="Your email address"
+                    {...register("email", { required: true, validate: validateEmail })}
+                  />
+                  {renderRequiredError(errors.email, "Please enter your email")}
+                  {renderBadFormatError(errors.email, "Email in wrong format")}
+                </div>
+                <div className="mb-5">
+                  <label className="form-label" htmlFor={`${id}-password`}>
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                    id={`${id}-password`}
+                    placeholder="Password"
+                    autoComplete="current-password"
+                    {...register("password", { required: true })}
+                  />
+                  {renderRequiredError(errors.password, "Please enter your password")}
+                </div>
+                <div>
+                  <button type="submit" className="btn btn-primary w-full">Login</button>
+                </div>
+              </form>
+
               {loginState.isError && (
-                <Alert variant="danger">
+                <Alert variant="danger" className="mt-5">
                   Login failed. Account not found or wrong password.
                 </Alert>
               )}

@@ -1,26 +1,32 @@
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
   useCreateAppMutation,
   selectActiveGroup,
 } from '../../../store/appsSlice';
 import { useAppSelector } from '../../../store/hooks';
 import SectionHeader from '../../../components/SectionHeader';
+import { renderRequiredError } from '../../../util/validations';
+
+type Inputs = {
+  name: string,
+};
 
 export function CreateApp() {
   const navigate = useNavigate();
 
   const activeGroup = useAppSelector(selectActiveGroup);
 
-  const [name, setName] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
   const [create, { isError }] = useCreateAppMutation();
 
   const id = useId();
 
-  const submit = async () => {
-    const res = await create({ group: activeGroup!.id, name });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const res = await create({ group: activeGroup!.id, name: data.name });
     if ('data' in res) {
       navigate('/');
     }
@@ -31,21 +37,29 @@ export function CreateApp() {
       <div className="container-fluid max-w-screen-md vstack gap-6">
         <div>
           <SectionHeader name={'Create new application'} />
-          <div className="form-floating">
+
+          <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
             <div className="row g-5">
               <div className="col-12">
-                <div>
+                <div className="mb-5">
                   <label className="form-label" htmlFor={`${id}-name`}>
                     Name
                   </label>
                   <input
                     type="text"
                     id={`${id}-name`}
-                    className="form-control"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                    {...register("name", { required: true })}
                   />
+                  {renderRequiredError(errors.name, "Please enter your application's name")}
                 </div>
+              </div>
+
+              <div className="col-12 text-end">
+                <Link to="/" className="btn btn-sm btn-neutral me-2">
+                  Cancel
+                </Link>
+                <button type="submit" className="btn btn-sm btn-primary">Save</button>
               </div>
 
               {isError && (
@@ -54,23 +68,12 @@ export function CreateApp() {
                 </Alert>
               )}
 
-              <div className="col-12 text-end">
-                <Link to="/" className="btn btn-sm btn-neutral me-2">
-                  Cancel
-                </Link>
-                <button
-                  type="submit"
-                  onClick={submit}
-                  className="btn btn-sm btn-primary"
-                >
-                  Save
-                </button>
-              </div>
             </div>
-          </div>
+          </form>
+
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

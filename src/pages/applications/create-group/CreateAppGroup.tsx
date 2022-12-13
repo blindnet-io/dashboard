@@ -1,6 +1,7 @@
 import { useEffect, useId, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
+import { SubmitHandler, useForm } from "react-hook-form";
 import * as ed from '@noble/ed25519';
 import { bin2b64str, b64str2bin } from '../../../util/conversions';
 import {
@@ -8,34 +9,38 @@ import {
   changeActiveGroup,
 } from '../../../store/appsSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import SectionHeader from '../../../components/SectionHeader';
+import { renderBadFormatError, renderRequiredError, validateSecretKey } from '../../../util/validations';
 
 import styles from './style.module.scss';
-import SectionHeader from '../../../components/SectionHeader';
+
+type Inputs = {
+  name: string,
+  key: string,
+};
 
 export function CreateAppGroup() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const [name, setName] = useState('');
-  const [privateKey, setPrivateKey] = useState('');
+  const { register, handleSubmit, getValues, formState: { errors } } = useForm<Inputs>({
+    defaultValues: {
+      key: bin2b64str(ed.utils.randomPrivateKey())
+    }
+  });
 
   const [create, { isError }] = useCreateAppGroupMutation();
 
   const id = useId();
 
-  useEffect(() => {
-    const privateKey = ed.utils.randomPrivateKey();
-    setPrivateKey(bin2b64str(privateKey));
-  }, []);
-
   const copyKey = () => {
     (document.getElementById(`${id}-private-key`) as HTMLInputElement).select();
-    navigator.clipboard.writeText(privateKey);
+    navigator.clipboard.writeText(getValues().key);
   };
 
-  const submit = async () => {
-    const publicKey = await ed.getPublicKey(b64str2bin(privateKey));
-    const res = await create({ name, key: bin2b64str(publicKey) });
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const publicKey = await ed.getPublicKey(b64str2bin(data.key));
+    const res = await create({ name: data.name, key: bin2b64str(publicKey) });
 
     if ('data' in res) {
       dispatch(changeActiveGroup(res.data));
@@ -47,7 +52,8 @@ export function CreateAppGroup() {
     <div className="h-screen flex-grow-1 overflow-y-lg-auto">
       <div className="container-fluid max-w-screen-md vstack gap-6">
         <SectionHeader name={'Create new group'} />
-        <div className="form-floating">
+
+        <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-5">
             <div className="col-12">
               <div>
@@ -57,23 +63,22 @@ export function CreateAppGroup() {
                 <input
                   type="text"
                   id={`${id}-name`}
-                  className="form-control"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                  {...register("name", { required: true })}
                 />
+                {renderRequiredError(errors.name, "Please enter the groups's name")}
               </div>
             </div>
 
             <div className="col-12">
-              <label className="form-label" htmlFor={`${id}-name`}>
+              <label className="form-label" htmlFor={`${id}-private-key`}>
                 Key
               </label>
-              <div className="input-group">
+              <div className={`input-group ${errors.key ? `is-invalid ${styles.removeInputGroupShadow}` : ''}`}>
                 <textarea
                   id={`${id}-private-key`}
-                  className="form-control"
-                  value={privateKey}
-                  onChange={(e) => setPrivateKey(e.target.value)}
+                  className={`form-control ${errors.key ? 'is-invalid' : ''}`}
+                  {...register("key", { required: true, validate: validateSecretKey })}
                 />
                 <span
                   className={`input-group-text ${styles.copy}`}
@@ -81,6 +86,8 @@ export function CreateAppGroup() {
                 >
                   <i className="bi bi-clipboard"></i>
                 </span>
+                {renderRequiredError(errors.key, "Please enter the key")}
+                {renderBadFormatError(errors.key, "Please enter the base64 encoded Ed25519 key")}
               </div>
             </div>
 
@@ -90,16 +97,11 @@ export function CreateAppGroup() {
               <Link to="/" className="btn btn-sm btn-neutral me-2">
                 Cancel
               </Link>
-              <button
-                type="submit"
-                onClick={submit}
-                className="btn btn-sm btn-primary"
-              >
-                Save
-              </button>
+              <button type="submit" className="btn btn-sm btn-primary">Save</button>
             </div>
           </div>
-        </div>
+        </form>
+
       </div>
     </div>
   );
