@@ -6,6 +6,10 @@ import { useState } from 'react';
 
 import styles from './styles/group-options-dropdown.module.css';
 
+function truncate(s: string, len: number) {
+  return s.length > len ? s.slice(0, len - 1) + '…' : s;
+}
+
 function GroupOptionsDropdown({
   isLoading,
   activeGroup,
@@ -28,14 +32,14 @@ function GroupOptionsDropdown({
         setOpen(!open);
       }}
     >
-      <Dropdown.Toggle as={Button}>
+      <Dropdown.Toggle as={Button} variant="outline-primary">
         {isLoading && (
           <span
             className="spinner-border spinner-border-sm"
             role="status"
           ></span>
         )}{' '}
-        {activeGroup.name}
+        {truncate(activeGroup.name, 20)} {'   '}
       </Dropdown.Toggle>
 
       <Dropdown.Menu className={styles.dropMenu}>
