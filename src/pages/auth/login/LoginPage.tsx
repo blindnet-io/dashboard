@@ -11,6 +11,7 @@ import {
   validateEmail,
 } from '../../../util/validations';
 import SubmitButton from '../../../components/SubmitButton';
+import LegalLinks from '../../../components/LegalLinks';
 
 type Inputs = {
   email: string;
@@ -112,6 +113,9 @@ export function LoginPage() {
                 >
                   Sign up
                 </Link>
+              </div>
+              <div className="mt-5">
+                <LegalLinks />
               </div>
             </div>
           </div>
