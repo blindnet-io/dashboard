@@ -11,6 +11,8 @@ jobs:
     if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    env:
+      REACT_APP_API_URI: https://stage.identity.devkit.blindnet.io
     steps:
       - uses: actions/checkout@v2
         with:
@@ -24,18 +26,20 @@ jobs:
           api_location: ""
           output_location: "build"
 
-deploy-to-prod:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    name: Build and Deploy Job
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-      - name: Build And Deploy
-        uses: Azure/static-web-apps-deploy@v1
-        with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_TOKEN_PRODUCTION }}
-          app_location: "/"
-          api_location: ""
-          output_location: "build"
+  deploy-to-prod:
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
+      name: Build and Deploy Job
+      env:
+        REACT_APP_API_URI: https://identity.devkit.blindnet.io
+      steps:
+        - uses: actions/checkout@v2
+          with:
+            submodules: true
+        - name: Build And Deploy
+          uses: Azure/static-web-apps-deploy@v1
+          with:
+            azure_static_web_apps_api_token: ${{ secrets.AZURE_TOKEN_PRODUCTION }}
+            app_location: "/"
+            api_location: ""
+            output_location: "build"
