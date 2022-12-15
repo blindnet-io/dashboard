@@ -21,6 +21,3 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
-
-# fake api
-fake-api/db.json
