@@ -1,18 +1,20 @@
 export function SubmitButton({
   label,
-  isLoading,
+  isLoading = false,
   big = false,
+  onClick = () => undefined,
 }: {
   label: string;
-  isLoading: boolean;
+  isLoading?: boolean;
   big?: boolean;
+  onClick?: (_: any) => void;
 }) {
   const btnClass = big ? 'btn btn-primary w-full' : 'btn btn-primary btn-sm';
 
   return (
     <>
       {isLoading ? (
-        <button type="submit" className={btnClass} disabled>
+        <button type="submit" className={btnClass} onClick={onClick} disabled>
           <span
             className="spinner-border spinner-border-sm"
             role="status"
@@ -21,7 +23,7 @@ export function SubmitButton({
           {` ${label}`}
         </button>
       ) : (
-        <button type="submit" className={btnClass}>
+        <button type="submit" className={btnClass} onClick={onClick}>
           {label}
         </button>
       )}
