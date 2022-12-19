@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 
-import authSlice from './authSlice';
-import accountReducer from './accountSlice';
-import appsReducer from './appsSlice';
+import { accountSlice } from './accountSlice';
+import { appsSlice } from './appsSlice';
+import { privConfigSlice } from './privConfigSlice';
+import { authSlice } from './authSlice';
 import { identityApi, pceApi } from './api';
 
 export const store = configureStore({
@@ -14,9 +15,10 @@ export const store = configureStore({
       ...(process.env.NODE_ENV === 'development' ? [logger] : [])
     ),
   reducer: {
-    auth: authSlice,
-    account: accountReducer,
-    apps: appsReducer,
+    auth: authSlice.reducer,
+    account: accountSlice.reducer,
+    apps: appsSlice.reducer,
+    privConfig: privConfigSlice.reducer,
     [identityApi.reducerPath]: identityApi.reducer,
     [pceApi.reducerPath]: pceApi.reducer,
   },

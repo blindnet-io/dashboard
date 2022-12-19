@@ -88,10 +88,11 @@ export function CreateAppGroup() {
                 Key
               </label>
               <div
-                className={`input-group ${errors.key
-                  ? `is-invalid ${styles.removeInputGroupShadow}`
-                  : ''
-                  }`}
+                className={`input-group ${
+                  errors.key
+                    ? `is-invalid ${styles.removeInputGroupShadow}`
+                    : ''
+                }`}
               >
                 <textarea
                   id={`${id}-private-key`}

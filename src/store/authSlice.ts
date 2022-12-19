@@ -128,5 +128,3 @@ export const authSlice = createSlice({
 export const selectToken = (state: RootState) => state.auth.token;
 export const selectIsAuthenticated = (state: RootState) =>
   state.auth.authenticated;
-
-export default authSlice.reducer;

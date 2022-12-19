@@ -2,10 +2,11 @@ import { Application } from '../../store/appsSlice';
 import Accordion from 'react-bootstrap/Accordion';
 import GeneralInformationForm from './GeneralInformationForm';
 import AutomaticResolutionForm from './RequestResolutionForm';
+import SelectorsForm from './SelectorsForm';
 
 export function PrivacyConfiguration({ app }: { app: Application }) {
   return (
-    <Accordion defaultActiveKey="general">
+    <Accordion className="overflow-auto" defaultActiveKey="selectors">
       <Accordion.Item eventKey="general">
         <Accordion.Header>General Information</Accordion.Header>
         <Accordion.Body>
@@ -21,7 +22,7 @@ export function PrivacyConfiguration({ app }: { app: Application }) {
       <Accordion.Item eventKey="selectors">
         <Accordion.Header>Selectors</Accordion.Header>
         <Accordion.Body>
-          <></>
+          <SelectorsForm token="" />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="legal-bases">

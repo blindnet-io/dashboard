@@ -33,5 +33,3 @@ export const selectAccountInfo = (token: string) =>
     accountApiSlice.endpoints.getInfo.select(undefined),
     (res) => res.data
   );
-
-export default accountSlice.reducer;

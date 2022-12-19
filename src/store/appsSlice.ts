@@ -157,5 +157,3 @@ export const selectActiveGroup = createSelector(
 //   selectActiveGroup(token),
 //   group => group?.applications.find(a => a.id === id)
 // )
-
-export default appsSlice.reducer;

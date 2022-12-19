@@ -21,11 +21,11 @@ export type RequestResolution = {
 function RequestResolutionFormInner({
   data,
   isSaving,
-  handleOnSubmit,
+  onSubmit,
 }: {
   data: RequestResolution;
   isSaving: boolean;
-  handleOnSubmit: (data: RequestResolution) => any;
+  onSubmit: (data: RequestResolution) => any;
 }) {
   const id = useId();
 
@@ -33,12 +33,12 @@ function RequestResolutionFormInner({
     defaultValues: data,
   });
 
-  const onSubmit: SubmitHandler<RequestResolution> = (data) => {
-    handleOnSubmit(data);
+  const submit: SubmitHandler<RequestResolution> = (data) => {
+    onSubmit(data);
   };
 
   return (
-    <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form-floating" onSubmit={handleSubmit(submit)}>
       <div className="row g-5">
         <div className="col-md-4">
           <label className="form-label" htmlFor={`${id}-transparency`}>
@@ -156,7 +156,7 @@ export function RequestResolutionFormForm({ token }: { token: string }) {
           <RequestResolutionFormInner
             data={data}
             isSaving={updateState.isLoading}
-            handleOnSubmit={onSubmit}
+            onSubmit={onSubmit}
           />
           {updateState.isError && (
             <Alert className="mt-5" variant="danger">

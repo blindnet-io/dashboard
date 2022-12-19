@@ -53,8 +53,9 @@ export function CreateApp() {
                   <input
                     type="text"
                     id={`${id}-name`}
-                    className={`form-control ${errors.name ? 'is-invalid' : ''
-                      }`}
+                    className={`form-control ${
+                      errors.name ? 'is-invalid' : ''
+                    }`}
                     {...register('name', { required: true })}
                   />
                   {renderRequiredError(

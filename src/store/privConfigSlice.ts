@@ -1,8 +1,10 @@
-// import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 // import { GeneralInformation } from '../components/priv-config/GeneralInformation';
 import { RequestResolution } from '../components/priv-config/RequestResolutionForm';
 import { GeneralInformation } from '../components/priv-config/GeneralInformationForm';
 import { pceApi } from './api';
+import { dataCategories } from './consts/data-categories';
+import { RootState } from './store';
 // import { RootState } from './store';
 
 type GeneralInformationPayload = {
@@ -12,6 +14,17 @@ type GeneralInformationPayload = {
   countries?: Array<string>;
   privacy_policy_link?: string;
   data_security_info?: string;
+};
+
+type PrivacyScopeDimensions = {
+  data_categories: Array<string>;
+  processing_categories: Array<string>;
+  purposes: Array<string>;
+};
+
+type SelectorPayload = {
+  name: string;
+  data_category: string;
 };
 
 const privConfigApiSlice = pceApi.injectEndpoints({
@@ -97,6 +110,38 @@ const privConfigApiSlice = pceApi.injectEndpoints({
         invalidatesTags: ['requestResolution'],
       }
     ),
+    getPrivacyScopeDimenstions: builder.query<PrivacyScopeDimensions, string>({
+      // query: (token) => ({
+      //   url: 'configure/privacy-scope-dimensions',
+      //   method: 'GET',
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`
+      //   }
+      // }),
+      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
+        data: {
+          data_categories: ['AFFILIATION', 'AFFILIATION.dc_2', 'dc_3'],
+          processing_categories: ['pc_1', 'pc_3', 'pc_3'],
+          purposes: ['pp_1', 'pp_3', 'pp_3'],
+        },
+      }),
+      providesTags: ['psDimensions'],
+    }),
+    addSelectors: builder.mutation<any, [string, SelectorPayload[]]>({
+      // query: ([token, body]) => ({
+      //   url: `configure/selectors`,
+      //   method: 'PUT',
+      //   body,
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`
+      //   }
+      // }),
+      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
+        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
+          data: undefined,
+        })),
+      invalidatesTags: ['psDimensions'],
+    }),
   }),
 });
 
@@ -105,4 +150,62 @@ export const {
   useUpdateGeneralInformationMutation,
   useGetRequestResolutionQuery,
   useUpdateRequestResolutionMutation,
+  useGetPrivacyScopeDimenstionsQuery,
+  useAddSelectorsMutation,
 } = privConfigApiSlice;
+
+export type PrivSelector = {
+  name: string;
+  dataCategory: string;
+};
+
+type State = {
+  newPrivSelectors: Array<PrivSelector>;
+};
+
+const initialState: State = {
+  newPrivSelectors: [],
+};
+
+export const privConfigSlice = createSlice({
+  name: 'privConfig',
+  initialState,
+  reducers: {
+    addSelector(state, action: PayloadAction<PrivSelector>) {
+      if (
+        state.newPrivSelectors.find(
+          (s) =>
+            s.name === action.payload.name &&
+            s.dataCategory === action.payload.dataCategory
+        ) === undefined
+      )
+        state.newPrivSelectors.push(action.payload);
+    },
+    removeSelector(state, action: PayloadAction<PrivSelector>) {
+      state.newPrivSelectors = state.newPrivSelectors.filter(
+        (s) =>
+          !(
+            s.name === action.payload.name &&
+            s.dataCategory === action.payload.dataCategory
+          )
+      );
+    },
+    removeAllSelectors(state, action: PayloadAction<void>) {
+      state.newPrivSelectors = [];
+    },
+  },
+  extraReducers: (builder) => {},
+});
+
+export const { addSelector, removeSelector, removeAllSelectors } =
+  privConfigSlice.actions;
+
+export const selectors = (token: string) =>
+  createSelector(
+    privConfigApiSlice.endpoints.getPrivacyScopeDimenstions.select(token),
+    (res) =>
+      res.data?.data_categories.filter((dc) => !dataCategories.includes(dc))
+  );
+
+export const newPrivSelectorsSelector = (state: RootState) =>
+  state.privConfig.newPrivSelectors;
