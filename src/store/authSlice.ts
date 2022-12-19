@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { api } from './api';
+import { identityApi } from './api';
 import { RootState } from './store';
 
 type AuthState = {
@@ -16,7 +16,7 @@ type Status = { verified: boolean };
 type AuthArgs = { email: string; password: string };
 type LoginResult = { token: string; status: Status };
 
-const authApiSlice = api.injectEndpoints({
+const authApiSlice = identityApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<LoginResult, AuthArgs>({
       query: ({ email, password }) => ({

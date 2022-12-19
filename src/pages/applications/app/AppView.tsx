@@ -4,6 +4,9 @@ import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { useGetAppQuery } from '../../../store/appsSlice';
 import AppInfo from '../../../components/AppInfo';
 import SectionHeader from '../../../components/SectionHeader';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import PrivacyConfiguration from '../../../components/priv-config/PrivacyConfiguration';
 
 export function AppView() {
   const { id } = useParams();
@@ -14,7 +17,7 @@ export function AppView() {
     <>
       {id ? <></> : <Navigate to="/" />}
       <div className="flex-grow-1 overflow-y-lg-auto">
-        <div className="container-fluid max-w-screen-md vstack gap-6">
+        <div className="container-fluid max-w-screen-lg vstack gap-6">
           {isLoading && <Spinner />}
           {isError && (
             <Alert variant="danger">
@@ -24,7 +27,22 @@ export function AppView() {
           {data && (
             <>
               <SectionHeader name={data.name} />
-              <AppInfo app={data} />
+              <Tabs
+                // defaultActiveKey="info"
+                defaultActiveKey="priv-config"
+                className="mb-3"
+                justify
+              >
+                <Tab eventKey="info" title="Info">
+                  <AppInfo app={data} />
+                </Tab>
+                <Tab eventKey="priv-config" title="Privacy Configuration">
+                  <PrivacyConfiguration app={data} />
+                </Tab>
+                <Tab eventKey="storage-config" title="Storage Configuration">
+                  <></>
+                </Tab>
+              </Tabs>
             </>
           )}
         </div>

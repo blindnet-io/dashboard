@@ -60,7 +60,7 @@ export function CreateAppGroup() {
 
   return (
     <div className="flex-grow-1 overflow-y-lg-auto">
-      <div className="container-fluid max-w-screen-md vstack gap-6">
+      <div className="container-fluid max-w-screen-lg vstack gap-6">
         <SectionHeader name={'Create new group'} />
 
         <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
@@ -103,7 +103,7 @@ export function CreateAppGroup() {
                   })}
                 />
                 <span
-                  className={`input-group-text ${styles.copy}`}
+                  className={`input-group-text cursor-pointer ${styles.copy}`}
                   onClick={copyKey}
                 >
                   <i className="bi bi-clipboard"></i>

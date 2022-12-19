@@ -1,5 +1,5 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { api } from './api';
+import { identityApi } from './api';
 import { RootState } from './store';
 
 export type Application = {
@@ -22,14 +22,13 @@ const initialState: AppsState = {
   activeGroup: null,
 };
 
-const appsApiSlice = api.injectEndpoints({
+const appsApiSlice = identityApi.injectEndpoints({
   endpoints: (builder) => ({
     getAppGroups: builder.query<Array<AppGroup>, void>({
       query: () => ({
         url: 'app-groups',
         method: 'GET',
       }),
-      // ransformResponse: (response, meta, arg) => response,
       providesTags: ['groups'],
     }),
     getAppGroup: builder.query<AppGroup, string>({

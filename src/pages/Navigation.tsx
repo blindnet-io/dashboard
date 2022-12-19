@@ -52,29 +52,25 @@ export function Navigation() {
                   <i className="bi bi-house" /> Applications
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  <i className="bi bi-database-gear" /> Configuration
-                </Link>
-              </li>
             </ul>
             {/* Divider */}
             <hr className="navbar-divider my-5 opacity-20" />
             {/* Navigation */}
             <ul className="navbar-nav mb-md-4">
               <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  <i className="bi bi-gear" /> Settings
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  <i className="bi bi-bell" /> Notifications
+                <Link className="nav-link" to="/priv-config">
+                  <i className="bi bi-p-square" /> Pending Requests
                   <span className="badge bg-opacity-30 bg-danger text-danger rounded-pill d-inline-flex align-items-center ms-auto">
-                    1
+                    2
                   </span>
                 </Link>
               </li>
+              <Link className="nav-link" to="/">
+                <i className="bi bi-bell" /> Notifications
+                <span className="badge bg-opacity-30 bg-danger text-danger rounded-pill d-inline-flex align-items-center ms-auto">
+                  1
+                </span>
+              </Link>
             </ul>
             {/* Push content down */}
             <div className="mt-auto" />

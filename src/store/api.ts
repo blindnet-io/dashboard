@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { RootState } from './store';
 
-export const api = createApi({
-  reducerPath: 'api',
+export const identityApi = createApi({
+  reducerPath: 'identityApi',
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_API_URI}/v1`,
     prepareHeaders: (headers, { getState }) => {
@@ -14,5 +14,14 @@ export const api = createApi({
     },
   }),
   tagTypes: ['groups', 'apps', 'status'],
+  endpoints: (_) => ({}),
+});
+
+export const pceApi = createApi({
+  reducerPath: 'pceApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.REACT_APP_PCE_API_URI}/v0`,
+  }),
+  tagTypes: ['generalInformation', 'requestResolution'],
   endpoints: (_) => ({}),
 });

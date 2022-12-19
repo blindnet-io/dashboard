@@ -39,7 +39,7 @@ export function CreateApp() {
 
   return (
     <div className="flex-grow-1 overflow-y-lg-auto">
-      <div className="container-fluid max-w-screen-md vstack gap-6">
+      <div className="container-fluid max-w-screen-lg vstack gap-6">
         <div>
           <SectionHeader name={'Create new application'} />
 
