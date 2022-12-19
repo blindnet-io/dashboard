@@ -1,0 +1,13 @@
+export const prcessingCategories = [
+  '*',
+  'ANONYMIZATION',
+  'AUTOMATED-INFERENCE',
+  'AUTOMATED-DECISION-MAKING',
+  'COLLECTION',
+  'GENERATING',
+  'PUBLISHING',
+  'STORING',
+  'SHARING',
+  'USING',
+  'OTHER-PROCESSING',
+];
