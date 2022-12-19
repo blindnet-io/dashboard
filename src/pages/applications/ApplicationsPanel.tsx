@@ -8,7 +8,7 @@ import {
   selectActiveGroup,
 } from '../../store/appsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import ApplicationsHeader from '../../components/ApplicationsHeader';
+import ApplicationsHeader from '../../components/apps/ApplicationsHeader';
 
 export function ApplicationsPanel() {
   const navigate = useNavigate();

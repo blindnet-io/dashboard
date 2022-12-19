@@ -18,7 +18,7 @@ export type RequestResolution = {
   restrict_scope: ResolutionStrategy;
 };
 
-function RequestResolutionFormInner({
+function SelectorsFormInner({
   data,
   isSaving,
   handleOnSubmit,
@@ -138,7 +138,7 @@ function RequestResolutionFormInner({
   );
 }
 
-export function RequestResolutionFormForm({ token }: { token: string }) {
+export function SelectorsForm({ token }: { token: string }) {
   const [update, updateState] = useUpdateRequestResolutionMutation();
   const { data, isSuccess, isError, isLoading } =
     useGetRequestResolutionQuery(token);
@@ -153,7 +153,7 @@ export function RequestResolutionFormForm({ token }: { token: string }) {
       {isLoading && <div>loading...</div>}
       {isSuccess && (
         <>
-          <RequestResolutionFormInner
+          <SelectorsFormInner
             data={data}
             isSaving={updateState.isLoading}
             handleOnSubmit={onSubmit}
@@ -177,4 +177,4 @@ export function RequestResolutionFormForm({ token }: { token: string }) {
   );
 }
 
-export default RequestResolutionFormForm;
+export default SelectorsForm;

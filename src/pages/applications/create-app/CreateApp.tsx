@@ -7,9 +7,9 @@ import {
   selectActiveGroup,
 } from '../../../store/appsSlice';
 import { useAppSelector } from '../../../store/hooks';
-import SectionHeader from '../../../components/SectionHeader';
+import SectionHeader from '../../../components/apps/SectionHeader';
 import { renderRequiredError } from '../../../util/validations';
-import SubmitButton from '../../../components/SubmitButton';
+import SubmitButton from '../../../components/common/SubmitButton';
 
 type Inputs = {
   name: string;
@@ -53,9 +53,8 @@ export function CreateApp() {
                   <input
                     type="text"
                     id={`${id}-name`}
-                    className={`form-control ${
-                      errors.name ? 'is-invalid' : ''
-                    }`}
+                    className={`form-control ${errors.name ? 'is-invalid' : ''
+                      }`}
                     {...register('name', { required: true })}
                   />
                   {renderRequiredError(

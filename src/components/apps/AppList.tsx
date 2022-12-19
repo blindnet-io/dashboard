@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Application } from '../store/appsSlice';
+import { Application } from '../../store/appsSlice';
 
 export function AppList({ apps }: { apps: Application[] }) {
   return (

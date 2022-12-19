@@ -1,6 +1,6 @@
 import { Outlet, Link } from 'react-router-dom';
 import logo from '../assets/logos/full-logo.png';
-import LegalLinksFooter from '../components/LegalLinksFooter';
+import LegalLinksFooter from '../components/legal/LegalLinksFooter';
 // import { selectToken } from '../store/authSlice'
 // import { useAppDispatch, useAppSelector } from '../store/hooks'
 

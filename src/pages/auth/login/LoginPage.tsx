@@ -10,8 +10,8 @@ import {
   renderRequiredError,
   validateEmail,
 } from '../../../util/validations';
-import SubmitButton from '../../../components/SubmitButton';
-import LegalLinks from '../../../components/LegalLinks';
+import SubmitButton from '../../../components/common/SubmitButton';
+import LegalLinks from '../../../components/legal/LegalLinks';
 
 type Inputs = {
   email: string;
@@ -59,9 +59,8 @@ export function LoginPage() {
                   </label>
                   <input
                     type="text"
-                    className={`form-control ${
-                      errors.email ? 'is-invalid' : ''
-                    }`}
+                    className={`form-control ${errors.email ? 'is-invalid' : ''
+                      }`}
                     id={`${id}-email`}
                     placeholder="Your email address"
                     {...register('email', {
@@ -78,9 +77,8 @@ export function LoginPage() {
                   </label>
                   <input
                     type="password"
-                    className={`form-control ${
-                      errors.password ? 'is-invalid' : ''
-                    }`}
+                    className={`form-control ${errors.password ? 'is-invalid' : ''
+                      }`}
                     id={`${id}-password`}
                     placeholder="Password"
                     autoComplete="current-password"

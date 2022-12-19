@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { Application } from '../store/appsSlice';
+import { Application } from '../../store/appsSlice';
 
 // import styles from './styles/app-info.module.css';
 

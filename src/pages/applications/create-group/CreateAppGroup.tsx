@@ -9,7 +9,7 @@ import {
   changeActiveGroup,
 } from '../../../store/appsSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import SectionHeader from '../../../components/SectionHeader';
+import SectionHeader from '../../../components/apps/SectionHeader';
 import {
   renderBadFormatError,
   renderRequiredError,
@@ -17,7 +17,7 @@ import {
 } from '../../../util/validations';
 
 import styles from './style.module.scss';
-import SubmitButton from '../../../components/SubmitButton';
+import SubmitButton from '../../../components/common/SubmitButton';
 
 type Inputs = {
   name: string;
@@ -88,11 +88,10 @@ export function CreateAppGroup() {
                 Key
               </label>
               <div
-                className={`input-group ${
-                  errors.key
-                    ? `is-invalid ${styles.removeInputGroupShadow}`
-                    : ''
-                }`}
+                className={`input-group ${errors.key
+                  ? `is-invalid ${styles.removeInputGroupShadow}`
+                  : ''
+                  }`}
               >
                 <textarea
                   id={`${id}-private-key`}

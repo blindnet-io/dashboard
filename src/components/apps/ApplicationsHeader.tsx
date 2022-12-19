@@ -1,4 +1,4 @@
-import { AppGroup } from '../store/appsSlice';
+import { AppGroup } from '../../store/appsSlice';
 import GroupOptionsDropdown from './GroupOptionsDropdown';
 
 export function ApplicationsHeader({

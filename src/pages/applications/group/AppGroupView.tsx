@@ -6,7 +6,7 @@ import {
   useGetAppGroupAppsQuery,
 } from '../../../store/appsSlice';
 import { useAppSelector } from '../../../store/hooks';
-import AppList from '../../../components/AppList';
+import AppList from '../../../components/apps/AppList';
 
 export function AppsGroupView() {
   const activeGroup = useAppSelector(selectActiveGroup);

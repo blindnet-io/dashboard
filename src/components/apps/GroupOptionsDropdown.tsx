@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { AppGroup } from '../store/appsSlice';
+import { AppGroup } from '../../store/appsSlice';
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
 

@@ -2,7 +2,7 @@ import { useId } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { renderRequiredError } from '../../util/validations';
-import SubmitButton from '../SubmitButton';
+import SubmitButton from '../common/SubmitButton';
 import {
   useGetGeneralInformationQuery,
   useUpdateGeneralInformationMutation,
@@ -50,9 +50,8 @@ function GeneralInformationFormInner({
             <input
               type="text"
               id={`${id}-organization`}
-              className={`form-control ${
-                errors.organization ? 'is-invalid' : ''
-              }`}
+              className={`form-control ${errors.organization ? 'is-invalid' : ''
+                }`}
               {...register('organization', { required: true })}
             />
             {renderRequiredError(
@@ -85,9 +84,8 @@ function GeneralInformationFormInner({
             </label>
             <textarea
               id={`${id}-dataConsumerCategories`}
-              className={`form-control ${
-                errors.dataConsumerCategories ? 'is-invalid' : ''
-              }`}
+              className={`form-control ${errors.dataConsumerCategories ? 'is-invalid' : ''
+                }`}
               {...register('dataConsumerCategories')}
             />
           </div>
@@ -110,9 +108,8 @@ function GeneralInformationFormInner({
             <input
               type="text"
               id={`${id}-privacyPolicyLink`}
-              className={`form-control ${
-                errors.privacyPolicyLink ? 'is-invalid' : ''
-              }`}
+              className={`form-control ${errors.privacyPolicyLink ? 'is-invalid' : ''
+                }`}
               {...register('privacyPolicyLink')}
             />
           </div>
@@ -123,9 +120,8 @@ function GeneralInformationFormInner({
             </label>
             <textarea
               id={`${id}-dataSecurityInfo`}
-              className={`form-control ${
-                errors.dataSecurityInfo ? 'is-invalid' : ''
-              }`}
+              className={`form-control ${errors.dataSecurityInfo ? 'is-invalid' : ''
+                }`}
               {...register('dataSecurityInfo')}
             />
           </div>
