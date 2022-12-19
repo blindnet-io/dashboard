@@ -18,7 +18,7 @@ export type RequestResolution = {
   restrict_scope: ResolutionStrategy;
 };
 
-function RequestResolutionFormnner({
+function RequestResolutionFormInner({
   data,
   isSaving,
   handleOnSubmit,
@@ -153,7 +153,7 @@ export function RequestResolutionFormForm({ token }: { token: string }) {
       {isLoading && <div>loading...</div>}
       {isSuccess && (
         <>
-          <RequestResolutionFormnner
+          <RequestResolutionFormInner
             data={data}
             isSaving={updateState.isLoading}
             handleOnSubmit={onSubmit}
