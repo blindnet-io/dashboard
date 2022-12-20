@@ -43,24 +43,26 @@ function GroupOptionsDropdown({
       </Dropdown.Toggle>
 
       <Dropdown.Menu className={styles.dropMenu}>
-        <Link
-          to="#"
-          onClick={() => setOpen(false)}
-          className="btn d-inline-flex btn-sm btn-neutral mx-1"
-        >
-          <span>
-            <i className="bi bi-pencil" /> Edit
-          </span>
-        </Link>
-        <Link
-          to="/group/create"
-          onClick={() => setOpen(false)}
-          className="btn d-inline-flex btn-sm btn-primary mx-1"
-        >
-          <span>
-            <i className="bi bi-plus" /> Create new
-          </span>
-        </Link>
+        <div className="d-grid d-md-flex gap-2">
+          <Link
+            to="#"
+            onClick={() => setOpen(false)}
+            className="btn btn-sm btn-neutral mx-1 ms-md-2"
+          >
+            <span>
+              <i className="bi bi-pencil" /> Edit
+            </span>
+          </Link>
+          <Link
+            to="/group/create"
+            onClick={() => setOpen(false)}
+            className="btn btn-sm btn-primary mx-1 mx-md-0"
+          >
+            <span>
+              <i className="bi bi-plus" /> Create new
+            </span>
+          </Link>
+        </div>
 
         <Dropdown.Divider />
 
