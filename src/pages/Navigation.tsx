@@ -38,11 +38,11 @@ export function Navigation() {
             <img
               style={{ width: '130px', height: 'auto' }}
               src={logo}
-              alt="..."
+              alt="blindnet logo"
             />
           </a>
-          {/* User menu (mobile) */}
-          <div className="navbar-user d-lg-none"></div>
+          {/* Empty right item, to have logo at the center */}
+          <div className="d-lg-none"></div>
           {/* Collapse */}
           <div className="collapse navbar-collapse" id="sidebarCollapse">
             {/* Navigation */}
@@ -56,7 +56,7 @@ export function Navigation() {
             {/* Divider */}
             <hr className="navbar-divider my-5 opacity-20" />
             {/* Navigation */}
-            <ul className="navbar-nav mb-md-4">
+            <ul className="navbar-nav mb-4">
               <li className="nav-item">
                 <Link className="nav-link" to="/priv-config">
                   <i className="bi bi-p-square" /> Pending Requests
@@ -73,8 +73,22 @@ export function Navigation() {
               </Link>
             </ul>
             {/* Push content down */}
+            <ul className="navbar-nav mb-5 d-lg-none">
+              <li className="nav-item">
+                <a className="nav-link" href="https://www.blindnet.io/legal/privacy-policy" rel="noreferrer" target="_blank">
+                  <i className="bi bi-file-text" /> Privacy policy
+                </a>
+                <a className="nav-link" href="https://www.blindnet.io/legal/legal-mentions" rel="noreferrer" target="_blank">
+                  <i className="bi bi-file-text" /> Legal Mentions
+                </a>
+                <a className="nav-link" href="https://www.blindnet.io/legal/terms-and-conditions" rel="noreferrer" target="_blank">
+                  <i className="bi bi-file-text" /> Terms and Conditions
+                </a>
+              </li>
+            </ul>
             <div className="mt-auto" />
             <ul className="navbar-nav mb-5">
+
               <li className="nav-item">
                 <Link className="nav-link" to="/">
                   <i className="bi bi-person-square" /> Account
@@ -97,7 +111,7 @@ export function Navigation() {
       <div className="h-screen h-100 d-flex flex-column flex-grow-1 overflow-y-lg-auto">
         <Outlet />
 
-        <footer className="footer mt-auto py-1 ps-5 bg-light">
+        <footer className="footer mt-auto py-1 ps-5 bg-light d-none d-lg-grid">
           <LegalLinksFooter />
         </footer>
       </div>
