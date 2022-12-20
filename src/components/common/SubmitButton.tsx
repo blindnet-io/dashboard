@@ -2,7 +2,7 @@ export function SubmitButton({
   label,
   isLoading = false,
   big = false,
-  className = "",
+  className = '',
   onClick = () => undefined,
 }: {
   label: string;
@@ -11,7 +11,9 @@ export function SubmitButton({
   className?: string;
   onClick?: (_: any) => void;
 }) {
-  const btnClass = big ? `btn btn-primary w-full ${className}` : `btn btn-primary btn-sm ${className}`;
+  const btnClass = big
+    ? `btn btn-primary w-full ${className}`
+    : `btn btn-primary btn-sm ${className}`;
 
   return (
     <>

@@ -66,7 +66,7 @@ function GeneralInformationFormInner({
           errors.dpo,
           "Please enter your organization's DPO information"
         )}
-      </Form.Group >
+      </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-dataConsumerCategories`}>
         <Form.Label>Data consumer categories</Form.Label>
@@ -75,7 +75,7 @@ function GeneralInformationFormInner({
           className={errors.dataConsumerCategories && 'is-invalid'}
           {...register('dataConsumerCategories')}
         />
-      </Form.Group >
+      </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-countries`}>
         <Form.Label>Data consumer categories</Form.Label>
@@ -84,7 +84,7 @@ function GeneralInformationFormInner({
           className={errors.countries && 'is-invalid'}
           {...register('countries')}
         />
-      </Form.Group >
+      </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-privacyPolicyLink`}>
         <Form.Label>Data consumer categories</Form.Label>
@@ -93,7 +93,7 @@ function GeneralInformationFormInner({
           className={errors.privacyPolicyLink && 'is-invalid'}
           {...register('privacyPolicyLink')}
         />
-      </Form.Group >
+      </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-dataSecurityInfo`}>
         <Form.Label>Data consumer categories</Form.Label>
@@ -102,7 +102,7 @@ function GeneralInformationFormInner({
           className={errors.dataSecurityInfo && 'is-invalid'}
           {...register('dataSecurityInfo')}
         />
-      </Form.Group >
+      </Form.Group>
 
       <div className="d-grid d-md-flex justify-content-md-end gap-2">
         <span onClick={() => reset()} className="btn btn-sm btn-neutral">

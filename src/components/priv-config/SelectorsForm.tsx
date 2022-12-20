@@ -52,10 +52,11 @@ export function SelectorForm({
       <h5 className="mb-1">Add new selector</h5>
 
       <div className="row g-3">
-        <Form.Group className="col-xl-4 col-lg-12" controlId={`${id}-dataCategory`}>
-          <Form.Select
-            {...register('dataCategory', { required: true })}
-          >
+        <Form.Group
+          className="col-xl-4 col-lg-12"
+          controlId={`${id}-dataCategory`}
+        >
+          <Form.Select {...register('dataCategory', { required: true })}>
             {dataCategories.map((dc) => (
               <option key={dc} value={dc}>
                 {dc}

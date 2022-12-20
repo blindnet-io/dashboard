@@ -39,8 +39,10 @@ function RequestResolutionFormInner({
   };
 
   return (
-    <Form className="row row-cols-md-3 row-cols-1 g-5" onSubmit={handleSubmit(submit)}>
-
+    <Form
+      className="row row-cols-md-3 row-cols-1 g-5"
+      onSubmit={handleSubmit(submit)}
+    >
       <Form.Group controlId={`${id}-transparency`}>
         <Form.Label>Transparency</Form.Label>
         <Form.Select {...register('transparency', { required: true })}>
@@ -95,7 +97,7 @@ function RequestResolutionFormInner({
         </span>
         <SubmitButton label="Save" isLoading={isSaving} />
       </div>
-    </Form >
+    </Form>
   );
 }
 

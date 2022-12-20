@@ -75,20 +75,34 @@ export function Navigation() {
             {/* Push content down */}
             <ul className="navbar-nav mb-5 d-lg-none">
               <li className="nav-item">
-                <a className="nav-link" href="https://www.blindnet.io/legal/privacy-policy" rel="noreferrer" target="_blank">
+                <a
+                  className="nav-link"
+                  href="https://www.blindnet.io/legal/privacy-policy"
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <i className="bi bi-file-text" /> Privacy policy
                 </a>
-                <a className="nav-link" href="https://www.blindnet.io/legal/legal-mentions" rel="noreferrer" target="_blank">
+                <a
+                  className="nav-link"
+                  href="https://www.blindnet.io/legal/legal-mentions"
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <i className="bi bi-file-text" /> Legal Mentions
                 </a>
-                <a className="nav-link" href="https://www.blindnet.io/legal/terms-and-conditions" rel="noreferrer" target="_blank">
+                <a
+                  className="nav-link"
+                  href="https://www.blindnet.io/legal/terms-and-conditions"
+                  rel="noreferrer"
+                  target="_blank"
+                >
                   <i className="bi bi-file-text" /> Terms and Conditions
                 </a>
               </li>
             </ul>
             <div className="mt-auto" />
             <ul className="navbar-nav mb-5">
-
               <li className="nav-item">
                 <Link className="nav-link" to="/">
                   <i className="bi bi-person-square" /> Account

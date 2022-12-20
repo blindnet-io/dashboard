@@ -41,11 +41,9 @@ export function CreateApp() {
   return (
     <div className="flex-grow-1 overflow-y-lg-auto">
       <div className="container-fluid max-w-screen-lg vstack gap-6">
-
         <SectionHeader name={'Create new application'} />
 
         <Form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
-
           <Form.Group controlId={`${id}-name`}>
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -71,13 +69,11 @@ export function CreateApp() {
           </div>
 
           {createAppState.isError && (
-            <Alert variant="danger">
-              Error occurred. Please try again.
-            </Alert>
+            <Alert variant="danger">Error occurred. Please try again.</Alert>
           )}
         </Form>
       </div>
-    </div >
+    </div>
   );
 }
 

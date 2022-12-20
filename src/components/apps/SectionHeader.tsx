@@ -11,7 +11,8 @@ export function SectionHeader({ name }: { name?: string }) {
             className="btn-close"
             aria-label="Close"
           ></button>
-        </Link></div>
+        </Link>
+      </div>
     </div>
   );
 }

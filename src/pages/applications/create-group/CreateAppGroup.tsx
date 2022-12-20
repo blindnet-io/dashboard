@@ -65,7 +65,6 @@ export function CreateAppGroup() {
         <SectionHeader name={'Create new group'} />
 
         <Form onSubmit={handleSubmit(onSubmit)}>
-
           <Form.Group className="mb-5" controlId={`${id}-name`}>
             <Form.Label>Name</Form.Label>
             <Form.Control
@@ -73,15 +72,16 @@ export function CreateAppGroup() {
               className={errors.name && 'is-invalid'}
               {...register('name', { required: true })}
             />
-            {renderRequiredError(
-              errors.name,
-              "Please enter the groups's name"
-            )}
+            {renderRequiredError(errors.name, "Please enter the groups's name")}
           </Form.Group>
 
           <Form.Group className="mb-5" controlId={`${id}-private-key`}>
             <Form.Label>Key</Form.Label>
-            <InputGroup className={errors.key && `is-invalid ${styles.removeInputGroupShadow}`}>
+            <InputGroup
+              className={
+                errors.key && `is-invalid ${styles.removeInputGroupShadow}`
+              }
+            >
               <Form.Control
                 as="textarea"
                 className={errors.key && 'is-invalid'}
@@ -104,11 +104,10 @@ export function CreateAppGroup() {
             </InputGroup>
             <div className="mt-2"></div>
             <Form.Text className="text-muted">
-              Save this key and keep it secret. If lost, you'll have to
-              generate a new one.
+              Save this key and keep it secret. If lost, you'll have to generate
+              a new one.
             </Form.Text>
-
-          </Form.Group >
+          </Form.Group>
 
           {createGroupState.isError && <Alert variant="danger">Error</Alert>}
 
@@ -116,10 +115,7 @@ export function CreateAppGroup() {
             <Link to="/" className="btn btn-sm btn-neutral">
               Cancel
             </Link>
-            <SubmitButton
-              label="Save"
-              isLoading={createGroupState.isLoading}
-            />
+            <SubmitButton label="Save" isLoading={createGroupState.isLoading} />
           </div>
         </Form>
       </div>
