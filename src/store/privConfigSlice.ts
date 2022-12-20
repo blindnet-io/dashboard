@@ -1,31 +1,11 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
-// import { GeneralInformation } from '../components/priv-config/GeneralInformation';
-import { RequestResolution } from '../components/priv-config/RequestResolutionForm';
 import { GeneralInformation } from '../components/priv-config/GeneralInformationForm';
+// import { GeneralInformation } from '../components/priv-config/GeneralInformation';
 import { pceApi } from './api';
-import { dataCategories } from './consts/data-categories';
+import { dataCategories } from '../consts/data-categories';
 import { RootState } from './store';
+import * as t from '../types';
 // import { RootState } from './store';
-
-type GeneralInformationPayload = {
-  organization: string;
-  dpo: string;
-  data_consumer_categories?: Array<string>;
-  countries?: Array<string>;
-  privacy_policy_link?: string;
-  data_security_info?: string;
-};
-
-type PrivacyScopeDimensions = {
-  data_categories: Array<string>;
-  processing_categories: Array<string>;
-  purposes: Array<string>;
-};
-
-type SelectorPayload = {
-  name: string;
-  data_category: string;
-};
 
 const privConfigApiSlice = pceApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -57,7 +37,7 @@ const privConfigApiSlice = pceApi.injectEndpoints({
     }),
     updateGeneralInformation: builder.mutation<
       any,
-      [string, GeneralInformationPayload]
+      [string, t.GeneralInformationPayload]
     >({
       // query: ([token, body]) => ({
       //   url: `configure/general-info`,
@@ -73,7 +53,7 @@ const privConfigApiSlice = pceApi.injectEndpoints({
         })),
       invalidatesTags: ['generalInformation'],
     }),
-    getRequestResolution: builder.query<RequestResolution, string>({
+    getRequestResolution: builder.query<t.RequestResolution, string>({
       // query: (token) => ({
       //   url: 'configure/demand-resolution-strategy',
       //   method: 'GET',
@@ -93,41 +73,44 @@ const privConfigApiSlice = pceApi.injectEndpoints({
       }),
       providesTags: ['requestResolution'],
     }),
-    updateRequestResolution: builder.mutation<any, [string, RequestResolution]>(
-      {
-        // query: ([token, body]) => ({
-        //   url: `configure/demand-resolution-strategy`,
-        //   method: 'PUT',
-        //   body,
-        //   headers: {
-        //     'Authorization': `Bearer ${token}`
-        //   }
-        // }),
-        queryFn: (arg, queryApi, extraOptions, baseQuery) =>
-          new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
-            data: undefined,
-          })),
-        invalidatesTags: ['requestResolution'],
-      }
-    ),
-    getPrivacyScopeDimenstions: builder.query<PrivacyScopeDimensions, string>({
-      // query: (token) => ({
-      //   url: 'configure/privacy-scope-dimensions',
-      //   method: 'GET',
+    updateRequestResolution: builder.mutation<
+      any,
+      [string, t.RequestResolution]
+    >({
+      // query: ([token, body]) => ({
+      //   url: `configure/demand-resolution-strategy`,
+      //   method: 'PUT',
+      //   body,
       //   headers: {
       //     'Authorization': `Bearer ${token}`
       //   }
       // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
-        data: {
-          data_categories: ['AFFILIATION', 'AFFILIATION.dc_2', 'dc_3'],
-          processing_categories: ['pc_1', 'pc_3', 'pc_3'],
-          purposes: ['pp_1', 'pp_3', 'pp_3'],
-        },
-      }),
-      providesTags: ['psDimensions'],
+      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
+        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
+          data: undefined,
+        })),
+      invalidatesTags: ['requestResolution'],
     }),
-    addSelectors: builder.mutation<any, [string, SelectorPayload[]]>({
+    getPrivacyScopeDimenstions: builder.query<t.PrivacyScopeDimensions, string>(
+      {
+        // query: (token) => ({
+        //   url: 'configure/privacy-scope-dimensions',
+        //   method: 'GET',
+        //   headers: {
+        //     'Authorization': `Bearer ${token}`
+        //   }
+        // }),
+        queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
+          data: {
+            data_categories: ['AFFILIATION', 'AFFILIATION.dc_2', 'dc_3'],
+            processing_categories: ['pc_1', 'pc_3', 'pc_3'],
+            purposes: ['pp_1', 'pp_3', 'pp_3'],
+          },
+        }),
+        providesTags: ['psDimensions'],
+      }
+    ),
+    addSelectors: builder.mutation<any, [string, t.SelectorPayload[]]>({
       // query: ([token, body]) => ({
       //   url: `configure/selectors`,
       //   method: 'PUT',
@@ -142,6 +125,56 @@ const privConfigApiSlice = pceApi.injectEndpoints({
         })),
       invalidatesTags: ['psDimensions'],
     }),
+    getLegalBases: builder.query<Array<t.LegalBaseLite>, string>({
+      // query: (token) => ({
+      //   url: 'configure/legal-bases',
+      //   method: 'GET',
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`
+      //   }
+      // }),
+      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
+        data: [
+          {
+            id: '320604a2-b8dc-4ac9-b446-db6ff30e91fb ',
+            lb_type: 'CONTRACT',
+            name: 'test contract',
+            active: true,
+          },
+          {
+            id: 'c4ca098d-0f2f-41f4-a6df-07c4b9ccf7a1',
+            lb_type: 'CONSENT',
+            name: 'test consent',
+            description: 'this is a description of the test consent 1',
+            active: true,
+          },
+          {
+            id: 'd31dcc3b-3f6a-4786-85d2-5cfcea662008',
+            lb_type: 'CONSENT',
+            name: 'test consent 2',
+            description:
+              'this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2',
+            active: false,
+          },
+        ],
+      }),
+      providesTags: ['legalBases'],
+    }),
+    createLegalBase: builder.mutation<string, [string, t.NewLegalBase]>({
+      // query: ([token, body]) => ({
+      //   url: `configure/legal-bases`,
+      //   method: 'PUT',
+      //   body,
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`
+      //   }
+      // }),
+      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
+        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
+          data: 'c4ca098d-0f2f-41f4-a6df-07c4b9ccf7a1',
+        })),
+      invalidatesTags: ['legalBases'],
+    }),
   }),
 });
 
@@ -152,6 +185,8 @@ export const {
   useUpdateRequestResolutionMutation,
   useGetPrivacyScopeDimenstionsQuery,
   useAddSelectorsMutation,
+  useGetLegalBasesQuery,
+  useCreateLegalBaseMutation,
 } = privConfigApiSlice;
 
 export type PrivSelector = {

@@ -22,6 +22,11 @@ export const pceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_PCE_API_URI}/v0`,
   }),
-  tagTypes: ['generalInformation', 'requestResolution', 'psDimensions'],
+  tagTypes: [
+    'generalInformation',
+    'requestResolution',
+    'psDimensions',
+    'legalBases',
+  ],
   endpoints: (_) => ({}),
 });

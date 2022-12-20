@@ -7,17 +7,7 @@ import {
   useUpdateRequestResolutionMutation,
 } from '../../store/privConfigSlice';
 import { Form } from 'react-bootstrap';
-
-export type ResolutionStrategy = 'auto' | 'manual';
-
-export type RequestResolution = {
-  transparency: ResolutionStrategy;
-  access: ResolutionStrategy;
-  delete: ResolutionStrategy;
-  revoke_consent: ResolutionStrategy;
-  object_scope: ResolutionStrategy;
-  restrict_scope: ResolutionStrategy;
-};
+import { RequestResolution } from '../../types';
 
 function RequestResolutionFormInner({
   data,

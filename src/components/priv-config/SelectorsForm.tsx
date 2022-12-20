@@ -11,7 +11,7 @@ import {
   useAddSelectorsMutation,
   useGetPrivacyScopeDimenstionsQuery,
 } from '../../store/privConfigSlice';
-import { dataCategories } from '../../store/consts/data-categories';
+import { dataCategories } from '../../consts/data-categories';
 import {
   renderBadFormatError,
   renderRequiredError,

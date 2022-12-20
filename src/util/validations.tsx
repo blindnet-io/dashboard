@@ -1,4 +1,4 @@
-import { FieldError } from 'react-hook-form';
+import { FieldError, Merge } from 'react-hook-form';
 import { b64str2bin } from './conversions';
 import * as ed from '@noble/ed25519';
 
@@ -22,7 +22,10 @@ export const renderRequiredError = (e: FieldError | undefined, msg: string) =>
     </span>
   );
 
-export const renderBadFormatError = (e: FieldError | undefined, msg: string) =>
+export const renderBadFormatError = (
+  e: FieldError | Merge<FieldError, any> | undefined,
+  msg: string
+) =>
   e?.type === 'validate' && (
     <span className="mt-2 invalid-feedback">{msg}</span>
   );
