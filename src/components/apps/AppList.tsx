@@ -23,7 +23,7 @@ export function AppList({ apps }: { apps: Application[] }) {
           <Link
             to={`/app/${app.id}`}
             key={app.id}
-            className="list-group-item list-group-item-action d-flex justify-content-between align-items-center px-3 border-0 rounded-3 mb-2 list-group-item-light"
+            className="list-group-item list-group-item-action list-group-item-light d-flex justify-content-between align-items-center border-0 rounded-3 px-3 mb-2"
           >
             <div>
               <div className="fw-bold text-muted" style={{ fontSize: '120%' }}>
