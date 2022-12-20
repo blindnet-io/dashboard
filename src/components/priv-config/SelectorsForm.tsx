@@ -17,6 +17,7 @@ import {
   renderRequiredError,
 } from '../../util/validations';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { Form } from 'react-bootstrap';
 
 export function SelectorForm({
   selectors,
@@ -47,17 +48,12 @@ export function SelectorForm({
   };
 
   return (
-    <form
-      className="form-floating p-3 border rounded"
-      onSubmit={handleSubmit(submit)}
-    >
+    <Form className="p-3 border rounded" onSubmit={handleSubmit(submit)}>
       <h5 className="mb-1">Add new selector</h5>
 
       <div className="row g-3">
-        <div className="col-lg-4 col-md-12">
-          <select
-            id={`${id} - dataCategory`}
-            className="form-select"
+        <Form.Group className="col-xl-4 col-lg-12" controlId={`${id}-dataCategory`}>
+          <Form.Select
             {...register('dataCategory', { required: true })}
           >
             {dataCategories.map((dc) => (
@@ -65,15 +61,14 @@ export function SelectorForm({
                 {dc}
               </option>
             ))}
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div className="col-lg-7 col-md-12">
-          <input
+        <Form.Group className="col-xl-7 col-lg-12" controlId={`${id}-name`}>
+          <Form.Control
             type="text"
-            id={`${id}-name`}
             placeholder="name"
-            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+            className={errors.name && 'is-invalid'}
             {...register('name', {
               required: true,
               validate: validateSelector,
@@ -81,19 +76,21 @@ export function SelectorForm({
           />
           {renderRequiredError(errors.name, 'Please enter selector name')}
           {renderBadFormatError(errors.name, 'Selector exists')}
-        </div>
+        </Form.Group>
 
-        <div className="col-lg-1 col-md-12">
+        <div className="col-xl-1 col-lg-12">
           <button
             type="submit"
-            className="btn btn-primary"
+            className="btn btn-primary px-0"
             style={{ width: '100%' }}
           >
-            +
+            <span>
+              <i className="bi bi-plus" />
+            </span>
           </button>
         </div>
       </div>
-    </form>
+    </Form>
   );
 }
 

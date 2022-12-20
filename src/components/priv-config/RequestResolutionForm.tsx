@@ -6,6 +6,7 @@ import {
   useGetRequestResolutionQuery,
   useUpdateRequestResolutionMutation,
 } from '../../store/privConfigSlice';
+import { Form } from 'react-bootstrap';
 
 export type ResolutionStrategy = 'auto' | 'manual';
 
@@ -38,103 +39,63 @@ function RequestResolutionFormInner({
   };
 
   return (
-    <form className="form-floating" onSubmit={handleSubmit(submit)}>
-      <div className="row g-5">
-        <div className="col-md-4">
-          <label className="form-label" htmlFor={`${id}-transparency`}>
-            Transparency
-          </label>
-          <select
-            id={`${id}-transparency`}
-            className="form-select"
-            {...register('transparency', { required: true })}
-          >
-            <option value="auto">automatic</option>
-            <option value="manual">manual</option>
-          </select>
-        </div>
+    <Form className="row row-cols-md-3 row-cols-1 g-5" onSubmit={handleSubmit(submit)}>
 
-        <div className="col-md-4">
-          <label className="form-label" htmlFor={`${id}-access`}>
-            access
-          </label>
-          <select
-            id={`${id}-access`}
-            className="form-select"
-            {...register('access', { required: true })}
-          >
-            <option value="auto">automatic</option>
-            <option value="manual">manual</option>
-          </select>
-        </div>
+      <Form.Group controlId={`${id}-transparency`}>
+        <Form.Label>Transparency</Form.Label>
+        <Form.Select {...register('transparency', { required: true })}>
+          <option value="auto">automatic</option>
+          <option value="manual">manual</option>
+        </Form.Select>
+      </Form.Group>
 
-        <div className="col-md-4">
-          <label className="form-label" htmlFor={`${id}-delete`}>
-            delete
-          </label>
-          <select
-            id={`${id}-delete`}
-            className="form-select"
-            {...register('delete', { required: true })}
-          >
-            <option value="auto">automatic</option>
-            <option value="manual">manual</option>
-          </select>
-        </div>
+      <Form.Group controlId={`${id}-access`}>
+        <Form.Label>Access</Form.Label>
+        <Form.Select {...register('access', { required: true })}>
+          <option value="auto">automatic</option>
+          <option value="manual">manual</option>
+        </Form.Select>
+      </Form.Group>
 
-        <div className="col-md-4">
-          <label className="form-label" htmlFor={`${id}-revoke_consent`}>
-            revoke_consent
-          </label>
-          <select
-            id={`${id}-revoke_consent`}
-            className="form-select"
-            {...register('revoke_consent', { required: true })}
-          >
-            <option value="auto">automatic</option>
-            <option value="manual">manual</option>
-          </select>
-        </div>
+      <Form.Group controlId={`${id}-delete`}>
+        <Form.Label>Delete</Form.Label>
+        <Form.Select {...register('delete', { required: true })}>
+          <option value="auto">automatic</option>
+          <option value="manual">manual</option>
+        </Form.Select>
+      </Form.Group>
 
-        <div className="col-md-4">
-          <label className="form-label" htmlFor={`${id}-object_scope`}>
-            object_scope
-          </label>
-          <select
-            id={`${id}-object_scope`}
-            className="form-select"
-            {...register('object_scope', { required: true })}
-          >
-            <option value="auto">automatic</option>
-            <option value="manual">manual</option>
-          </select>
-        </div>
+      <Form.Group controlId={`${id}-revoke_consent`}>
+        <Form.Label>Revoke consent</Form.Label>
+        <Form.Select {...register('revoke_consent', { required: true })}>
+          <option value="auto">automatic</option>
+          <option value="manual">manual</option>
+        </Form.Select>
+      </Form.Group>
 
-        <div className="col-md-4">
-          <label className="form-label" htmlFor={`${id}-restrict_scope`}>
-            restrict_scope
-          </label>
-          <select
-            id={`${id}-restrict_scope`}
-            className="form-select"
-            {...register('restrict_scope', { required: true })}
-          >
-            <option value="auto">automatic</option>
-            <option value="manual">manual</option>
-          </select>
-        </div>
+      <Form.Group controlId={`${id}-object_scope`}>
+        <Form.Label>Object</Form.Label>
+        <Form.Select {...register('object_scope', { required: true })}>
+          <option value="auto">automatic</option>
+          <option value="manual">manual</option>
+        </Form.Select>
+      </Form.Group>
 
-        <div className="col-12 text-end">
-          <span
-            onClick={() => reset(data)}
-            className="btn btn-sm btn-neutral me-2"
-          >
-            Reset
-          </span>
-          <SubmitButton label="Save" isLoading={isSaving} />
-        </div>
+      <Form.Group controlId={`${id}-restrict_scope`}>
+        <Form.Label>Restrict</Form.Label>
+        <Form.Select {...register('restrict_scope', { required: true })}>
+          <option value="auto">automatic</option>
+          <option value="manual">manual</option>
+        </Form.Select>
+      </Form.Group>
+
+      <div className="offset-md-8 d-grid d-md-flex justify-content-md-end gap-2">
+        <span onClick={() => reset(data)} className="btn btn-sm btn-neutral">
+          Reset
+        </span>
+        <SubmitButton label="Save" isLoading={isSaving} />
       </div>
-    </form>
+    </Form >
   );
 }
 

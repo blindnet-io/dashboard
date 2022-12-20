@@ -10,6 +10,7 @@ import { useAppSelector } from '../../../store/hooks';
 import SectionHeader from '../../../components/apps/SectionHeader';
 import { renderRequiredError } from '../../../util/validations';
 import SubmitButton from '../../../components/common/SubmitButton';
+import { Form } from 'react-bootstrap';
 
 type Inputs = {
   name: string;
@@ -40,51 +41,43 @@ export function CreateApp() {
   return (
     <div className="flex-grow-1 overflow-y-lg-auto">
       <div className="container-fluid max-w-screen-lg vstack gap-6">
-        <div>
-          <SectionHeader name={'Create new application'} />
 
-          <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
-            <div className="row g-5">
-              <div className="col-12">
-                <div className="mb-5">
-                  <label className="form-label" htmlFor={`${id}-name`}>
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id={`${id}-name`}
-                    className={`form-control ${
-                      errors.name ? 'is-invalid' : ''
-                    }`}
-                    {...register('name', { required: true })}
-                  />
-                  {renderRequiredError(
-                    errors.name,
-                    "Please enter your application's name"
-                  )}
-                </div>
-              </div>
+        <SectionHeader name={'Create new application'} />
 
-              <div className="col-12 text-end">
-                <Link to="/" className="btn btn-sm btn-neutral me-2">
-                  Cancel
-                </Link>
-                <SubmitButton
-                  label="Save"
-                  isLoading={createAppState.isLoading}
-                />
-              </div>
+        <Form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
 
-              {createAppState.isError && (
-                <Alert variant="danger">
-                  Error occurred. Please try again.
-                </Alert>
-              )}
-            </div>
-          </form>
-        </div>
+          <Form.Group controlId={`${id}-name`}>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              className={errors.name && 'is-invalid'}
+              {...register('name', { required: true })}
+            />
+            {renderRequiredError(
+              errors.name,
+              "Please enter your application's name"
+            )}
+          </Form.Group>
+
+          <div className="d-grid d-md-flex justify-content-md-end gap-2 mt-5">
+            <Link to="/" className="btn btn-sm btn-neutral">
+              Cancel
+            </Link>
+            <SubmitButton
+              className=""
+              label="Save"
+              isLoading={createAppState.isLoading}
+            />
+          </div>
+
+          {createAppState.isError && (
+            <Alert variant="danger">
+              Error occurred. Please try again.
+            </Alert>
+          )}
+        </Form>
       </div>
-    </div>
+    </div >
   );
 }
 

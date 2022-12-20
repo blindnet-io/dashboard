@@ -7,6 +7,7 @@ import {
   useGetGeneralInformationQuery,
   useUpdateGeneralInformationMutation,
 } from '../../store/privConfigSlice';
+import { Form } from 'react-bootstrap';
 
 export type GeneralInformation = {
   organization: string;
@@ -20,11 +21,11 @@ export type GeneralInformation = {
 function GeneralInformationFormInner({
   data,
   isSaving,
-  handleOnSubmit,
+  onSubmit,
 }: {
   data: GeneralInformation;
   isSaving: boolean;
-  handleOnSubmit: (data: GeneralInformation) => any;
+  onSubmit: (data: GeneralInformation) => any;
 }) {
   const id = useId();
 
@@ -35,108 +36,81 @@ function GeneralInformationFormInner({
     formState: { errors },
   } = useForm<GeneralInformation>({ defaultValues: data });
 
-  const onSubmit: SubmitHandler<GeneralInformation> = (data) => {
-    handleOnSubmit(data);
+  const submit: SubmitHandler<GeneralInformation> = (data) => {
+    onSubmit(data);
   };
 
   return (
-    <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <div className="mb-5">
-          <label className="form-label" htmlFor={`${id}-organization`}>
-            Organization
-          </label>
-          <input
-            type="text"
-            id={`${id}-organization`}
-            className={`form-control ${
-              errors.organization ? 'is-invalid' : ''
-            }`}
-            {...register('organization', { required: true })}
-          />
-          {renderRequiredError(
-            errors.organization,
-            'Please enter your organization name'
-          )}
-        </div>
+    <Form onSubmit={handleSubmit(submit)}>
+      <Form.Group className="mb-5" controlId={`${id}-organization`}>
+        <Form.Label>Organization</Form.Label>
+        <Form.Control
+          type="text"
+          className={errors.organization && 'is-invalid'}
+          {...register('organization', { required: true })}
+        />
+        {renderRequiredError(
+          errors.organization,
+          'Please enter your organization name'
+        )}
+      </Form.Group>
 
-        <div className="mb-5">
-          <label className="form-label" htmlFor={`${id}-dpo`}>
-            DPO
-          </label>
-          <textarea
-            id={`${id}-dpo`}
-            className={`form-control ${errors.dpo ? 'is-invalid' : ''}`}
-            {...register('dpo', { required: true })}
-          />
-          {renderRequiredError(
-            errors.dpo,
-            "Please enter your organization's DPO information"
-          )}
-        </div>
+      <Form.Group className="mb-5" controlId={`${id}-dpo`}>
+        <Form.Label>DPO</Form.Label>
+        <Form.Control
+          as="textarea"
+          className={errors.dpo && 'is-invalid'}
+          {...register('dpo', { required: true })}
+        />
+        {renderRequiredError(
+          errors.dpo,
+          "Please enter your organization's DPO information"
+        )}
+      </Form.Group >
 
-        <div className="mb-5">
-          <label
-            className="form-label"
-            htmlFor={`${id}-dataConsumerCategories`}
-          >
-            Data consumer categories
-          </label>
-          <textarea
-            id={`${id}-dataConsumerCategories`}
-            className={`form-control ${
-              errors.dataConsumerCategories ? 'is-invalid' : ''
-            }`}
-            {...register('dataConsumerCategories')}
-          />
-        </div>
+      <Form.Group className="mb-5" controlId={`${id}-dataConsumerCategories`}>
+        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Control
+          as="textarea"
+          className={errors.dataConsumerCategories && 'is-invalid'}
+          {...register('dataConsumerCategories')}
+        />
+      </Form.Group >
 
-        <div className="mb-5">
-          <label className="form-label" htmlFor={`${id}-countries`}>
-            Countries
-          </label>
-          <textarea
-            id={`${id}-countries`}
-            className={`form-control ${errors.countries ? 'is-invalid' : ''}`}
-            {...register('countries')}
-          />
-        </div>
+      <Form.Group className="mb-5" controlId={`${id}-countries`}>
+        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Control
+          as="textarea"
+          className={errors.countries && 'is-invalid'}
+          {...register('countries')}
+        />
+      </Form.Group >
 
-        <div className="mb-5">
-          <label className="form-label" htmlFor={`${id}-privacyPolicyLink`}>
-            Privacy policy link
-          </label>
-          <input
-            type="text"
-            id={`${id}-privacyPolicyLink`}
-            className={`form-control ${
-              errors.privacyPolicyLink ? 'is-invalid' : ''
-            }`}
-            {...register('privacyPolicyLink')}
-          />
-        </div>
+      <Form.Group className="mb-5" controlId={`${id}-privacyPolicyLink`}>
+        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Control
+          type="text"
+          className={errors.privacyPolicyLink && 'is-invalid'}
+          {...register('privacyPolicyLink')}
+        />
+      </Form.Group >
 
-        <div className="mb-5">
-          <label className="form-label" htmlFor={`${id}-dataSecurityInfo`}>
-            Data security information
-          </label>
-          <textarea
-            id={`${id}-dataSecurityInfo`}
-            className={`form-control ${
-              errors.dataSecurityInfo ? 'is-invalid' : ''
-            }`}
-            {...register('dataSecurityInfo')}
-          />
-        </div>
+      <Form.Group className="mb-5" controlId={`${id}-dataSecurityInfo`}>
+        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Control
+          as="textarea"
+          className={errors.dataSecurityInfo && 'is-invalid'}
+          {...register('dataSecurityInfo')}
+        />
+      </Form.Group >
 
-        <div className="text-end">
-          <span onClick={() => reset()} className="btn btn-sm btn-neutral me-2">
-            Reset
-          </span>
-          <SubmitButton label="Save" isLoading={isSaving} />
-        </div>
+      <div className="d-grid d-md-flex justify-content-md-end gap-2">
+        <span onClick={() => reset()} className="btn btn-sm btn-neutral">
+          Reset
+        </span>
+        <SubmitButton label="Save" isLoading={isSaving} />
       </div>
-    </form>
+    </Form>
   );
 }
 
@@ -158,7 +132,7 @@ export function GeneralInformationForm({ token }: { token: string }) {
           <GeneralInformationFormInner
             data={data}
             isSaving={updateState.isLoading}
-            handleOnSubmit={onSubmit}
+            onSubmit={onSubmit}
           />
           {updateState.isError && (
             <Alert className="mt-5" variant="danger">

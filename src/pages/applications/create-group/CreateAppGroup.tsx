@@ -15,6 +15,7 @@ import {
   renderRequiredError,
   validateSecretKey,
 } from '../../../util/validations';
+import { Form, InputGroup } from 'react-bootstrap';
 
 import styles from './style.module.scss';
 import SubmitButton from '../../../components/common/SubmitButton';
@@ -63,76 +64,64 @@ export function CreateAppGroup() {
       <div className="container-fluid max-w-screen-lg vstack gap-6">
         <SectionHeader name={'Create new group'} />
 
-        <form className="form-floating" onSubmit={handleSubmit(onSubmit)}>
-          <div className="row g-5">
-            <div className="col-12">
-              <div>
-                <label className="form-label" htmlFor={`${id}-name`}>
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id={`${id}-name`}
-                  className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                  {...register('name', { required: true })}
-                />
-                {renderRequiredError(
-                  errors.name,
-                  "Please enter the groups's name"
-                )}
-              </div>
-            </div>
+        <Form onSubmit={handleSubmit(onSubmit)}>
 
-            <div className="col-12">
-              <label className="form-label" htmlFor={`${id}-private-key`}>
-                Key
-              </label>
-              <div
-                className={`input-group ${
-                  errors.key
-                    ? `is-invalid ${styles.removeInputGroupShadow}`
-                    : ''
-                }`}
-              >
-                <textarea
-                  id={`${id}-private-key`}
-                  className={`form-control ${errors.key ? 'is-invalid' : ''}`}
-                  {...register('key', {
-                    required: true,
-                    validate: validateSecretKey,
-                  })}
-                />
-                <span
-                  className={`input-group-text cursor-pointer ${styles.copy}`}
-                  onClick={copyKey}
-                >
-                  <i className="bi bi-clipboard"></i>
-                </span>
-                {renderRequiredError(errors.key, 'Please enter the key')}
-                {renderBadFormatError(
-                  errors.key,
-                  'Please enter the base64 encoded Ed25519 key'
-                )}
-              </div>
-              <span className="d-block mt-2 text-sm text-muted">
-                Save this key and keep it secret. If lost, you'll have to
-                generate a new one.
-              </span>
-            </div>
+          <Form.Group className="mb-5" controlId={`${id}-name`}>
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              className={errors.name && 'is-invalid'}
+              {...register('name', { required: true })}
+            />
+            {renderRequiredError(
+              errors.name,
+              "Please enter the groups's name"
+            )}
+          </Form.Group>
 
-            {createGroupState.isError && <Alert variant="danger">Error</Alert>}
-
-            <div className="col-12 text-end">
-              <Link to="/" className="btn btn-sm btn-neutral me-2">
-                Cancel
-              </Link>
-              <SubmitButton
-                label="Save"
-                isLoading={createGroupState.isLoading}
+          <Form.Group className="mb-5" controlId={`${id}-private-key`}>
+            <Form.Label>Key</Form.Label>
+            <InputGroup className={errors.key && `is-invalid ${styles.removeInputGroupShadow}`}>
+              <Form.Control
+                as="textarea"
+                className={errors.key && 'is-invalid'}
+                {...register('key', {
+                  required: true,
+                  validate: validateSecretKey,
+                })}
               />
-            </div>
+              <InputGroup.Text
+                className={`input-group-text cursor-pointer ${styles.copy}`}
+                onClick={copyKey}
+              >
+                <i className="bi bi-clipboard"></i>
+              </InputGroup.Text>
+              {renderRequiredError(errors.key, 'Please enter the key')}
+              {renderBadFormatError(
+                errors.key,
+                'Please enter the base64 encoded Ed25519 key'
+              )}
+            </InputGroup>
+            <div className="mt-2"></div>
+            <Form.Text className="text-muted">
+              Save this key and keep it secret. If lost, you'll have to
+              generate a new one.
+            </Form.Text>
+
+          </Form.Group >
+
+          {createGroupState.isError && <Alert variant="danger">Error</Alert>}
+
+          <div className="d-grid d-md-flex justify-content-md-end gap-2 mt-10 mt-md-5">
+            <Link to="/" className="btn btn-sm btn-neutral">
+              Cancel
+            </Link>
+            <SubmitButton
+              label="Save"
+              isLoading={createGroupState.isLoading}
+            />
           </div>
-        </form>
+        </Form>
       </div>
     </div>
   );
