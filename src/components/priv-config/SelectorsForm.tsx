@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import SubmitButton from '../common/SubmitButton';
 import {
   addSelector,
-  newPrivSelectorsSelector,
+  selectNewPrivSelectors,
   PrivSelector,
   removeAllSelectors,
   removeSelector,
@@ -97,7 +97,7 @@ export function SelectorForm({
 
 export function SelectorsForm({ token }: { token: string }) {
   const dispatch = useAppDispatch();
-  const newPrivSelectors = useAppSelector(newPrivSelectorsSelector);
+  const newPrivSelectors = useAppSelector(selectNewPrivSelectors);
 
   const [add, addState] = useAddSelectorsMutation();
   const { data, isSuccess, isError, isLoading } =

@@ -5,7 +5,6 @@ import { RootState } from './store';
 export type Application = {
   id: string;
   name: string;
-  key: string;
 };
 
 export type AppGroup = {
@@ -53,10 +52,7 @@ const appsApiSlice = identityApi.injectEndpoints({
       }),
       invalidatesTags: ['groups'],
     }),
-    updateAppGroup: builder.mutation<
-      any,
-      { id: string; name: string; key: string }
-    >({
+    updateAppGroup: builder.mutation<any, AppGroup>({
       query: ({ id, name, key }) => ({
         url: `app-groups/${id}`,
         method: 'POST',
@@ -86,7 +82,7 @@ const appsApiSlice = identityApi.injectEndpoints({
       }),
       invalidatesTags: ['apps'],
     }),
-    updateApp: builder.mutation<string, { id: string; name: string }>({
+    updateApp: builder.mutation<string, Application>({
       query: ({ id, name }) => ({
         url: `applications`,
         method: 'POST',
@@ -134,16 +130,19 @@ export const selectAppGroups = createSelector(
   appsApiSlice.endpoints.getAppGroups.select(undefined),
   (res) => res.data
 );
+
 export const selectAppGroup = (id: string) =>
   createSelector(
     appsApiSlice.endpoints.getAppGroup.select(id),
     (res) => res.data
   );
+
 export const selectAppGroupApps = (id: string) =>
   createSelector(
     appsApiSlice.endpoints.getAppGroupApps.select(id),
     (res) => res.data
   );
+
 export const selectApp = (id: string) =>
   createSelector(appsApiSlice.endpoints.getApp.select(id), (res) => res.data);
 
@@ -152,8 +151,3 @@ export const selectActiveGroup = createSelector(
   selectAppGroups,
   (activeGroup, groups) => groups?.find((g) => g.id === activeGroup)
 );
-
-// export const selectApp = (token: string, id: string) => createSelector(
-//   selectActiveGroup(token),
-//   group => group?.applications.find(a => a.id === id)
-// )

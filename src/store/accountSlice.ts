@@ -12,7 +12,6 @@ const accountApiSlice = identityApi.injectEndpoints({
         url: 'account',
         method: 'GET',
       }),
-      // ransformResponse: (response, meta, arg) => response
     }),
   }),
 });
@@ -25,8 +24,6 @@ export const accountSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {},
 });
-
-// export const { } = accountSlice.actions
 
 export const selectAccountInfo = (token: string) =>
   createSelector(

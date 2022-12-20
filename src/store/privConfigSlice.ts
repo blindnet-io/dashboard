@@ -200,12 +200,12 @@ export const privConfigSlice = createSlice({
 export const { addSelector, removeSelector, removeAllSelectors } =
   privConfigSlice.actions;
 
-export const selectors = (token: string) =>
+export const selectPrivSelectors = (token: string) =>
   createSelector(
     privConfigApiSlice.endpoints.getPrivacyScopeDimenstions.select(token),
     (res) =>
       res.data?.data_categories.filter((dc) => !dataCategories.includes(dc))
   );
 
-export const newPrivSelectorsSelector = (state: RootState) =>
+export const selectNewPrivSelectors = (state: RootState) =>
   state.privConfig.newPrivSelectors;
