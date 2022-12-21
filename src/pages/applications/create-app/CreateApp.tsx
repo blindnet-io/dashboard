@@ -69,7 +69,9 @@ export function CreateApp() {
           </div>
 
           {createAppState.isError && (
-            <Alert variant="danger">Error occurred. Please try again.</Alert>
+            <Alert className="mt-5" variant="danger">
+              Error occurred. Please try again.
+            </Alert>
           )}
         </Form>
       </div>

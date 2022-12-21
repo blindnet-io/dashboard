@@ -109,14 +109,18 @@ export function CreateAppGroup() {
             </Form.Text>
           </Form.Group>
 
-          {createGroupState.isError && <Alert variant="danger">Error</Alert>}
-
           <div className="d-grid d-md-flex justify-content-md-end gap-2 mt-10 mt-md-5">
             <Link to="/" className="btn btn-sm btn-neutral">
               Cancel
             </Link>
             <SubmitButton label="Save" isLoading={createGroupState.isLoading} />
           </div>
+
+          {createGroupState.isError && (
+            <Alert className="mt-5" variant="danger">
+              Error occurred. Please try again.
+            </Alert>
+          )}
         </Form>
       </div>
     </div>

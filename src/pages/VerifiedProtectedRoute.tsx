@@ -13,18 +13,14 @@ const VerifiedProtectedRoute = () => {
         </div>
       )}
       {isError && (
-        <div className="mt-10">
-          <Alert variant="danger">
-            Error occurred. Please refresh the page.
-          </Alert>
-        </div>
+        <Alert className="mt-10" variant="danger">
+          Error occurred. Please refresh the page.
+        </Alert>
       )}
       {data?.verified === false && (
-        <div className="mt-10">
-          <Alert variant="danger">
-            You need to verify your email address. Check your email inbox.
-          </Alert>
-        </div>
+        <Alert className="mt-10" variant="danger">
+          You need to verify your email address. Check your email inbox.
+        </Alert>
       )}
       {data?.verified === true && <Outlet />}
     </>
