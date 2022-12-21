@@ -8,7 +8,7 @@ import {
   useGetLegalBasesQuery,
   useGetPrivacyScopeDimenstionsQuery,
 } from '../../store/privConfigSlice';
-import { Container, Form, Modal } from 'react-bootstrap';
+import { Container, Form, Modal, Spinner } from 'react-bootstrap';
 import { NewLegalBase } from '../../types';
 import { legalBaseTypes } from '../../consts/legal-base-types';
 import { dataCategories } from '../../consts/data-categories';
@@ -203,7 +203,11 @@ export function LegalBasesForm({ token }: { token: string }) {
 
   return (
     <>
-      {isLoading && <div>loading...</div>}
+      {isLoading && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       {isSuccess && (
         <>
           <div className="d-grid justify-content-md-end">
@@ -248,10 +252,7 @@ export function LegalBasesForm({ token }: { token: string }) {
               className="list-group-item list-group-item-light d-flex justify-content-center align-items-center border-0 rounded-3 px-3 mb-2"
               style={{ height: '40px' }}
             >
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-              />
+              <Spinner size="sm" />
             </div>
           )}
 

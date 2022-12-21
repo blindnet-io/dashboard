@@ -7,7 +7,7 @@ import {
   useGetGeneralInformationQuery,
   useUpdateGeneralInformationMutation,
 } from '../../store/privConfigSlice';
-import { Form } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 
 export type GeneralInformation = {
   organization: string;
@@ -116,7 +116,7 @@ function GeneralInformationFormInner({
 
 export function GeneralInformationForm({ token }: { token: string }) {
   const [update, updateState] = useUpdateGeneralInformationMutation();
-  const { data, isSuccess, isError, isLoading } =
+  const { data, isSuccess, isError, isFetching, isLoading } =
     useGetGeneralInformationQuery(token);
 
   const onSubmit = async (data: GeneralInformation) => {
@@ -126,7 +126,11 @@ export function GeneralInformationForm({ token }: { token: string }) {
 
   return (
     <>
-      {isLoading && <div>loading...</div>}
+      {(isLoading || isFetching) && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       {isSuccess && (
         <>
           <GeneralInformationFormInner

@@ -17,7 +17,7 @@ import {
   renderRequiredError,
 } from '../../util/validations';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { Form } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 
 export function SelectorForm({
   selectors,
@@ -100,7 +100,8 @@ export function SelectorsForm({ token }: { token: string }) {
   const newPrivSelectors = useAppSelector(selectNewPrivSelectors);
 
   const [add, addState] = useAddSelectorsMutation();
-  const { data, isSuccess, isError, isLoading } =
+
+  const { data, isSuccess, isError, isFetching, isLoading } =
     useGetPrivacyScopeDimenstionsQuery(token);
 
   const selectors = useMemo(() => {
@@ -121,7 +122,11 @@ export function SelectorsForm({ token }: { token: string }) {
 
   return (
     <>
-      {isLoading && <div>loading...</div>}
+      {isLoading && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       {isSuccess && selectors && (
         <>
           <h3>Existing</h3>
@@ -139,6 +144,13 @@ export function SelectorsForm({ token }: { token: string }) {
                 </div>
               </div>
             ))}
+            {isFetching && (
+              <div className="list-group-item px-3 border-0 rounded-3 mb-2 list-group-item-light">
+                <div className="d-flex justify-content-center">
+                  <Spinner size="sm" />
+                </div>
+              </div>
+            )}
           </div>
 
           <h3 className="mt-5">New</h3>

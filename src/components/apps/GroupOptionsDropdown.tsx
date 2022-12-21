@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AppGroup } from '../../store/appsSlice';
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 import { useState } from 'react';
 
 import styles from './styles/group-options-dropdown.module.css';
@@ -33,13 +33,8 @@ function GroupOptionsDropdown({
       }}
     >
       <Dropdown.Toggle as={Button} variant="outline-primary">
-        {isLoading && (
-          <span
-            className="spinner-border spinner-border-sm"
-            role="status"
-          ></span>
-        )}{' '}
-        {truncate(activeGroup.name, 20)} {'   '}
+        {isLoading && <Spinner size={'sm'} />} {truncate(activeGroup.name, 20)}{' '}
+        {'   '}
       </Dropdown.Toggle>
 
       <Dropdown.Menu className={styles.dropMenu}>

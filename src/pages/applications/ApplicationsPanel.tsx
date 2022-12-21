@@ -47,7 +47,7 @@ export function ApplicationsPanel() {
         <ApplicationsHeader
           groups={appGroups}
           activeGroup={activeGroup}
-          fetching={fetchingGroups}
+          isLoading={fetchingGroups}
           onSelectGroup={changeGroup}
         />
       )}

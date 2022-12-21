@@ -4,12 +4,12 @@ import GroupOptionsDropdown from './GroupOptionsDropdown';
 export function ApplicationsHeader({
   groups,
   activeGroup,
-  fetching,
+  isLoading,
   onSelectGroup,
 }: {
   groups: AppGroup[];
   activeGroup: AppGroup;
-  fetching: boolean;
+  isLoading: boolean;
   onSelectGroup: (id: string) => void;
 }) {
   return (
@@ -21,7 +21,7 @@ export function ApplicationsHeader({
               <div className="col-md-6 col-12 mb-3 mb-md-0">
                 <h1 className="h2 mb-0 ls-tight">
                   <GroupOptionsDropdown
-                    isLoading={fetching}
+                    isLoading={isLoading}
                     activeGroup={activeGroup}
                     groups={groups}
                     onSelectGroup={onSelectGroup}

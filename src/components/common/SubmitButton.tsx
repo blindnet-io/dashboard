@@ -1,3 +1,5 @@
+import { Spinner } from 'react-bootstrap';
+
 export function SubmitButton({
   label,
   isLoading = false,
@@ -19,11 +21,7 @@ export function SubmitButton({
     <>
       {isLoading ? (
         <button type="submit" className={btnClass} onClick={onClick} disabled>
-          <span
-            className="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
+          <Spinner size="sm" aria-hidden="true" />
           {` ${label}`}
         </button>
       ) : (

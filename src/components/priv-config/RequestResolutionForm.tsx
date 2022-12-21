@@ -6,7 +6,7 @@ import {
   useGetRequestResolutionQuery,
   useUpdateRequestResolutionMutation,
 } from '../../store/privConfigSlice';
-import { Form } from 'react-bootstrap';
+import { Form, Spinner } from 'react-bootstrap';
 import { RequestResolution } from '../../types';
 
 function RequestResolutionFormInner({
@@ -93,7 +93,7 @@ function RequestResolutionFormInner({
 
 export function RequestResolutionFormForm({ token }: { token: string }) {
   const [update, updateState] = useUpdateRequestResolutionMutation();
-  const { data, isSuccess, isError, isLoading } =
+  const { data, isSuccess, isError, isFetching, isLoading } =
     useGetRequestResolutionQuery(token);
 
   const onSubmit = async (data: RequestResolution) => {
@@ -103,7 +103,11 @@ export function RequestResolutionFormForm({ token }: { token: string }) {
 
   return (
     <>
-      {isLoading && <div>loading...</div>}
+      {(isLoading || isFetching) && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       {isSuccess && (
         <>
           <RequestResolutionFormInner

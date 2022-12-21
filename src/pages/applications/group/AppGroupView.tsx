@@ -25,7 +25,11 @@ export function AppsGroupView() {
 
   return (
     <>
-      {(loadingGroup || loadingApps) && <Spinner />}
+      {(loadingGroup || loadingApps) && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       {(groupFetchingError || appsFetchingError) && (
         <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
       )}

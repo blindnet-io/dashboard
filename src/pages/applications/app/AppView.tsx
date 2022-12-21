@@ -16,9 +16,13 @@ export function AppView() {
   return (
     <>
       {id ? <></> : <Navigate to="/" />}
+      {isLoading && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       <div className="flex-grow-1 overflow-y-lg-auto">
         <div className="container-fluid max-w-screen-lg vstack gap-6">
-          {isLoading && <Spinner />}
           {isError && (
             <Alert variant="danger">
               Error occurred. Please refresh the page.

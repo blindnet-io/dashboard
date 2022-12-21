@@ -8,8 +8,9 @@ const VerifiedProtectedRoute = () => {
   return (
     <>
       {isLoading && (
-        // TODO: put to center of page
-        <Spinner />
+        <div className="d-flex justify-content-center mt-auto">
+          <Spinner />
+        </div>
       )}
       {isError && (
         <div className="mt-10">
