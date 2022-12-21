@@ -12,7 +12,7 @@ const AuthProtectedRoute = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   // TODO: use other endpoint to check token validity
-  // TODO: periodically invalidate token
+  // TODO: periodically refetch token
   const { isError, isLoading } = useStatusQuery(token || skipToken, {
     pollingInterval: 60000,
   });

@@ -62,7 +62,11 @@ export function ApplicationsPanel() {
         </div>
       </main>
       {/* loading */}
-      {loadingGroups && <Spinner />}
+      {loadingGroups && (
+        <div className="d-flex justify-content-center">
+          <Spinner />
+        </div>
+      )}
       {/* error occurred */}
       {appGroupsFetchingError && !activeGroup && (
         <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
