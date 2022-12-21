@@ -57,7 +57,7 @@ export function Navigation() {
             <hr className="navbar-divider my-5 opacity-20" />
             {/* Navigation */}
             <ul className="navbar-nav mb-4">
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link className="nav-link" to="/priv-config">
                   <i className="bi bi-p-square" /> Pending Requests
                   <span className="badge bg-opacity-30 bg-danger text-danger rounded-pill d-inline-flex align-items-center ms-auto">
@@ -70,7 +70,7 @@ export function Navigation() {
                 <span className="badge bg-opacity-30 bg-danger text-danger rounded-pill d-inline-flex align-items-center ms-auto">
                   1
                 </span>
-              </Link>
+              </Link> */}
             </ul>
             {/* Push content down */}
             <ul className="navbar-nav mb-5 d-lg-none">
