@@ -13,5 +13,12 @@
   "htmlWhitespaceSensitivity": "css",
   "endOfLine": "lf",
   "embeddedLanguageFormatting": "off",
-  "singleAttributePerLine": false
+  "singleAttributePerLine": false,
+  "importOrder": [
+    "^react(.*)$",
+    "@reduxjs(.*)$",
+    "@(.*)$",
+    "<THIRD_PARTY_MODULES>",
+    "^[./]"
+  ]
 }
