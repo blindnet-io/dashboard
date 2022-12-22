@@ -4,9 +4,13 @@ import { useGetLegalBasesQuery } from '../../../store/privConfigSlice';
 import { Modal, Spinner } from 'react-bootstrap';
 import CreateLegalBase from './CreateLegalBase';
 import LegalBasesList from './LegalBasesList';
+import LegalBaseView from './LegalBaseView';
 
 export function LegalBasesConfig({ token }: { token: string }) {
   const [showNewLbModal, setShowNewLbModal] = useState(false);
+  const [showLbModal, setShowLbModal] = useState<{ id: string | null }>({
+    id: null,
+  });
 
   const { data, isSuccess, isError, isFetching, isLoading } =
     useGetLegalBasesQuery(token);
@@ -36,7 +40,11 @@ export function LegalBasesConfig({ token }: { token: string }) {
             </div>
           </div>
           <div className="mb-2"></div>
-          <LegalBasesList legalBases={data} isFetching={isFetching} />
+          <LegalBasesList
+            legalBases={data}
+            isFetching={isFetching}
+            onSelect={(id) => setShowLbModal({ id })}
+          />
 
           <Modal
             show={showNewLbModal}
@@ -50,6 +58,19 @@ export function LegalBasesConfig({ token }: { token: string }) {
               <CreateLegalBase token={token} onSuccess={lbCreated} />
             </Modal.Body>
           </Modal>
+
+          {showLbModal.id !== null && (
+            <Modal
+              show={true}
+              fullscreen={true}
+              onHide={() => setShowLbModal({ id: null })}
+            >
+              <Modal.Header closeButton>Legal base</Modal.Header>
+              <Modal.Body>
+                <LegalBaseView token={token} id={showLbModal.id} />
+              </Modal.Body>
+            </Modal>
+          )}
         </>
       )}
       {isError && (
