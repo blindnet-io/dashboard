@@ -1,9 +1,9 @@
 import { Application } from '../../store/appsSlice';
 import Accordion from 'react-bootstrap/Accordion';
-import GeneralInformationForm from './GeneralInformationForm';
-import AutomaticResolutionForm from './RequestResolutionForm';
-import SelectorsForm from './SelectorsForm';
-import LegalBasesForm from './LegalBasesForm';
+import GeneralInformationConfig from './general-information/GeneralInformationConfig';
+import AutomaticResolutionForm from './request-resolution/RequestResolutionConfig';
+import SelectorsConfig from './selectors/SelectorsConfig';
+import LegalBasesConfig from './legal-bases/LegalBasesConfig';
 
 export function PrivacyConfiguration({ app }: { app: Application }) {
   return (
@@ -11,7 +11,7 @@ export function PrivacyConfiguration({ app }: { app: Application }) {
       <Accordion.Item eventKey="general">
         <Accordion.Header>General Information</Accordion.Header>
         <Accordion.Body>
-          <GeneralInformationForm token="" />
+          <GeneralInformationConfig token="" />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="resolution">
@@ -23,13 +23,13 @@ export function PrivacyConfiguration({ app }: { app: Application }) {
       <Accordion.Item eventKey="selectors">
         <Accordion.Header>Selectors</Accordion.Header>
         <Accordion.Body>
-          <SelectorsForm token="" />
+          <SelectorsConfig token="" />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="legal-bases">
         <Accordion.Header>Legal bases</Accordion.Header>
         <Accordion.Body>
-          <LegalBasesForm token="" />
+          <LegalBasesConfig token="" />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="retention-policies">

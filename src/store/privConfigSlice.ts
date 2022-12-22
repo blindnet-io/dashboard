@@ -1,5 +1,5 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
-import { GeneralInformation } from '../components/priv-config/GeneralInformationForm';
+import { GeneralInformation } from '../components/priv-config/general-information/GeneralInformationConfig';
 // import { GeneralInformation } from '../components/priv-config/GeneralInformation';
 import { pceApi } from './api';
 import { dataCategories } from '../consts/data-categories';

@@ -1,21 +1,20 @@
-import { useId, useState } from 'react';
+import { useId } from 'react';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { renderRequiredError } from '../../util/validations';
-import SubmitButton from '../common/SubmitButton';
+import { renderRequiredError } from '../../../util/validations';
+import SubmitButton from '../../common/SubmitButton';
 import {
   useCreateLegalBaseMutation,
-  useGetLegalBasesQuery,
   useGetPrivacyScopeDimenstionsQuery,
-} from '../../store/privConfigSlice';
-import { Container, Form, Modal, Spinner } from 'react-bootstrap';
-import { NewLegalBase } from '../../types';
-import { legalBaseTypes } from '../../consts/legal-base-types';
-import { dataCategories } from '../../consts/data-categories';
-import { processingPurposes } from '../../consts/processing-purposes';
-import { processingCategories } from '../../consts/processing-categories';
+} from '../../../store/privConfigSlice';
+import { Container, Form } from 'react-bootstrap';
+import { NewLegalBase } from '../../../types';
+import { legalBaseTypes } from '../../../consts/legal-base-types';
+import { dataCategories } from '../../../consts/data-categories';
+import { processingPurposes } from '../../../consts/processing-purposes';
+import { processingCategories } from '../../../consts/processing-categories';
 
-function CreateNewLegalBaseForm({
+function CreateLegalBase({
   token,
   onSuccess,
 }: {
@@ -190,91 +189,4 @@ function CreateNewLegalBaseForm({
   );
 }
 
-export function LegalBasesForm({ token }: { token: string }) {
-  const [showNewLbModal, setShowNewLbModal] = useState(false);
-
-  const { data, isSuccess, isError, isFetching, isLoading } =
-    useGetLegalBasesQuery(token);
-
-  const lbCreated = (id: string) => {
-    setShowNewLbModal(false);
-    console.log(id);
-  };
-
-  return (
-    <>
-      {isLoading && (
-        <div className="d-flex justify-content-center">
-          <Spinner />
-        </div>
-      )}
-      {isSuccess && (
-        <>
-          <div className="d-grid justify-content-md-end">
-            <div
-              className="btn d-inline-flex btn-sm btn-primary mx-1"
-              onClick={() => setShowNewLbModal(true)}
-            >
-              <span>
-                <i className="bi bi-plus" /> New legal base
-              </span>
-            </div>
-          </div>
-          <div className="mb-2"></div>
-          <div className="list-group list-group-light">
-            {data.map((lb) => (
-              <div
-                key={lb.id}
-                className="list-group-item list-group-item-action list-group-item-light d-flex justify-content-between align-items-center border-0 rounded-3 px-3 mb-2 cursor-pointer"
-              >
-                <div>
-                  <div
-                    className="fw-bold text-muted"
-                    style={{ fontSize: '120%' }}
-                  >
-                    {lb.name}
-                  </div>
-                  <div className="">{lb.id}</div>
-                  <div className="mt-3 text-muted">{lb.description}</div>
-                </div>
-                {lb.active && (
-                  <span className="badge rounded-pill bg-success">Active</span>
-                )}
-                {!lb.active && (
-                  <span className="badge rounded-pill bg-danger">Disabled</span>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {isFetching && (
-            <div
-              className="list-group-item list-group-item-light d-flex justify-content-center align-items-center border-0 rounded-3 px-3 mb-2"
-              style={{ height: '40px' }}
-            >
-              <Spinner size="sm" />
-            </div>
-          )}
-
-          <Modal
-            show={showNewLbModal}
-            fullscreen={true}
-            onHide={() => setShowNewLbModal(false)}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Create new legal base</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <CreateNewLegalBaseForm token={token} onSuccess={lbCreated} />
-            </Modal.Body>
-          </Modal>
-        </>
-      )}
-      {isError && (
-        <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
-      )}
-    </>
-  );
-}
-
-export default LegalBasesForm;
+export default CreateLegalBase;
