@@ -29,12 +29,29 @@ export type SelectorPayload = {
   data_category: string;
 };
 
+export type PrivacyScopeTriple = {
+  data_category: string;
+  processing_category: string;
+  purpose: string;
+};
+
 export type LegalBaseLite = {
   id: string;
   lb_type: string;
   name?: string;
   description?: string;
   active: boolean;
+};
+
+export type LegalBase = {
+  id: string;
+  lb_type: string;
+  name?: string;
+  description?: string;
+  active: boolean;
+  scope: {
+    triples: Array<PrivacyScopeTriple>;
+  };
 };
 
 export type NewLegalBase = {
