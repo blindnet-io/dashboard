@@ -1,8 +1,8 @@
 import { useId } from 'react';
+import { Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { renderRequiredError } from '../../../util/validations';
 import SubmitButton from '../../common/SubmitButton';
-import { Form } from 'react-bootstrap';
 import { GeneralInformation } from './GeneralInformationConfig';
 
 function GeneralInformationForm({

@@ -1,12 +1,12 @@
-import { Navigate, useParams } from 'react-router-dom';
 import { Alert, Spinner } from 'react-bootstrap';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { useGetAppQuery } from '../../../store/appsSlice';
-import AppInfo from '../../../components/apps/AppInfo';
-import SectionHeader from '../../../components/apps/SectionHeader';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import { Navigate, useParams } from 'react-router-dom';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
+import AppInfo from '../../../components/apps/AppInfo';
+import SectionHeader from '../../../components/apps/SectionHeader';
 import PrivacyConfiguration from '../../../components/priv-config/PrivacyConfiguration';
+import { useGetAppQuery } from '../../../store/appsSlice';
 
 export function AppView() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { FieldError, Merge } from 'react-hook-form';
-import { b64str2bin } from './conversions';
 import * as ed from '@noble/ed25519';
+import { b64str2bin } from './conversions';
 
 // export const validateEmail = (x: any) => true
 export const validateEmail = (value: string) =>

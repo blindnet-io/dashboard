@@ -1,18 +1,18 @@
 import { useId } from 'react';
+import { Container, Form } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { renderRequiredError } from '../../../util/validations';
-import SubmitButton from '../../common/SubmitButton';
+import { dataCategories } from '../../../consts/data-categories';
+import { legalBaseTypes } from '../../../consts/legal-base-types';
+import { processingCategories } from '../../../consts/processing-categories';
+import { processingPurposes } from '../../../consts/processing-purposes';
 import {
   useCreateLegalBaseMutation,
   useGetPrivacyScopeDimenstionsQuery,
 } from '../../../store/privConfigSlice';
-import { Container, Form } from 'react-bootstrap';
 import { NewLegalBase } from '../../../types';
-import { legalBaseTypes } from '../../../consts/legal-base-types';
-import { dataCategories } from '../../../consts/data-categories';
-import { processingPurposes } from '../../../consts/processing-purposes';
-import { processingCategories } from '../../../consts/processing-categories';
+import { renderRequiredError } from '../../../util/validations';
+import SubmitButton from '../../common/SubmitButton';
 
 function CreateLegalBase({
   token,

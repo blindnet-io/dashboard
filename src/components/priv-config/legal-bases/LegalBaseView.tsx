@@ -1,7 +1,7 @@
 import { useId } from 'react';
+import { Container, Form, Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { useGetLegalBaseQuery } from '../../../store/privConfigSlice';
-import { Container, Form, Spinner } from 'react-bootstrap';
 import { LegalBase } from '../../../types';
 
 function LegalBaseViewInner({ legalBase }: { legalBase: LegalBase }) {

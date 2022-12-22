@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
+import { Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler } from 'react-hook-form';
-import SubmitButton from '../../common/SubmitButton';
+import { dataCategories } from '../../../consts/data-categories';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   addSelector,
   selectNewPrivSelectors,
@@ -11,11 +13,9 @@ import {
   useAddSelectorsMutation,
   useGetPrivacyScopeDimenstionsQuery,
 } from '../../../store/privConfigSlice';
-import { dataCategories } from '../../../consts/data-categories';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { Spinner } from 'react-bootstrap';
-import SelectorList from './SelectorList';
+import SubmitButton from '../../common/SubmitButton';
 import CreateSelector from './CreateSelector';
+import SelectorList from './SelectorList';
 
 export function SelectorsConfig({ token }: { token: string }) {
   const dispatch = useAppDispatch();

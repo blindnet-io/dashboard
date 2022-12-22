@@ -1,24 +1,23 @@
 import { useId } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Form, InputGroup } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
 import * as ed from '@noble/ed25519';
-import { bin2b64str, b64str2bin } from '../../../util/conversions';
+import SectionHeader from '../../../components/apps/SectionHeader';
+import SubmitButton from '../../../components/common/SubmitButton';
 import {
   useCreateAppGroupMutation,
   changeActiveGroup,
 } from '../../../store/appsSlice';
 import { useAppDispatch } from '../../../store/hooks';
-import SectionHeader from '../../../components/apps/SectionHeader';
+import { bin2b64str, b64str2bin } from '../../../util/conversions';
 import {
   renderBadFormatError,
   renderRequiredError,
   validateSecretKey,
 } from '../../../util/validations';
-import { Form, InputGroup } from 'react-bootstrap';
-
 import styles from './style.module.scss';
-import SubmitButton from '../../../components/common/SubmitButton';
 
 type Inputs = {
   name: string;

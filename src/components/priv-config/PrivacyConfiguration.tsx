@@ -1,9 +1,9 @@
-import { Application } from '../../store/appsSlice';
 import Accordion from 'react-bootstrap/Accordion';
+import { Application } from '../../store/appsSlice';
 import GeneralInformationConfig from './general-information/GeneralInformationConfig';
+import LegalBasesConfig from './legal-bases/LegalBasesConfig';
 import AutomaticResolutionForm from './request-resolution/RequestResolutionConfig';
 import SelectorsConfig from './selectors/SelectorsConfig';
-import LegalBasesConfig from './legal-bases/LegalBasesConfig';
 
 export function PrivacyConfiguration({ app }: { app: Application }) {
   return (

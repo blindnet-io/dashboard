@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
-import Dropdown from 'react-bootstrap/Dropdown';
-import { AppGroup } from '../../store/appsSlice';
-import { Button, Spinner } from 'react-bootstrap';
 import { useState } from 'react';
-
+import { Button, Spinner } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import { Link } from 'react-router-dom';
+import { AppGroup } from '../../store/appsSlice';
 import styles from './styles/group-options-dropdown.module.css';
 
 function truncate(s: string, len: number) {

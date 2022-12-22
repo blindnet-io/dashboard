@@ -1,8 +1,8 @@
 import { useId } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import SubmitButton from '../../common/SubmitButton';
 import { Form } from 'react-bootstrap';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { RequestResolution } from '../../../types';
+import SubmitButton from '../../common/SubmitButton';
 
 function RequestResolutionForm({
   data,

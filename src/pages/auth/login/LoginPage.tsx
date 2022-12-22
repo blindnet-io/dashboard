@@ -1,17 +1,17 @@
 import { useId } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLoginMutation } from '../../../store/authSlice';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/logos/b-logo.png';
+import SubmitButton from '../../../components/common/SubmitButton';
+import LegalLinks from '../../../components/legal/LegalLinks';
+import { useLoginMutation } from '../../../store/authSlice';
 import { hashPassword } from '../../../util/crypto';
 import {
   renderBadFormatError,
   renderRequiredError,
   validateEmail,
 } from '../../../util/validations';
-import SubmitButton from '../../../components/common/SubmitButton';
-import LegalLinks from '../../../components/legal/LegalLinks';
 
 type Inputs = {
   email: string;

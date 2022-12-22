@@ -1,12 +1,12 @@
 import { useId } from 'react';
+import { Form } from 'react-bootstrap';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { PrivSelector } from '../../../store/privConfigSlice';
 import { dataCategories } from '../../../consts/data-categories';
+import { PrivSelector } from '../../../store/privConfigSlice';
 import {
   renderBadFormatError,
   renderRequiredError,
 } from '../../../util/validations';
-import { Form } from 'react-bootstrap';
 
 export function CreateSelector({
   selectors,

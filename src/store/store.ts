@@ -1,11 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
-
 import { accountSlice } from './accountSlice';
-import { appsSlice } from './appsSlice';
-import { privConfigSlice } from './privConfigSlice';
-import { authSlice } from './authSlice';
 import { identityApi, pceApi } from './api';
+import { appsSlice } from './appsSlice';
+import { authSlice } from './authSlice';
+import { privConfigSlice } from './privConfigSlice';
 
 export const store = configureStore({
   middleware: (getDefault) =>

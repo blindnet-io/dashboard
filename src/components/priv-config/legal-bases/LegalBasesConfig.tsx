@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { Modal, Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { useGetLegalBasesQuery } from '../../../store/privConfigSlice';
-import { Modal, Spinner } from 'react-bootstrap';
 import CreateLegalBase from './CreateLegalBase';
-import LegalBasesList from './LegalBasesList';
 import LegalBaseView from './LegalBaseView';
+import LegalBasesList from './LegalBasesList';
 
 export function LegalBasesConfig({ token }: { token: string }) {
   const [showNewLbModal, setShowNewLbModal] = useState(false);

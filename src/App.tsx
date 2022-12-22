@@ -1,8 +1,8 @@
-import { Suspense /*lazy*/ } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Suspense } from 'react';
 import { Spinner } from 'react-bootstrap';
-
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import AuthProtectedRoute from './pages/AuthProtectedRoute';
+import Navigation from './pages/Navigation';
 // const VerifiedProtectedRoute = lazy(
 //   () => import('./pages/VerifiedProtectedRoute')
 // );
@@ -26,15 +26,14 @@ import AuthProtectedRoute from './pages/AuthProtectedRoute';
 //   () => import('./pages/applications/create-app/CreateApp')
 // );
 import VerifiedProtectedRoute from './pages/VerifiedProtectedRoute';
+import ApplicationsPanel from './pages/applications/ApplicationsPanel';
+import AppView from './pages/applications/app/AppView';
+import CreateApp from './pages/applications/create-app/CreateApp';
+import CreateAppGroup from './pages/applications/create-group/CreateAppGroup';
+import AppGroupView from './pages/applications/group/AppGroupView';
 import LoginPage from './pages/auth/login/LoginPage';
 import RegisterPage from './pages/auth/register/RegisterPage';
 import VerifyTokenPage from './pages/auth/verify/VerifyTokenPage';
-import Navigation from './pages/Navigation';
-import ApplicationsPanel from './pages/applications/ApplicationsPanel';
-import AppGroupView from './pages/applications/group/AppGroupView';
-import CreateAppGroup from './pages/applications/create-group/CreateAppGroup';
-import AppView from './pages/applications/app/AppView';
-import CreateApp from './pages/applications/create-app/CreateApp';
 
 function App() {
   return (

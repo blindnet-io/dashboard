@@ -1,12 +1,12 @@
 import { Alert, Spinner } from 'react-bootstrap';
 import { skipToken } from '@reduxjs/toolkit/query/react';
+import AppList from '../../../components/apps/AppList';
 import {
   useGetAppGroupQuery,
   selectActiveGroup,
   useGetAppGroupAppsQuery,
 } from '../../../store/appsSlice';
 import { useAppSelector } from '../../../store/hooks';
-import AppList from '../../../components/apps/AppList';
 
 export function AppsGroupView() {
   const activeGroup = useAppSelector(selectActiveGroup);

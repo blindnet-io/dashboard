@@ -1,6 +1,6 @@
+import { Alert, Spinner } from 'react-bootstrap';
 import { Outlet } from 'react-router-dom';
 import { useStatusQuery } from '../store/authSlice';
-import { Alert, Spinner } from 'react-bootstrap';
 
 const VerifiedProtectedRoute = () => {
   const { data, isError, isLoading } = useStatusQuery(undefined);

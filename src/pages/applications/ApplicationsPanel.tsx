@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
 import { Alert, Spinner } from 'react-bootstrap';
-
+import { Outlet, useNavigate } from 'react-router-dom';
+import ApplicationsHeader from '../../components/apps/ApplicationsHeader';
 import {
   useGetAppGroupsQuery,
   changeActiveGroup,
   selectActiveGroup,
 } from '../../store/appsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import ApplicationsHeader from '../../components/apps/ApplicationsHeader';
 
 export function ApplicationsPanel() {
   const navigate = useNavigate();

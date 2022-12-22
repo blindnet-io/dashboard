@@ -1,9 +1,9 @@
+import { Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import {
   useGetGeneralInformationQuery,
   useUpdateGeneralInformationMutation,
 } from '../../../store/privConfigSlice';
-import { Spinner } from 'react-bootstrap';
 import GeneralInformationForm from './GeneralInformationForm';
 
 export type GeneralInformation = {

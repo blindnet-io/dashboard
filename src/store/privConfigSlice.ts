@@ -1,10 +1,11 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import { GeneralInformation } from '../components/priv-config/general-information/GeneralInformationConfig';
+import { dataCategories } from '../consts/data-categories';
+import * as t from '../types';
 // import { GeneralInformation } from '../components/priv-config/GeneralInformation';
 import { pceApi } from './api';
-import { dataCategories } from '../consts/data-categories';
 import { RootState } from './store';
-import * as t from '../types';
+
 // import { RootState } from './store';
 
 const privConfigApiSlice = pceApi.injectEndpoints({

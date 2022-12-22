@@ -1,5 +1,5 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { Navigate, Outlet } from 'react-router-dom';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import {
   selectIsAuthenticated,
   selectToken,

@@ -1,9 +1,9 @@
+import { Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import {
   useGetRequestResolutionQuery,
   useUpdateRequestResolutionMutation,
 } from '../../../store/privConfigSlice';
-import { Spinner } from 'react-bootstrap';
 import { RequestResolution } from '../../../types';
 import RequestResolutionForm from './RequestResolutionForm';
 
