@@ -160,6 +160,34 @@ const privConfigApiSlice = pceApi.injectEndpoints({
       }),
       providesTags: ['legalBases'],
     }),
+    getLegalBase: builder.query<t.LegalBase, [string, string]>({
+      // query: ([token, lbId]) => ({
+      //   url: `configure/legal-bases/${lbId}`,
+      //   method: 'GET',
+      //   headers: {
+      //     'Authorization': `Bearer ${token}`
+      //   }
+      // }),
+      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
+        data: {
+          id: 'c4ca098d-0f2f-41f4-a6df-07c4b9ccf7a1',
+          lb_type: 'CONSENT',
+          name: 'test consent',
+          description: 'description',
+          active: true,
+          scope: {
+            triples: [
+              {
+                data_category: '',
+                processing_category: '',
+                purpose: '',
+              },
+            ],
+          },
+        },
+      }),
+      providesTags: ['legalBases'],
+    }),
     createLegalBase: builder.mutation<string, [string, t.NewLegalBase]>({
       // query: ([token, body]) => ({
       //   url: `configure/legal-bases`,
@@ -187,6 +215,7 @@ export const {
   useAddSelectorsMutation,
   useGetLegalBasesQuery,
   useCreateLegalBaseMutation,
+  useGetLegalBaseQuery,
 } = privConfigApiSlice;
 
 export type PrivSelector = {
