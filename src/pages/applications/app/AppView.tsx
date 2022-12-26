@@ -32,8 +32,8 @@ export function AppView() {
             <>
               <SectionHeader name={data.name} />
               <Tabs
-                // defaultActiveKey="info"
-                defaultActiveKey="priv-config"
+                defaultActiveKey="info"
+                // defaultActiveKey="priv-config"
                 className="mb-3"
                 justify
               >

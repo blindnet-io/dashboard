@@ -7,7 +7,10 @@ import SelectorsConfig from './selectors/SelectorsConfig';
 
 export function PrivacyConfiguration({ app }: { app: Application }) {
   return (
-    <Accordion className="overflow-auto" defaultActiveKey="legal-bases">
+    <Accordion
+      className="overflow-auto"
+      // defaultActiveKey="general"
+    >
       <Accordion.Item eventKey="general">
         <Accordion.Header>General Information</Accordion.Header>
         <Accordion.Body>
