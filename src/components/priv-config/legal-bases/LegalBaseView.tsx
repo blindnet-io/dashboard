@@ -7,9 +7,27 @@ import { LegalBase } from '../../../types';
 function LegalBaseViewInner({ legalBase }: { legalBase: LegalBase }) {
   const id = useId();
 
+  const copy = () => {
+    (document.getElementById(`${id}-id`) as HTMLInputElement).select();
+    navigator.clipboard.writeText(legalBase.id);
+  };
+
   return (
     <Container className="container-sm">
       <Form>
+        <Form.Group className="mb-5" controlId={`${id}-id`}>
+          <Form.Label>Id</Form.Label>
+          <div className="input-group shadow-none">
+            <Form.Control type="text" value={legalBase.id} readOnly />
+            <span
+              className={`input-group-text cursor-pointer`}
+              onClick={copy}
+            >
+              <i className="bi bi-clipboard"></i>
+            </span>
+          </div>
+        </Form.Group>
+
         <Form.Group className="mb-5" controlId={`${id}-name`}>
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" value={legalBase.name} readOnly />
