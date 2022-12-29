@@ -23,7 +23,6 @@ export function AppInfo({ app }: { app: Application }) {
                 className="form-control"
                 value={app.id}
                 readOnly
-                disabled
               />
               <span
                 className={`input-group-text cursor-pointer`}
