@@ -32,7 +32,7 @@ function GroupOptionsDropdown({
       }}
     >
       <Dropdown.Toggle as={Button} variant="outline-primary">
-        {isLoading && <Spinner size={'sm'} />} {truncate(activeGroup.name, 20)}{' '}
+        {isLoading && <Spinner size={'sm'} />}{' '}{truncate(activeGroup.name, 20)}
         {'   '}
       </Dropdown.Toggle>
 
