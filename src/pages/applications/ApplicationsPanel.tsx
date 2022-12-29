@@ -40,37 +40,49 @@ export function ApplicationsPanel() {
   };
 
   return (
-    <div className="px-3 px-lg-7 flex-grow-1 overflow-y-lg-auto">
-      {/* header */}
+    <>
       {groupsFetched && activeGroup && (
-        <ApplicationsHeader
-          groups={appGroups}
-          activeGroup={activeGroup}
-          isLoading={fetchingGroups}
-          onSelectGroup={changeGroup}
-        />
-      )}
-      {/* main content */}
-      <main className="py-10 bg-surface-secondary">
-        <div className="container-xl">
-          {/* <div className="border border-2 bg-surface-secondary h-full border-dashed rounded d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 400 }}>
+        <div className="px-3 px-lg-7 flex-grow-1 overflow-y-lg-auto">
+          {/* header */}
+          <ApplicationsHeader
+            groups={appGroups}
+            activeGroup={activeGroup}
+            isLoading={fetchingGroups}
+            onSelectGroup={changeGroup}
+          />
+          {/* main content */}
+          <main className="py-10 bg-surface-secondary">
+            <div className="container-xl">
+              {/* <div className="border border-2 bg-surface-secondary h-full border-dashed rounded d-flex flex-column justify-content-center align-items-center" style={{ minHeight: 400 }}>
                 <div className="display-4 font-semibold text-muted opacity-50">
                 </div>
               </div> */}
-          <Outlet />
+              <Outlet />
+            </div>
+          </main>
         </div>
-      </main>
+      )}
+
       {/* loading */}
       {loadingGroups && (
-        <div className="d-flex justify-content-center">
-          <Spinner />
+        <div className="d-flex flex-column flex-grow-1">
+          <div className="d-flex justify-content-center mt-auto">
+            <Spinner />
+          </div>
+          <div className="mt-auto"></div>
         </div>
       )}
+
       {/* error occurred */}
       {appGroupsFetchingError && !activeGroup && (
-        <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
+        <div className="d-flex flex-column flex-grow-1">
+          <div className="d-flex justify-content-center mt-auto">
+            <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
+          </div>
+          <div className="mt-auto"></div>
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
