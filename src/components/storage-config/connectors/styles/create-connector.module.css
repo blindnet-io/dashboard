@@ -1,0 +1,16 @@
+.serviceCard {
+  height: 200px;
+}
+
+.serviceCard:hover {
+  background-color: lightgray;
+}
+
+.serviceCardSelected {
+  background-color: lightgrey !important;
+}
+
+.serviceCardDisabled {
+  color: lightgray !important;
+  height: 200px;
+}

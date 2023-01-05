@@ -36,6 +36,6 @@ export const storageApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${process.env.REACT_APP_STORAGE_API_URL}/v1`,
   }),
-  tagTypes: ['apiToken'],
+  tagTypes: ['apiToken', 'connectors', 'connectorToken'],
   endpoints: (_) => ({}),
 });

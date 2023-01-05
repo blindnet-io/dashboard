@@ -22,6 +22,16 @@ export const renderRequiredError = (e: FieldError | undefined, msg: string) =>
     </span>
   );
 
+export const renderRequiredFreeError = (
+  e: FieldError | undefined,
+  msg: string
+) =>
+  e?.type === 'required' && (
+    <span className="mt-2" style={{ color: '#FF3366' }}>
+      {msg || 'This field is required'}
+    </span>
+  );
+
 export const renderBadFormatError = (
   e: FieldError | Merge<FieldError, any> | undefined,
   msg: string
