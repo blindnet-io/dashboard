@@ -41,15 +41,17 @@ export function ApplicationsPanel() {
 
   return (
     <>
-      {groupsFetched && activeGroup && (
+      {groupsFetched && (
         <div className="px-3 px-lg-7 flex-grow-1 overflow-y-lg-auto">
           {/* header */}
-          <ApplicationsHeader
-            groups={appGroups}
-            activeGroup={activeGroup}
-            isLoading={fetchingGroups}
-            onSelectGroup={changeGroup}
-          />
+          {activeGroup &&
+            <ApplicationsHeader
+              groups={appGroups}
+              activeGroup={activeGroup}
+              isLoading={fetchingGroups}
+              onSelectGroup={changeGroup}
+            />
+          }
           {/* main content */}
           <main className="py-10 bg-surface-secondary">
             <div className="container-xl">
