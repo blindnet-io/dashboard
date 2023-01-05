@@ -31,6 +31,16 @@ function CreateLegalBase({
 
   const [create, createState] = useCreateLegalBaseMutation();
 
+  const defaultValues = {
+    scope: [
+      {
+        data_categories: [],
+        processing_categories: [],
+        processing_purposes: [],
+      },
+    ],
+  }
+
   const {
     register,
     handleSubmit,
@@ -38,17 +48,7 @@ function CreateLegalBase({
     setValue,
     reset,
     formState: { errors },
-  } = useForm<NewLegalBase>({
-    defaultValues: {
-      scope: [
-        {
-          data_categories: [],
-          processing_categories: [],
-          processing_purposes: [],
-        },
-      ],
-    },
-  });
+  } = useForm<NewLegalBase>({ defaultValues });
 
   const dcOnChange = (ev: any) => {
     const selectedDcs = [...ev.target.selectedOptions].map(
@@ -179,7 +179,7 @@ function CreateLegalBase({
         </div>
 
         <div className="d-grid d-md-flex justify-content-md-end gap-2">
-          <span onClick={() => reset()} className="btn btn-sm btn-neutral">
+          <span onClick={() => reset(defaultValues)} className="btn btn-sm btn-neutral">
             Reset
           </span>
           <SubmitButton label="Save" isLoading={createState.isLoading} />
