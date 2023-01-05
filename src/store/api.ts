@@ -20,7 +20,7 @@ export const identityApi = createApi({
 export const pceApi = createApi({
   reducerPath: 'pceApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${process.env.REACT_APP_PCE_API_URI}/v0`,
+    baseUrl: `${process.env.REACT_APP_PCE_API_URL}/v0`,
   }),
   tagTypes: [
     'generalInformation',
@@ -28,5 +28,14 @@ export const pceApi = createApi({
     'psDimensions',
     'legalBases',
   ],
+  endpoints: (_) => ({}),
+});
+
+export const storageApi = createApi({
+  reducerPath: 'storageApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${process.env.REACT_APP_STORAGE_API_URL}/v1`,
+  }),
+  tagTypes: ['apiToken'],
   endpoints: (_) => ({}),
 });

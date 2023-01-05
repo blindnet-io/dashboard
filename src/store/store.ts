@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import logger from 'redux-logger';
 import { accountSlice } from './accountSlice';
-import { identityApi, pceApi } from './api';
+import { identityApi, pceApi, storageApi } from './api';
 import { appsSlice } from './appsSlice';
 import { authSlice } from './authSlice';
 import { privConfigSlice } from './privConfigSlice';
@@ -11,6 +11,7 @@ export const store = configureStore({
     getDefault().concat(
       identityApi.middleware,
       pceApi.middleware,
+      storageApi.middleware,
       ...(process.env.NODE_ENV === 'development' ? [logger] : [])
     ),
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     privConfig: privConfigSlice.reducer,
     [identityApi.reducerPath]: identityApi.reducer,
     [pceApi.reducerPath]: pceApi.reducer,
+    [storageApi.reducerPath]: storageApi.reducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
 });

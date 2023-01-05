@@ -6,6 +6,7 @@ import { skipToken } from '@reduxjs/toolkit/dist/query';
 import AppInfo from '../../../components/apps/AppInfo';
 import SectionHeader from '../../../components/apps/SectionHeader';
 import PrivacyConfiguration from '../../../components/priv-config/PrivacyConfiguration';
+import StorageConfiguration from '../../../components/storage-config/StorageConfiguration';
 import { useGetAppQuery } from '../../../store/appsSlice';
 
 export function AppView() {
@@ -44,7 +45,7 @@ export function AppView() {
                   <PrivacyConfiguration app={data} />
                 </Tab>
                 <Tab eventKey="storage-config" title="Storage Configuration">
-                  <></>
+                  <StorageConfiguration app={data} />
                 </Tab>
               </Tabs>
             </>

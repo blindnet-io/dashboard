@@ -44,14 +44,14 @@ export function ApplicationsPanel() {
       {groupsFetched && (
         <div className="px-3 px-lg-7 flex-grow-1 overflow-y-lg-auto">
           {/* header */}
-          {activeGroup &&
+          {activeGroup && (
             <ApplicationsHeader
               groups={appGroups}
               activeGroup={activeGroup}
               isLoading={fetchingGroups}
               onSelectGroup={changeGroup}
             />
-          }
+          )}
           {/* main content */}
           <main className="py-10 bg-surface-secondary">
             <div className="container-xl">
@@ -79,7 +79,9 @@ export function ApplicationsPanel() {
       {appGroupsFetchingError && !activeGroup && (
         <div className="d-flex flex-column flex-grow-1">
           <div className="d-flex justify-content-center mt-auto">
-            <Alert variant="danger">Error occurred. Please refresh the page.</Alert>
+            <Alert variant="danger">
+              Error occurred. Please refresh the page.
+            </Alert>
           </div>
           <div className="mt-auto"></div>
         </div>
