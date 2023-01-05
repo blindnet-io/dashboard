@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy staging
     env:
-      REACT_APP_API_URI: https://stage.identity.devkit.blindnet.io
+      REACT_APP_API_URL: https://stage.identity.devkit.blindnet.io
+      REACT_APP_PCE_API_URL: https://stage.computing.blindnet.io
+      REACT_APP_STORAGE_API_URL: https://stage.storage.blindnet.io
     steps:
       - uses: actions/checkout@v2
         with:
@@ -31,7 +33,9 @@ jobs:
       runs-on: ubuntu-latest
       name: Deploy production
       env:
-        REACT_APP_API_URI: https://identity.devkit.blindnet.io
+        REACT_APP_API_URL: https://identity.devkit.blindnet.io
+        REACT_APP_PCE_API_URL: https://computing.blindnet.io
+        REACT_APP_STORAGE_API_URL: https://storage.blindnet.io
       steps:
         - uses: actions/checkout@v2
           with:
