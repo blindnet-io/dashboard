@@ -39,7 +39,7 @@ function CreateLegalBase({
         processing_purposes: [],
       },
     ],
-  }
+  };
 
   const {
     register,
@@ -179,7 +179,10 @@ function CreateLegalBase({
         </div>
 
         <div className="d-grid d-md-flex justify-content-md-end gap-2">
-          <span onClick={() => reset(defaultValues)} className="btn btn-sm btn-neutral">
+          <span
+            onClick={() => reset(defaultValues)}
+            className="btn btn-sm btn-neutral"
+          >
             Reset
           </span>
           <SubmitButton label="Save" isLoading={createState.isLoading} />
