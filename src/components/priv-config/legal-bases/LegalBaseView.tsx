@@ -19,10 +19,7 @@ function LegalBaseViewInner({ legalBase }: { legalBase: LegalBase }) {
           <Form.Label>Id</Form.Label>
           <div className="input-group shadow-none">
             <Form.Control type="text" value={legalBase.id} readOnly />
-            <span
-              className={`input-group-text cursor-pointer`}
-              onClick={copy}
-            >
+            <span className={`input-group-text cursor-pointer`} onClick={copy}>
               <i className="bi bi-clipboard"></i>
             </span>
           </div>

@@ -1,3 +1,8 @@
+import {
+  CONNECTOR_TYPE_CUSTOM,
+  CONNECTOR_TYPE_GLOBAL,
+} from '../consts/connectors';
+
 export type GeneralInformationPayload = {
   organization: string;
   dpo: string;
@@ -64,3 +69,45 @@ export type NewLegalBase = {
     processing_purposes: Array<string>;
   }>;
 };
+
+export type ConnectorPayload = {
+  id: string;
+  name: string;
+  typ?: string;
+  config?: string;
+};
+
+export type CreateConnectorPayload = {
+  name: string;
+  typ?: string;
+  config?: string;
+};
+
+export type NewConnector =
+  | {
+      type: typeof CONNECTOR_TYPE_GLOBAL;
+      name: string;
+      settings: GlobalConnectorSettings;
+    }
+  | {
+      type: typeof CONNECTOR_TYPE_CUSTOM;
+      name: string;
+    };
+
+// TODO
+export type GlobalConnectorSettings = { type: 'todo'; config: string };
+
+export type GlobalConnector = {
+  type: typeof CONNECTOR_TYPE_GLOBAL;
+  id: string;
+  name: string;
+  settings: GlobalConnectorSettings;
+};
+
+export type CustomConnector = {
+  type: typeof CONNECTOR_TYPE_CUSTOM;
+  id: string;
+  name: string;
+};
+
+export type Connector = GlobalConnector | CustomConnector;

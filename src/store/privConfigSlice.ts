@@ -6,8 +6,6 @@ import * as t from '../types';
 import { pceApi } from './api';
 import { RootState } from './store';
 
-// import { RootState } from './store';
-
 const privConfigApiSlice = pceApi.injectEndpoints({
   endpoints: (builder) => ({
     getGeneralInformation: builder.query<GeneralInformation, string>({

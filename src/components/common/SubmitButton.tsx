@@ -5,12 +5,14 @@ export function SubmitButton({
   isLoading = false,
   big = false,
   className = '',
+  type = 'submit',
   onClick = () => undefined,
 }: {
   label: string;
   isLoading?: boolean;
   big?: boolean;
   className?: string;
+  type?: 'submit' | 'reset' | 'button';
   onClick?: (_: any) => void;
 }) {
   const btnClass = big
@@ -20,12 +22,12 @@ export function SubmitButton({
   return (
     <>
       {isLoading ? (
-        <button type="submit" className={btnClass} onClick={onClick} disabled>
+        <button type={type} className={btnClass} onClick={onClick} disabled>
           <Spinner size="sm" aria-hidden="true" />
           {` ${label}`}
         </button>
       ) : (
-        <button type="submit" className={btnClass} onClick={onClick}>
+        <button type={type} className={btnClass} onClick={onClick}>
           {label}
         </button>
       )}

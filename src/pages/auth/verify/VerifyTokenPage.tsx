@@ -22,7 +22,8 @@ export function VerifyTokenPage() {
         {verifyState.isLoading && (
           <>
             <div className="d-flex justify-content-center mt-auto">
-              <Spinner /><span className="ms-2">Verifying</span>
+              <Spinner />
+              <span className="ms-2">Verifying</span>
             </div>
             <div className="mt-auto"></div>
           </>
@@ -37,9 +38,7 @@ export function VerifyTokenPage() {
             <div className="mt-auto"></div>
           </>
         )}
-        {verifyState.isSuccess && (
-          <Navigate to="/" />
-        )}
+        {verifyState.isSuccess && <Navigate to="/" />}
       </div>
     </div>
   );
