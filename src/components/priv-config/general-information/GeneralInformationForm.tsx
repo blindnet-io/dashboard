@@ -65,7 +65,7 @@ function GeneralInformationForm({
       </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-countries`}>
-        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Label>Countries</Form.Label>
         <Form.Control
           as="textarea"
           className={errors.countries && 'is-invalid'}
@@ -74,7 +74,7 @@ function GeneralInformationForm({
       </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-privacyPolicyLink`}>
-        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Label>Privacy policy link</Form.Label>
         <Form.Control
           type="text"
           className={errors.privacyPolicyLink && 'is-invalid'}
@@ -83,7 +83,7 @@ function GeneralInformationForm({
       </Form.Group>
 
       <Form.Group className="mb-5" controlId={`${id}-dataSecurityInfo`}>
-        <Form.Label>Data consumer categories</Form.Label>
+        <Form.Label>Data security information</Form.Label>
         <Form.Control
           as="textarea"
           className={errors.dataSecurityInfo && 'is-invalid'}

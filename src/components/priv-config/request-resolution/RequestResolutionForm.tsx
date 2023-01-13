@@ -60,17 +60,17 @@ function RequestResolutionForm({
         </Form.Select>
       </Form.Group>
 
-      <Form.Group controlId={`${id}-object_scope`}>
+      <Form.Group controlId={`${id}-object`}>
         <Form.Label>Object</Form.Label>
-        <Form.Select {...register('object_scope', { required: true })}>
+        <Form.Select {...register('object', { required: true })}>
           <option value="auto">automatic</option>
           <option value="manual">manual</option>
         </Form.Select>
       </Form.Group>
 
-      <Form.Group controlId={`${id}-restrict_scope`}>
+      <Form.Group controlId={`${id}-restrict`}>
         <Form.Label>Restrict</Form.Label>
-        <Form.Select {...register('restrict_scope', { required: true })}>
+        <Form.Select {...register('restrict', { required: true })}>
           <option value="auto">automatic</option>
           <option value="manual">manual</option>
         </Form.Select>

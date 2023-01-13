@@ -9,65 +9,61 @@ import { RootState } from './store';
 const privConfigApiSlice = pceApi.injectEndpoints({
   endpoints: (builder) => ({
     getGeneralInformation: builder.query<GeneralInformation, string>({
-      // query: (token) => ({
-      //   url: 'configure/general-info',
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      // transformResponse: (response: GeneralInformationPayload, meta, arg): GeneralInformation => ({
-      //   ...response,
-      //   dataConsumerCategories: response.data_consumer_categories,
-      //   privacyPolicyLink: response.privacy_policy_link,
-      //   dataSecurityInfo: response.data_security_info
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
-        data: {
-          organization: 'org',
-          dpo: 'dpo',
-          dataConsumerCategories: ['c1', 'c2'],
-          countries: ['France', 'USA'],
-          privacyPolicyLink: 'https://blindnet.io',
-          dataSecurityInfo: undefined,
+      query: (token) => ({
+        url: 'configure/general-info',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       }),
+      transformResponse: (
+        response: t.GeneralInformationPayload,
+        meta,
+        arg
+      ): GeneralInformation => {
+        return {
+          ...response,
+          dataConsumerCategories: response.data_consumer_categories,
+          privacyPolicyLink: response.privacy_policy_link,
+          dataSecurityInfo: response.data_security_info,
+        };
+      },
       providesTags: ['generalInformation'],
     }),
     updateGeneralInformation: builder.mutation<
       any,
-      [string, t.GeneralInformationPayload]
+      [string, GeneralInformation]
     >({
-      // query: ([token, body]) => ({
-      //   url: `configure/general-info`,
-      //   method: 'PUT',
-      //   body,
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
-        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
-          data: undefined,
-        })),
+      query: ([token, body]) => ({
+        url: `configure/general-info`,
+        method: 'PUT',
+        body: {
+          organization: body.organization,
+          dpo: body.dpo,
+          privacy_policy_link: body.privacyPolicyLink,
+          data_security_info: body.dataSecurityInfo,
+          data_consumer_categories:
+            body.dataConsumerCategories &&
+            body.dataConsumerCategories.length > 0
+              ? body.dataConsumerCategories.split(',')
+              : [],
+          countries:
+            body.countries && body.countries.length > 0
+              ? body.countries.split(',')
+              : [],
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       invalidatesTags: ['generalInformation'],
     }),
     getRequestResolution: builder.query<t.RequestResolution, string>({
-      // query: (token) => ({
-      //   url: 'configure/demand-resolution-strategy',
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
-        data: {
-          transparency: 'auto',
-          access: 'auto',
-          delete: 'auto',
-          revoke_consent: 'manual',
-          object_scope: 'manual',
-          restrict_scope: 'manual',
+      query: (token) => ({
+        url: 'configure/demand-resolution-strategy',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       }),
       providesTags: ['requestResolution'],
@@ -76,130 +72,79 @@ const privConfigApiSlice = pceApi.injectEndpoints({
       any,
       [string, t.RequestResolution]
     >({
-      // query: ([token, body]) => ({
-      //   url: `configure/demand-resolution-strategy`,
-      //   method: 'PUT',
-      //   body,
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
-        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
-          data: undefined,
-        })),
+      query: ([token, body]) => ({
+        url: `configure/demand-resolution-strategy`,
+        method: 'PUT',
+        body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       invalidatesTags: ['requestResolution'],
     }),
     getPrivacyScopeDimenstions: builder.query<t.PrivacyScopeDimensions, string>(
       {
-        // query: (token) => ({
-        //   url: 'configure/privacy-scope-dimensions',
-        //   method: 'GET',
-        //   headers: {
-        //     'Authorization': `Bearer ${token}`
-        //   }
-        // }),
-        queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
-          data: {
-            data_categories: ['AFFILIATION', 'AFFILIATION.dc_2', 'dc_3'],
-            processing_categories: ['pc_1', 'pc_3', 'pc_3'],
-            purposes: ['pp_1', 'pp_3', 'pp_3'],
+        query: (token) => ({
+          url: 'configure/privacy-scope-dimensions',
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
           },
         }),
         providesTags: ['psDimensions'],
       }
     ),
+    getSelectors: builder.query<Array<string>, string>({
+      query: (token) => ({
+        url: 'configure/selectors',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ['psDimensions'],
+    }),
     addSelectors: builder.mutation<any, [string, t.SelectorPayload[]]>({
-      // query: ([token, body]) => ({
-      //   url: `configure/selectors`,
-      //   method: 'PUT',
-      //   body,
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
-        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
-          data: undefined,
-        })),
+      query: ([token, body]) => ({
+        url: `configure/selectors`,
+        method: 'PUT',
+        body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
       invalidatesTags: ['psDimensions'],
     }),
     getLegalBases: builder.query<Array<t.LegalBaseLite>, string>({
-      // query: (token) => ({
-      //   url: 'configure/legal-bases',
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
-        data: [
-          {
-            id: '320604a2-b8dc-4ac9-b446-db6ff30e91fb ',
-            lb_type: 'CONTRACT',
-            name: 'test contract',
-            active: true,
-          },
-          {
-            id: 'c4ca098d-0f2f-41f4-a6df-07c4b9ccf7a1',
-            lb_type: 'CONSENT',
-            name: 'test consent',
-            description: 'this is a description of the test consent 1',
-            active: true,
-          },
-          {
-            id: 'd31dcc3b-3f6a-4786-85d2-5cfcea662008',
-            lb_type: 'CONSENT',
-            name: 'test consent 2',
-            description:
-              'this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2. this is a description of the test consent 2',
-            active: false,
-          },
-        ],
+      query: (token) => ({
+        url: 'configure/legal-bases',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }),
       providesTags: ['legalBases'],
     }),
     getLegalBase: builder.query<t.LegalBase, [string, string]>({
-      // query: ([token, lbId]) => ({
-      //   url: `configure/legal-bases/${lbId}`,
-      //   method: 'GET',
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) => ({
-        data: {
-          id: 'c4ca098d-0f2f-41f4-a6df-07c4b9ccf7a1',
-          lb_type: 'CONSENT',
-          name: 'test consent',
-          description: 'description',
-          active: true,
-          scope: {
-            triples: [
-              {
-                data_category: '',
-                processing_category: '',
-                purpose: '',
-              },
-            ],
-          },
+      query: ([token, lbId]) => ({
+        url: `configure/legal-bases/${lbId}`,
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       }),
       providesTags: ['legalBases'],
     }),
     createLegalBase: builder.mutation<string, [string, t.NewLegalBase]>({
-      // query: ([token, body]) => ({
-      //   url: `configure/legal-bases`,
-      //   method: 'PUT',
-      //   body,
-      //   headers: {
-      //     'Authorization': `Bearer ${token}`
-      //   }
-      // }),
-      queryFn: (arg, queryApi, extraOptions, baseQuery) =>
-        new Promise((resolve) => setTimeout(resolve, 1000)).then((_) => ({
-          data: 'c4ca098d-0f2f-41f4-a6df-07c4b9ccf7a1',
-        })),
+      query: ([token, body]) => ({
+        url: `configure/legal-bases`,
+        method: 'PUT',
+        body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseHandler: (response) => response.text(),
+      }),
       invalidatesTags: ['legalBases'],
     }),
   }),
@@ -211,6 +156,7 @@ export const {
   useGetRequestResolutionQuery,
   useUpdateRequestResolutionMutation,
   useGetPrivacyScopeDimenstionsQuery,
+  useGetSelectorsQuery,
   useAddSelectorsMutation,
   useGetLegalBasesQuery,
   useCreateLegalBaseMutation,

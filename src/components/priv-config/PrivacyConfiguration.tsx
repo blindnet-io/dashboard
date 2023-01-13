@@ -1,11 +1,11 @@
 import Accordion from 'react-bootstrap/Accordion';
-import { Application } from '../../store/appsSlice';
+import { ApplicationInfo } from '../../store/appsSlice';
 import GeneralInformationConfig from './general-information/GeneralInformationConfig';
 import LegalBasesConfig from './legal-bases/LegalBasesConfig';
 import AutomaticResolutionForm from './request-resolution/RequestResolutionConfig';
 import SelectorsConfig from './selectors/SelectorsConfig';
 
-export function PrivacyConfiguration({ app }: { app: Application }) {
+export function PrivacyConfiguration({ app }: { app: ApplicationInfo }) {
   return (
     <Accordion
       className="overflow-auto"
@@ -14,25 +14,25 @@ export function PrivacyConfiguration({ app }: { app: Application }) {
       <Accordion.Item eventKey="general">
         <Accordion.Header>General Information</Accordion.Header>
         <Accordion.Body>
-          <GeneralInformationConfig token="" />
+          <GeneralInformationConfig token={app.pceToken} />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="resolution">
         <Accordion.Header>Request resolution strategy</Accordion.Header>
         <Accordion.Body>
-          <AutomaticResolutionForm token="" />
+          <AutomaticResolutionForm token={app.pceToken} />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="selectors">
         <Accordion.Header>Selectors</Accordion.Header>
         <Accordion.Body>
-          <SelectorsConfig token="" />
+          <SelectorsConfig token={app.pceToken} />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="legal-bases">
         <Accordion.Header>Legal bases</Accordion.Header>
         <Accordion.Body>
-          <LegalBasesConfig token="" />
+          <LegalBasesConfig token={app.pceToken} />
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="retention-policies">

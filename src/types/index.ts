@@ -6,8 +6,8 @@ import {
 export type GeneralInformationPayload = {
   organization: string;
   dpo: string;
-  data_consumer_categories?: Array<string>;
-  countries?: Array<string>;
+  data_consumer_categories?: string;
+  countries?: string;
   privacy_policy_link?: string;
   data_security_info?: string;
 };
@@ -19,8 +19,8 @@ export type RequestResolution = {
   access: ResolutionStrategy;
   delete: ResolutionStrategy;
   revoke_consent: ResolutionStrategy;
-  object_scope: ResolutionStrategy;
-  restrict_scope: ResolutionStrategy;
+  object: ResolutionStrategy;
+  restrict: ResolutionStrategy;
 };
 
 export type PrivacyScopeDimensions = {

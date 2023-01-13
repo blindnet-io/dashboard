@@ -17,7 +17,7 @@ export function LegalBasesConfig({ token }: { token: string }) {
 
   const lbCreated = (id: string) => {
     setShowNewLbModal(false);
-    console.log(id);
+    setShowLbModal({ id });
   };
 
   return (

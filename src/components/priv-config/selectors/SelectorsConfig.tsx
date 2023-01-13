@@ -1,8 +1,6 @@
-import { useMemo } from 'react';
 import { Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler } from 'react-hook-form';
-import { dataCategories } from '../../../consts/data-categories';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
   addSelector,
@@ -11,7 +9,7 @@ import {
   removeAllSelectors,
   removeSelector,
   useAddSelectorsMutation,
-  useGetPrivacyScopeDimenstionsQuery,
+  useGetSelectorsQuery,
 } from '../../../store/privConfigSlice';
 import SubmitButton from '../../common/SubmitButton';
 import CreateSelector from './CreateSelector';
@@ -23,12 +21,17 @@ export function SelectorsConfig({ token }: { token: string }) {
 
   const [add, addState] = useAddSelectorsMutation();
 
-  const { data, isSuccess, isError, isFetching, isLoading } =
-    useGetPrivacyScopeDimenstionsQuery(token);
+  const {
+    data: selectors,
+    isSuccess,
+    isError,
+    isFetching,
+    isLoading,
+  } = useGetSelectorsQuery(token);
 
-  const selectors = useMemo(() => {
-    return data?.data_categories.filter((dc) => !dataCategories.includes(dc));
-  }, [data]);
+  // const selectors = useMemo(() => {
+  //   return data?.data_categories.filter((dc) => !dataCategories.includes(dc));
+  // }, [data]);
 
   const onSubmit: SubmitHandler<PrivSelector> = async (data) => {
     const payload = newPrivSelectors.map((s) => ({

@@ -46,11 +46,13 @@ export function CreateSelector({
           controlId={`${id}-dataCategory`}
         >
           <Form.Select {...register('dataCategory', { required: true })}>
-            {dataCategories.map((dc) => (
-              <option key={dc} value={dc}>
-                {dc}
-              </option>
-            ))}
+            {dataCategories
+              .filter((dc) => dc !== '*')
+              .map((dc) => (
+                <option key={dc} value={dc}>
+                  {dc}
+                </option>
+              ))}
           </Form.Select>
         </Form.Group>
 

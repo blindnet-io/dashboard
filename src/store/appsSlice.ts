@@ -7,6 +7,11 @@ export type Application = {
   name: string;
 };
 
+export type ApplicationInfo = Application & {
+  pceToken: string;
+  dacToken: string;
+};
+
 export type AppGroup = {
   id: string;
   name: string;
@@ -67,7 +72,7 @@ const appsApiSlice = identityApi.injectEndpoints({
       }),
       invalidatesTags: ['groups'],
     }),
-    getApp: builder.query<Application, string>({
+    getApp: builder.query<ApplicationInfo, string>({
       query: (id) => ({
         url: `applications/${id}`,
         method: 'GET',
