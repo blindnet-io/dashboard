@@ -46,7 +46,7 @@ function CreateConnector({
       data.type === 'global'
         ? {
             name: data.name,
-            typ: data.settings.type,
+            type: data.settings.type,
             config: data.settings.config,
           }
         : { name: data.name };

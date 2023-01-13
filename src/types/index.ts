@@ -79,7 +79,7 @@ export type ConnectorPayload = {
 
 export type CreateConnectorPayload = {
   name: string;
-  typ?: string;
+  type?: string;
   config?: string;
 };
 
