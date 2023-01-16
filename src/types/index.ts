@@ -35,9 +35,9 @@ export type SelectorPayload = {
 };
 
 export type PrivacyScopeTriple = {
-  data_category: string;
-  processing_category: string;
-  purpose: string;
+  dc: string;
+  pc: string;
+  pp: string;
 };
 
 export type LegalBaseLite = {
