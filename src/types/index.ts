@@ -70,6 +70,17 @@ export type NewLegalBase = {
   }>;
 };
 
+export type StorageConfiguration = {
+  enabled: boolean;
+  url?: string;
+  token?: string;
+};
+
+export type UpdateStorageConfigurationPayload = {
+  url?: string;
+  token?: string;
+};
+
 export type ConnectorPayload = {
   id: string;
   name: string;

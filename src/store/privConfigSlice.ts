@@ -147,6 +147,30 @@ const privConfigApiSlice = pceApi.injectEndpoints({
       }),
       invalidatesTags: ['legalBases'],
     }),
+    getStorageConfig: builder.query<t.StorageConfiguration, string>({
+      query: (token) => ({
+        url: `configure/storage`,
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      providesTags: ['storage'],
+    }),
+    updateStorageConfig: builder.mutation<
+      any,
+      [string, t.UpdateStorageConfigurationPayload]
+    >({
+      query: ([token, body]) => ({
+        url: `configure/storage`,
+        method: 'PUT',
+        body,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }),
+      invalidatesTags: ['storage'],
+    }),
   }),
 });
 
@@ -161,6 +185,8 @@ export const {
   useGetLegalBasesQuery,
   useCreateLegalBaseMutation,
   useGetLegalBaseQuery,
+  useGetStorageConfigQuery,
+  useUpdateStorageConfigMutation,
 } = privConfigApiSlice;
 
 export type PrivSelector = {

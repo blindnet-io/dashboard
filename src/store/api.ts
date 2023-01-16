@@ -27,6 +27,7 @@ export const pceApi = createApi({
     'requestResolution',
     'psDimensions',
     'legalBases',
+    'storage',
   ],
   endpoints: (_) => ({}),
 });

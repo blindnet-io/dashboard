@@ -120,6 +120,7 @@ const storageConfigApiSlice = storageApi.injectEndpoints({
 
 export const {
   useGetTokenQuery,
+  useLazyGetTokenQuery,
   useResetTokenMutation,
   useGetConnectorsQuery,
   useCreateConnectorMutation,
