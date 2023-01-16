@@ -1,7 +1,7 @@
 import { useId, useMemo } from 'react';
 import { Container, Form, Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { dataCategories } from '../../../consts/data-categories';
 import { legalBaseTypes } from '../../../consts/legal-base-types';
 import { processingCategories } from '../../../consts/processing-categories';
@@ -11,7 +11,10 @@ import {
   useGetSelectorsQuery,
 } from '../../../store/privConfigSlice';
 import { NewLegalBase } from '../../../types';
-import { renderRequiredError } from '../../../util/validations';
+import {
+  renderBadFormatFreeError,
+  renderRequiredError,
+} from '../../../util/validations';
 import SubmitButton from '../../common/SubmitButton';
 
 function CreateLegalBase({
@@ -31,9 +34,9 @@ function CreateLegalBase({
 
   const scopeDimensions = useMemo(
     () => ({
-      dataCategories: [...dataCategories, ...(selectors || [])].sort(),
-      processingCategories: processingCategories,
-      processingPurposes: processingPurposes,
+      data_categories: [...dataCategories, ...(selectors || [])].sort(),
+      processing_categories: processingCategories,
+      processing_purposes: processingPurposes,
     }),
     [selectors]
   );
@@ -53,38 +56,10 @@ function CreateLegalBase({
   const {
     register,
     handleSubmit,
-    getValues,
-    setValue,
+    control,
     reset,
     formState: { errors },
   } = useForm<NewLegalBase>({ defaultValues });
-
-  const dcOnChange = (ev: any) => {
-    const selectedDcs = [...ev.target.selectedOptions].map(
-      (s: { value: string }) => s.value
-    );
-    setValue('scope', [
-      { ...getValues().scope[0], data_categories: selectedDcs },
-    ]);
-  };
-
-  const pcOnChange = (ev: any) => {
-    const selectedPcs = [...ev.target.selectedOptions].map(
-      (s: { value: string }) => s.value
-    );
-    setValue('scope', [
-      { ...getValues().scope[0], processing_categories: selectedPcs },
-    ]);
-  };
-
-  const ppOnChange = (ev: any) => {
-    const selectedPps = [...ev.target.selectedOptions].map(
-      (s: { value: string }) => s.value
-    );
-    setValue('scope', [
-      { ...getValues().scope[0], processing_purposes: selectedPps },
-    ]);
-  };
 
   const submit: SubmitHandler<NewLegalBase> = async (data) => {
     const res = await create([token, data]);
@@ -93,7 +68,10 @@ function CreateLegalBase({
 
   return (
     <Container className="container-sm">
-      <Form onSubmit={handleSubmit(submit)}>
+      <Form
+        onReset={() => reset(defaultValues)}
+        onSubmit={handleSubmit(submit)}
+      >
         <Form.Group className="mb-5" controlId={`${id}-name`}>
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -139,65 +117,113 @@ function CreateLegalBase({
             </div>
           )}
           {scopeDimensions && (
-            <div className="d-grid d-lg-flex gap-5">
-              <Form.Group className="flex-lg-fill">
-                <Form.Label>Data categories</Form.Label>
-                <select
-                  className="form-select"
-                  style={{ height: '200px' }}
-                  multiple
-                  onChange={dcOnChange}
-                >
-                  {scopeDimensions.dataCategories.map((dc) => (
-                    <option key={dc} value={dc}>
-                      {dc}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
+            <Controller
+              control={control}
+              name="scope"
+              rules={{
+                required: true,
+                validate: (v) =>
+                  v[0].data_categories.length > 0 &&
+                  v[0].processing_categories.length > 0 &&
+                  v[0].processing_purposes.length > 0,
+              }}
+              render={({ field, fieldState, formState }) => (
+                <>
+                  <div className="d-grid d-lg-flex gap-5">
+                    <Form.Group className="flex-lg-fill">
+                      <Form.Label>Data categories</Form.Label>
+                      <select
+                        className="form-select"
+                        style={{ height: '200px' }}
+                        multiple
+                        value={field.value[0].data_categories}
+                        onChange={(ev: any) => {
+                          const selectedDcs = [
+                            ...ev.target.selectedOptions,
+                          ].map((s: { value: string }) => s.value);
+                          field.onChange([
+                            { ...field.value[0], data_categories: selectedDcs },
+                          ]);
+                        }}
+                      >
+                        {scopeDimensions.data_categories.map((dc) => (
+                          <option key={dc} value={dc}>
+                            {dc}
+                          </option>
+                        ))}
+                      </select>
+                    </Form.Group>
 
-              <Form.Group className="flex-lg-fill">
-                <Form.Label>Processing categories</Form.Label>
-                <select
-                  className="form-select"
-                  style={{ height: '200px' }}
-                  multiple
-                  onChange={pcOnChange}
-                >
-                  {scopeDimensions.processingCategories.map((pc) => (
-                    <option key={pc} value={pc}>
-                      {pc}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
+                    <Form.Group className="flex-lg-fill">
+                      <Form.Label>Processing categories</Form.Label>
+                      <select
+                        className="form-select"
+                        style={{ height: '200px' }}
+                        multiple
+                        value={field.value[0].processing_categories}
+                        onChange={(ev: any) => {
+                          const selectedPcs = [
+                            ...ev.target.selectedOptions,
+                          ].map((s: { value: string }) => s.value);
+                          field.onChange([
+                            {
+                              ...field.value[0],
+                              processing_categories: selectedPcs,
+                            },
+                          ]);
+                        }}
+                      >
+                        {scopeDimensions.processing_categories.map((pc) => (
+                          <option key={pc} value={pc}>
+                            {pc}
+                          </option>
+                        ))}
+                      </select>
+                    </Form.Group>
 
-              <Form.Group className="flex-lg-fill">
-                <Form.Label>Processing purposes</Form.Label>
-                <select
-                  className="form-select"
-                  style={{ height: '200px' }}
-                  multiple
-                  onChange={ppOnChange}
-                >
-                  {scopeDimensions.processingPurposes.map((pp) => (
-                    <option key={pp} value={pp}>
-                      {pp}
-                    </option>
-                  ))}
-                </select>
-              </Form.Group>
-            </div>
+                    <Form.Group className="flex-lg-fill">
+                      <Form.Label>Processing purposes</Form.Label>
+                      <select
+                        className="form-select"
+                        style={{ height: '200px' }}
+                        multiple
+                        value={field.value[0].processing_purposes}
+                        onChange={(ev: any) => {
+                          const selectedPps = [
+                            ...ev.target.selectedOptions,
+                          ].map((s: { value: string }) => s.value);
+                          field.onChange([
+                            {
+                              ...field.value[0],
+                              processing_purposes: selectedPps,
+                            },
+                          ]);
+                        }}
+                      >
+                        {scopeDimensions.processing_purposes.map((pp) => (
+                          <option key={pp} value={pp}>
+                            {pp}
+                          </option>
+                        ))}
+                      </select>
+                    </Form.Group>
+                  </div>
+                  <div className="mb-2" />
+
+                  {renderBadFormatFreeError(
+                    fieldState.error,
+                    'Please select privacy scope'
+                  )}
+                </>
+              )}
+            />
           )}
         </div>
 
         <div className="d-grid d-md-flex justify-content-md-end gap-2">
-          <span
-            onClick={() => reset(defaultValues)}
-            className="btn btn-sm btn-neutral"
-          >
+          <button type="reset" className="btn btn-sm btn-neutral">
             Reset
-          </span>
+          </button>
           <SubmitButton label="Save" isLoading={createState.isLoading} />
         </div>
       </Form>

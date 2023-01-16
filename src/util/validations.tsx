@@ -39,3 +39,13 @@ export const renderBadFormatError = (
   e?.type === 'validate' && (
     <span className="mt-2 invalid-feedback">{msg}</span>
   );
+
+export const renderBadFormatFreeError = (
+  e: FieldError | Merge<FieldError, any> | undefined,
+  msg: string
+) =>
+  e?.type === 'validate' && (
+    <span className="mt-2" style={{ color: '#FF3366' }}>
+      {msg}
+    </span>
+  );
