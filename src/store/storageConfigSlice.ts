@@ -136,7 +136,7 @@ export const storageConfigSlice = createSlice({
   name: 'storageConfig',
   initialState,
   reducers: {},
-  extraReducers: (builder) => { },
+  extraReducers: (builder) => {},
 });
 
 // export const selectPrivSelectors = (token: string) =>

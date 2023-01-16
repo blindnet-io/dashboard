@@ -1,5 +1,5 @@
-import { useId } from 'react';
-import { Container, Form } from 'react-bootstrap';
+import { useId, useMemo } from 'react';
+import { Container, Form, Spinner } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { dataCategories } from '../../../consts/data-categories';
@@ -8,7 +8,7 @@ import { processingCategories } from '../../../consts/processing-categories';
 import { processingPurposes } from '../../../consts/processing-purposes';
 import {
   useCreateLegalBaseMutation,
-  useGetPrivacyScopeDimenstionsQuery,
+  useGetSelectorsQuery,
 } from '../../../store/privConfigSlice';
 import { NewLegalBase } from '../../../types';
 import { renderRequiredError } from '../../../util/validations';
@@ -24,10 +24,19 @@ function CreateLegalBase({
   const id = useId();
 
   const {
-    data: scopeDimensions,
-    isError: scopeDimensionsError,
-    isLoading: scopeDimensionsLoading,
-  } = useGetPrivacyScopeDimenstionsQuery(token);
+    data: selectors,
+    isError: selectorsError,
+    isLoading: selectorsLoading,
+  } = useGetSelectorsQuery(token);
+
+  const scopeDimensions = useMemo(
+    () => ({
+      dataCategories: [...dataCategories, ...(selectors || [])].sort(),
+      processingCategories: processingCategories,
+      processingPurposes: processingPurposes,
+    }),
+    [selectors]
+  );
 
   const [create, createState] = useCreateLegalBaseMutation();
 
@@ -119,12 +128,16 @@ function CreateLegalBase({
         </Form.Group>
 
         <div className="mb-10">
-          {scopeDimensionsError && (
+          {selectorsError && (
             <Alert variant="danger">
               Error occurred. Please refresh the page.
             </Alert>
           )}
-          {scopeDimensionsLoading && <div>loading...</div>}
+          {selectorsLoading && (
+            <div className="d-flex justify-content-center">
+              <Spinner />
+            </div>
+          )}
           {scopeDimensions && (
             <div className="d-grid d-lg-flex gap-5">
               <Form.Group className="flex-lg-fill">
@@ -135,7 +148,7 @@ function CreateLegalBase({
                   multiple
                   onChange={dcOnChange}
                 >
-                  {dataCategories.map((dc) => (
+                  {scopeDimensions.dataCategories.map((dc) => (
                     <option key={dc} value={dc}>
                       {dc}
                     </option>
@@ -151,7 +164,7 @@ function CreateLegalBase({
                   multiple
                   onChange={pcOnChange}
                 >
-                  {processingCategories.map((pc) => (
+                  {scopeDimensions.processingCategories.map((pc) => (
                     <option key={pc} value={pc}>
                       {pc}
                     </option>
@@ -167,7 +180,7 @@ function CreateLegalBase({
                   multiple
                   onChange={ppOnChange}
                 >
-                  {processingPurposes.map((pp) => (
+                  {scopeDimensions.processingPurposes.map((pp) => (
                     <option key={pp} value={pp}>
                       {pp}
                     </option>
